@@ -13,7 +13,7 @@
       v-card-text
         v-row
           v-col(v-for="board in boards" cols="4" md="3")
-            router-link(:to="board.url")
+            router-link(:to="`/users/${user.id}/boards/${board.id}`")
               v-card(:color="board.color")
                 v-card-title.pb-0
                   p.title.white--text {{ board.name }}

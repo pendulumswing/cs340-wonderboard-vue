@@ -5,31 +5,28 @@
       div(id="nav")
         router-link(to="/") Home
         span  |
-        router-link(to="/users/User") Users
+        router-link(to="/users/1") User
         span  |
-        router-link(to="/users/User/boards/Project") Board
+        router-link(to="/users/1/boards/1") Board
         span  |
         router-link(to="/api") API Sample
       router-view
 </template>
-<!--  <div id="app">-->
-<!--    <div id="nav">-->
-<!--      <router-link to="/">Home</router-link> |-->
-<!--      <router-link to="/api">API Sample</router-link>-->
-<!--    </div>-->
-<!--&lt;!&ndash;    <div id="logos">&ndash;&gt;-->
-<!--&lt;!&ndash;      <p>&ndash;&gt;-->
-<!--&lt;!&ndash;        <img src="@/assets/vue-logo.png">&ndash;&gt;-->
-<!--&lt;!&ndash;        <span id="plus">+</span>&ndash;&gt;-->
-<!--&lt;!&ndash;        <img src="@/assets/flask-logo.png">&ndash;&gt;-->
-<!--&lt;!&ndash;      </p>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--    <router-view/>-->
 
-<!--    &lt;!&ndash; FORK Me &ndash;&gt;-->
-<!--&lt;!&ndash;    <a href="https://github.com/gtalarico/flask-vuejs-template"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>&ndash;&gt;-->
+<script>
+export default {
 
-<!--  </div>-->
+  computed: {
+    users () {
+      return this.$store.state.users
+    },
+
+    boards () {
+      return this.$store.state.boards
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

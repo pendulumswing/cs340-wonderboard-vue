@@ -2,6 +2,7 @@
   v-dialog(
     v-model="show"
     max-width="400px"
+    @click:outside="onClose"
   )
     v-card
       v-card-title(class="title blue lighten-2" primary-title) New User
@@ -10,8 +11,14 @@
           v-layout(justify-center wrap)
             v-flex(xs8)
               v-text-field(
-                v-model="data.name"
-                label="user Name"
+                v-model="data.username"
+                label="username"
+                :rules="[min1chars, max32chars]"
+                counter="32"
+              )
+              v-text-field(
+                v-model="data.email"
+                label="email"
                 :rules="[min1chars, max32chars]"
                 counter="32"
               )
@@ -34,8 +41,6 @@ export default {
       show: true,
       request: undefined,
       data: {
-        first_name: '',
-        last_name: '',
         username: '',
         email: ''
       },

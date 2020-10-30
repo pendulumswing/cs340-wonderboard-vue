@@ -5,20 +5,20 @@
     @click:outside="onClose"
   )
     v-card
-      v-card-title(class="title blue lighten-2" primary-title) New Board
+      v-card-title(class="title blue lighten-2" primary-title) New List
       v-card-text
         v-container(grid-list-md)
           v-layout(justify-center wrap)
             v-flex(xs8)
               v-text-field(
                 v-model="data.name"
-                label="board name"
+                label="list name"
                 :rules="[min1chars, max32chars]"
                 counter="32"
               )
               v-text-field(
                 v-model="data.color"
-                label="board color"
+                label="list color"
                 :rules="[min1chars, max32chars]"
                 counter="32"
               )
@@ -43,8 +43,6 @@ export default {
       data: {
         name: '',
         color: '',
-        username: '',
-        email: ''
       },
       max32chars: v => v.length <= 32 || 'Input too long',
       min1chars: v => v.length > 0 || 'Input too short'
