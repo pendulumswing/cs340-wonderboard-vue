@@ -16,7 +16,7 @@
   div
     v-card
       v-card-title
-        p Jason Page
+        p User Page
         v-spacer
         v-btn(
           color="blue white--text"
@@ -27,9 +27,11 @@
         v-row
           v-col(v-for="board in boards" cols="4" md="3")
             router-link(:to="board.url")
-              v-card
-                p.title.grey--text {{ board.name }}
-                p Tasks {{ board.tasks }}
+              v-card(:color="board.color")
+                v-card-title.pb-0
+                  p.title.white--text {{ board.name }}
+                v-card-text
+                  span Tasks: {{ board.tasks }}
     span
     CreateBoardDialog(
       v-if="showCreateBoardDialog"
@@ -53,8 +55,8 @@ export default {
     return {
       showCreateBoardDialog: false,
       boards: [
-        { id: 1, name: 'Project 1', tasks: 5, url: '/users/Jason/boards/Project1' },
-        { id: 2, name: 'Project 2', tasks: 9, url: '/users/Jason/boards/Project1' },
+        { id: 1, name: 'Project 1', tasks: 5, url: '/users/User/boards/Project', color: 'blue lighten-3' },
+        { id: 2, name: 'Project 2', tasks: 9, url: '/users/User/boards/Project', color: 'orange lighten-3' },
       ]
     }
   }

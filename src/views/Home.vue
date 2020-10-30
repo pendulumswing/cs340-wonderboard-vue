@@ -16,7 +16,7 @@
   div
     v-card
       v-card-title
-        p Users
+        p Home
         v-spacer
         v-btn(
           color="blue white--text"
@@ -53,8 +53,8 @@ export default {
     return {
       showCreateUserDialog: false,
       users: [
-        { id: 1, name: 'Jason', email: 'jb@email.com', url: '/users/jason' },
-        { id: 2, name: 'Peter', email: 'pw@email.com', url: '/users/peter' },
+        { id: 1, name: 'Jason', email: 'jb@email.com', url: '/users/User' },
+        { id: 2, name: 'Peter', email: 'pw@email.com', url: '/users/User' },
       ]
     }
   }

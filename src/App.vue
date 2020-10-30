@@ -5,6 +5,10 @@
       div(id="nav")
         router-link(to="/") Home
         span  |
+        router-link(to="/users/User") Users
+        span  |
+        router-link(to="/users/User/boards/Project") Board
+        span  |
         router-link(to="/api") API Sample
       router-view
 </template>

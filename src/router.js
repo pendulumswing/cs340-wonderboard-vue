@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Api from './views/Api.vue'
-import Jason from './views/Jason.vue'
+import User from './views/User.vue'
 import Project from './views/Project'
 
 Vue.use(Router)
@@ -20,13 +20,13 @@ export default new Router({
       component: Api
     },
     {
-      path: '/users/Jason',
+      path: '/users/User',
       name: 'users',
-      component: Jason
+      component: User
     },
     {
-      path: '/users/Jason/boards/Project1',
-      name: 'project1',
+      path: '/users/User/boards/Project',
+      name: 'project',
       component: Project
     },
   ]

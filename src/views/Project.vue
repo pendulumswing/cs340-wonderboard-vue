@@ -1,17 +1,3 @@
-<!--<template>-->
-<!--  <div class="home">-->
-<!--    <HelloWorld msg="Welcome to Your Vue.js + Flask App"/>-->
-<!--    <v-card>-->
-<!--      <v-card-title>Users</v-card-title>-->
-<!--      <v-card-text>-->
-<!--        <div v-for="user in users">-->
-<!--          <span> Name: {{ user.name }} </span>-->
-<!--          <span>  Email: {{ user.email }} </span>-->
-<!--        </div>-->
-<!--      </v-card-text>-->
-<!--    </v-card>-->
-<!--  </div>-->
-<!--</template>-->
 <template lang="pug">
   div
     v-card
@@ -26,9 +12,10 @@
           ) Add Board
       v-card-text
         v-row
-          v-col(v-for="list in lists" cols="4" md="3")
+          v-col(v-for="list in lists" cols="12" sm="6" md="4" lg="3")
             v-card(:color="list.color")
-              p.title.white--text {{ list.name }}
+              v-card-title
+                p.title.white--text {{ list.name }}
               v-card-text
                 v-card(v-for="task in sortTasksByListId(list.id)").ma-3
                   v-card-title
@@ -58,9 +45,9 @@ export default {
     return {
       showCreateBoardDialog: false,
       lists: [
-        { id: 1, name: 'To Do', color: 'red' },
-        { id: 2, name: 'In Process', color: 'blue' },
-        { id: 3, name: 'Completed', color: 'green' },
+        { id: 1, name: 'To Do', color: 'red lighten-3' },
+        { id: 2, name: 'In Process', color: 'blue lighten-3' },
+        { id: 3, name: 'Completed', color: 'green lighten-3' },
       ],
       tasks: [
         { id: 1, name: 'make front end', status: 'in process', list: 2 },
