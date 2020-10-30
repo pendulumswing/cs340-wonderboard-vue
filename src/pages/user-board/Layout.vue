@@ -2,7 +2,7 @@
   div
     v-card
       v-card-title
-        p {{ board.name }} Board
+        p {{ user.name }}'s {{ board.name }} Board
         v-spacer
 
         // Add Button
@@ -82,7 +82,13 @@ export default {
       return this.$store.state.tasks.filter(task => {
         return task.board === Number(this.$route.params.boardId)
       })
-    }
+    },
+
+    user () {
+      return this.$store.state.users.find(user => {
+        return user.id === Number(this.$route.params.userId)
+      })
+    },
   },
 
   methods: {
