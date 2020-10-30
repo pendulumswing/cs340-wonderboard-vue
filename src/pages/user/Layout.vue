@@ -1,9 +1,12 @@
 
 <template lang="pug">
   div
-    v-card
+    v-card.elevation-0
       v-card-title
-        p {{ user.name }} Page
+        div
+          span.grey--text User
+          span.grey--text :
+          span {{ user.name }}
         v-spacer
         v-btn(
           color="blue white--text"

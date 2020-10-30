@@ -1,22 +1,8 @@
-<!--<template>-->
-<!--  <div class="home">-->
-<!--    <HelloWorld msg="Welcome to Your Vue.js + Flask App"/>-->
-<!--    <v-card>-->
-<!--      <v-card-title>Users</v-card-title>-->
-<!--      <v-card-text>-->
-<!--        <div v-for="user in users">-->
-<!--          <span> Name: {{ user.name }} </span>-->
-<!--          <span>  Email: {{ user.email }} </span>-->
-<!--        </div>-->
-<!--      </v-card-text>-->
-<!--    </v-card>-->
-<!--  </div>-->
-<!--</template>-->
 <template lang="pug">
   div
-    v-card
+    v-card.elevation-0
       v-card-title
-        p Home
+        span Home
         v-spacer
         v-btn(
           color="blue white--text"

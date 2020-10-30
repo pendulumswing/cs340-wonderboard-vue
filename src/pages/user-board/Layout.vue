@@ -1,8 +1,15 @@
 <template lang="pug">
   div
-    v-card
+    v-card.elevation-0
       v-card-title
-        p {{ user.name }}'s {{ board.name }} Board
+        div
+          span.grey--text User
+          span.grey--text :
+          span.grey--text {{ user.name }}
+          span.grey--text :
+          span.grey--text Board
+          span.grey--text :
+          span {{ board.name }}
         v-spacer
 
         // Add Button
