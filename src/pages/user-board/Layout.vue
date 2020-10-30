@@ -3,12 +3,12 @@
     v-card.elevation-0
       v-card-title
         div
-          span.grey--text User
-          span.grey--text :
-          span.grey--text {{ user.name }}
-          span.grey--text :
-          span.grey--text Board
-          span.grey--text :
+          router-link(to="/")
+            span.grey--text Home
+          span.grey--text.mx-1 :
+          router-link(:to="`/users/${user.id}`")
+            span.grey--text {{ user.name }}
+          span.grey--text.mx-1 :
           span {{ board.name }}
         v-spacer
 

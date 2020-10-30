@@ -4,8 +4,9 @@
     v-card.elevation-0
       v-card-title
         div
-          span.grey--text User
-          span.grey--text :
+          router-link(to="/")
+            span.grey--text Home
+          span.grey--text.mx-1 :
           span {{ user.name }}
         v-spacer
         v-btn(
