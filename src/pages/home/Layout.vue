@@ -50,7 +50,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import CreateUserDialog from '../dialogs/user/Create'
+import CreateUserDialog from '../../dialogs/user/Create'
 
 export default {
   name: 'home',
