@@ -26,10 +26,20 @@
       v-card-text
         v-row
           v-col(v-for="user in users" cols="4" md="3")
-            router-link(:to="user.url")
+            router-link(:to="`/users/${user.id}`")
               v-card
-                p.title.grey--text {{ user.name }}
-                p Email {{ user.email }}
+                v-card-title
+                  p.title.grey--text {{ user.name }}
+                  v-spacer
+                  v-btn(
+                    color="grey lighten-1 white--text"
+                    tile
+                    small
+                    @click.stop.prevent="user.id += 1"
+                  ) ID +1
+                v-card-text
+                  p.text-start User ID: {{ user.id }}
+                  p.text-start Email: {{ user.email }}
     span
     CreateUserDialog(
       v-if="showCreateUserDialog"
@@ -52,15 +62,23 @@ export default {
   data () {
     return {
       showCreateUserDialog: false,
-      users: [
-        { id: 1, name: 'Jason', email: 'jb@email.com', url: '/users/User' },
-        { id: 2, name: 'Peter', email: 'pw@email.com', url: '/users/User' },
-      ]
+      // users: [
+      //   { id: 1, name: 'Jason', email: 'jb@email.com', url: '/users/User' },
+      //   { id: 2, name: 'Peter', email: 'pw@email.com', url: '/users/User' },
+      // ]
+    }
+  },
+
+  computed: {
+    users () {
+      return this.$store.state.users
     }
   }
 }
 </script>
 
-<style lang="scss">
-
+<style>
+a {
+  text-decoration: none;
+}
 </style>

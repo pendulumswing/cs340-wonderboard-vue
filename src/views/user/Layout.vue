@@ -3,7 +3,7 @@
   div
     v-card
       v-card-title
-        p User Page
+        p {{ user.name }} Page
         v-spacer
         v-btn(
           color="blue white--text"
@@ -29,7 +29,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import CreateBoardDialog from '../dialogs/board/Create'
+import CreateBoardDialog from '@/dialogs/board/Create'
 
 export default {
   name: 'home',
@@ -45,6 +45,12 @@ export default {
   },
 
   computed: {
+    user () {
+      return this.$store.state.users.find(user => {
+        return user.id === Number(this.$route.params.userId)
+      })
+    },
+
     boards () {
       return this.$store.state.boards
     }
