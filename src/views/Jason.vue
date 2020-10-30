@@ -16,45 +16,45 @@
   div
     v-card
       v-card-title
-        p Users
+        p Jason Page
         v-spacer
         v-btn(
           color="blue white--text"
           tile
-          @click="showCreateUserDialog=true"
-        ) Add User
+          @click="showCreateBoardDialog=true"
+        ) Add Board
       v-card-text
         v-row
-          v-col(v-for="user in users" cols="4" md="3")
-            router-link(:to="user.url")
+          v-col(v-for="board in boards" cols="4" md="3")
+            router-link(:to="board.url")
               v-card
-                p.title.grey--text {{ user.name }}
-                p Email {{ user.email }}
+                p.title.grey--text {{ board.name }}
+                p Tasks {{ board.tasks }}
     span
-    CreateUserDialog(
-      v-if="showCreateUserDialog"
-      @close="showCreateUserDialog = false"
+    CreateBoardDialog(
+      v-if="showCreateBoardDialog"
+      @close="showCreateBoardDialog = false"
     )
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import CreateUserDialog from '../dialogs/user/Create'
+import CreateBoardDialog from '../dialogs/board/Create'
 
 export default {
   name: 'home',
   components: {
     HelloWorld,
-    CreateUserDialog
+    CreateBoardDialog
   },
 
   data () {
     return {
-      showCreateUserDialog: false,
-      users: [
-        { id: 1, name: 'Jason', email: 'jb@email.com', url: '/users/jason' },
-        { id: 2, name: 'Peter', email: 'pw@email.com', url: '/users/peter' },
+      showCreateBoardDialog: false,
+      boards: [
+        { id: 1, name: 'Project 1', tasks: 5, url: '/users/Jason/boards/Project1' },
+        { id: 2, name: 'Project 2', tasks: 9, url: '/users/Jason/boards/Project1' },
       ]
     }
   }
