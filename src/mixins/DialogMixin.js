@@ -61,28 +61,34 @@ export default {
   },
 
   mounted () {
-    const that = this
 
     // Submit form on pressing 'Enter'
     // SOURCE: https://github.com/vuetifyjs/vuetify/issues/1545
     if (!this.noEnter) {
-      window.addEventListener('keyup', function (event) {
-        if (event.key === 'Enter') {
-          that.onSubmit()
-        }
-      })
+      window.addEventListener('keyup', this.onEnter)
     }
 
-    // Submit form on pressing 'Escape'
-    window.addEventListener('keyup', function (event) {
-      if (event.key === 'Escape') {
-        that.onClose()
-      }
-    })
+    window.addEventListener('keyup', this.onEsc)
+
+    // if (!this.noEnter) {
+    //   window.addEventListener('keyup', function (event) {
+    //     if (event.key === 'Enter') {
+    //       that.onSubmit()
+    //     }
+    //   })
+    // }
+    //
+    // // Submit form on pressing 'Escape'
+    // window.addEventListener('keyup', function (event) {
+    //   if (event.key === 'Escape') {
+    //     that.onClose()
+    //   }
+    // })
   },
 
   methods: {
     onClose () {
+      this.removeEventListeners()
       this.show = false
       setTimeout(() => {
         this.$emit('close')
@@ -99,6 +105,36 @@ export default {
     },
     onSubmit () {
 
+    },
+    // validate () {
+    //   this.$refs.form.validate()
+    // },
+    // reset () {
+    //   this.$refs.form.reset()
+    // },
+    // resetValidation () {
+    //   this.$refs.form.resetValidation()
+    // },
+    onEnter (event) {
+      const that = this
+      if (event.key === 'Enter') {
+        console.log('onEnter called')
+        that.onSubmit()
+      }
+    },
+
+    onEsc (event) {
+      const that = this
+      if (event.key === 'Escape') {
+        console.log('onEsc called')
+        that.onClose()
+      }
+    },
+
+    removeEventListeners () {
+      console.log('removing onEnter listener')
+      window.removeEventListener('keyup', this.onEnter)
+      window.removeEventListener('keyup', this.onEsc)
     }
   }
 }

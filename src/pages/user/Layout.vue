@@ -7,7 +7,7 @@
           router-link(to="/")
             span.grey--text Home
           span.grey--text.mx-1 :
-          span {{ user.name }}
+          span.grey--text.text--darken-2 {{ user.first_name }} {{ user.last_name }}
         v-spacer
         v-btn(
           color="blue white--text"

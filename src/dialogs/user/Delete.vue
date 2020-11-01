@@ -84,14 +84,9 @@ export default {
   // },
 
   methods: {
-    onClose () {
-      this.show = false
-      setTimeout(() => {
-        this.$emit('close')
-      }, 300)
-    },
     onSubmit () {
-      // TODO - make calll to delete user here
+      // TODO - make call to delete user here
+      console.log('DELETE user submitted')
       this.onClose()
     },
   }

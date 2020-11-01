@@ -7,21 +7,41 @@
     v-card
       v-card-title(class="title blue lighten-2" primary-title) New Board
       v-card-text
-        v-container(grid-list-md)
-          v-layout(justify-center wrap)
-            v-flex(xs8)
-              v-text-field(
-                v-model="data.name"
-                label="board name"
-                :rules="[min1chars, max32chars]"
-                counter="32"
-              )
-              v-text-field(
-                v-model="data.color"
-                label="board color"
-                :rules="[min1chars, max32chars]"
-                counter="32"
-              )
+        v-form(ref="form")
+
+          // id
+          v-text-field(
+            v-model="data.id"
+            label="id"
+            disabled
+          )
+
+          // name
+          v-text-field(
+            v-model="data.name"
+            label="name"
+            :rules="[min1chars, max64chars]"
+            counter="64"
+            required
+          )
+
+          // color
+          v-text-field(
+            v-model="data.color"
+            label="color"
+            :rules="[min1chars, max64chars]"
+            counter="64"
+            required
+          )
+
+          // role
+          v-text-field(
+            v-model="data.role"
+            label="user role"
+            :rules="[min1chars, max128chars]"
+            counter="128"
+            required
+          )
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -29,26 +49,41 @@
 </template>
 
 <script>
-// import DialogMixin from '../../mixins/DialogMixin'
+import DialogMixin from '../../mixins/DialogMixin'
+import _ from 'lodash'
 
 export default {
-  // mixins: [
-  //   DialogMixin
-  // ],
+  mixins: [
+    DialogMixin
+  ],
 
   data () {
     return {
       show: true,
       request: undefined,
+      form: undefined,
       data: {
+        id: this.$store.state.boards.length + 1,
         name: '',
         color: '',
-        username: '',
-        email: ''
+        role: '',
+        user: this.$route.params.userId || undefined
       },
-      max32chars: v => v.length <= 32 || 'Input too long',
-      min1chars: v => v.length > 0 || 'Input too short'
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      ],
+      max32chars: v => ( v && v.length <= 32) || 'Input too long',
+      max64chars: v => ( v && v.length <= 64) || 'Input too long',
+      max128chars: v => ( v && v.length <= 128) || 'Input too long',
+      max256chars: v => ( v && v.length <= 256) || 'Input too long',
+      min1chars: v => ( v && v.length > 0) || 'Input too short'
     }
+  },
+
+  mounted () {
+    this.form = this.$refs.form
+    // console.log('form: ', _.isEmpty(this.form))
   },
 
   methods: {
@@ -57,19 +92,15 @@ export default {
     //     cid: request.cid
     //   })
     // },
-    onClose () {
-      this.show = false
-      setTimeout(() => {
-        this.$emit('close')
-      }, 300)
-    },
     onSubmit () {
-      // const valid = this.$refs.form.validate()
-      //
-      // if (valid) {
-      //   this.request = this.$lore.actions.user.create(this.data).payload
-      // }
-    }
+      const valid = this.$refs.form.validate()
+
+      if (valid) {
+        // TODO - make call to delete user here
+        console.log('CREATE board submitted')
+        this.onClose()
+      }
+    },
   }
 }
 </script>
