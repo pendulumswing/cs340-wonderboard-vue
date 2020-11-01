@@ -31,6 +31,13 @@ export default new Vuex.Store({
       { id: 4, name: 'Vue tutorials', status: 'in process', board: 2, list: 2 },
       { id: 5, name: 'review project step 2', status: 'complete', board: 2, list: 3 },
       { id: 5, name: 'connect web app to server', status: 'complete', board: 2, list: 3 },
+    ],
+
+    board_users: [
+      { id: 1, user: 1, board: 1, role: 'admin' },
+      { id: 2, user: 1, board: 2, role: 'designer' },
+      { id: 3, user: 2, board: 1, role: 'admin' },
+      { id: 4, user: 2, board: 2, role: 'observer' },
     ]
   },
   mutations: {

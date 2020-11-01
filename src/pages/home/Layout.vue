@@ -10,7 +10,7 @@
           @click="showCreateUserDialog=true"
         ) Add User
       v-card-text
-        v-row.pl-3.pb-5
+        // v-row.pl-3.pb-5
           div.text-justify.
             This is the landing page for the site. It lists all users in the database.
             Selecting a user tile will redirect to the boards page for that user.
@@ -20,9 +20,9 @@
             li.text-justify.
               All users are fetched from the the database and listed here (READ).
             li.text-justify.
-              A user can be updated by selecting the pencil icon on the user tile (UPDATE).
+              A user can be updated by selecting the pencil icon on the user tile. A dialog will popup to edit any fields. (UPDATE).
             li.text-justify.
-              A dialog will popup to edit any fields.A user can also be deleted with the delete icon (DELETE).
+              A user can also be deleted with the delete icon (DELETE).
         v-row
           v-col(v-for="user in users" cols="6" md="4")
             router-link(:to="`/users/${user.id}`")
@@ -68,6 +68,19 @@
                       div.text-start password:
                     v-col
                       div.text-start {{ user.password }}
+        v-row.pl-3.pt-5
+          div.text-justify.
+            This is the landing page for the site. It lists all users in the database.
+            Selecting a user tile will redirect to the boards page for that user.
+          ul
+            li.text-justify.
+              A new user can be created with the 'ADD USER' button (CREATE).
+            li.text-justify.
+              All users are fetched from the the database and listed here (READ).
+            li.text-justify.
+              A user can be updated by selecting the pencil icon on the user tile. A dialog will popup to edit any fields. (UPDATE).
+            li.text-justify.
+              A user can also be deleted with the delete icon (DELETE).
     span
       CreateUserDialog(
         v-if="showCreateUserDialog"

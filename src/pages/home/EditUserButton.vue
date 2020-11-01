@@ -21,7 +21,7 @@
 import UpdateUserDialog from '@/dialogs/user/Update'
 
 export default {
-  name: 'deleteUserButton',
+  name: 'editUserButton',
   components: {
     UpdateUserDialog
   },
@@ -36,22 +36,6 @@ export default {
     return {
       showUpdateUserDialog: false
     }
-  },
-
-  // computed: {
-  //   users () {
-  //     return this.$store.state.users
-  //   }
-  // },
-  //
-  // methods: {
-  //   onDelete () {
-  //     alert('deleting user')
-  //   },
-  //
-  //   onEdit () {
-  //     alert('edit user')
-  //   }
-  // }
+  }
 }
 </script>
