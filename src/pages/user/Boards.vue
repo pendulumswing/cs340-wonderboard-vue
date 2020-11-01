@@ -1,0 +1,41 @@
+<template lang="pug">
+  div
+    v-row
+      v-col(v-for="board in boards" cols="6" md="4" lg="3")
+        Board(
+          :user="user"
+          :board="board"
+        )
+</template>
+
+<script>
+import Board from './Board'
+import _ from 'lodash'
+
+export default {
+  name: 'boards',
+
+  components: {
+    Board
+  },
+
+  props: {
+    boardUsers: {
+      type: Object,
+      default: undefined
+    },
+    user: {
+      type: Object,
+      default: undefined
+    }
+  },
+
+  computed: {
+    boards () {
+      return this.$store.state.boards.filter(board => {
+        return _.find(this.boardUsers, { board: board.id })
+      })
+    },
+  }
+}
+</script>

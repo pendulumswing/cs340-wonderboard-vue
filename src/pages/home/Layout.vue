@@ -10,19 +10,6 @@
           @click="showCreateUserDialog=true"
         ) Add User
       v-card-text
-        // v-row.pl-3.pb-5
-          div.text-justify.
-            This is the landing page for the site. It lists all users in the database.
-            Selecting a user tile will redirect to the boards page for that user.
-          ul
-            li.text-justify.
-              A new user can be created with the 'ADD USER' button (CREATE).
-            li.text-justify.
-              All users are fetched from the the database and listed here (READ).
-            li.text-justify.
-              A user can be updated by selecting the pencil icon on the user tile. A dialog will popup to edit any fields. (UPDATE).
-            li.text-justify.
-              A user can also be deleted with the delete icon (DELETE).
         v-row
           v-col(v-for="user in users" cols="6" md="4")
             router-link(:to="`/users/${user.id}`")
@@ -37,37 +24,37 @@
                   // Delete User
                   DeleteUserButton(:user="user")
 
-                v-card-text
+                v-card-text.text-start
                   v-row.no-gutters.flex-nowrap
                     v-col(cols="6" md="5" lg="4")
-                      div.text-start id:
+                      div id:
                     v-col
-                      div.text-start {{ user.id }}
+                      div {{ user.id }}
                   v-row.no-gutters.flex-nowrap
                     v-col(cols="6" md="5" lg="4")
-                      div.text-start first_name:
+                      div first_name:
                     v-col
-                      div.text-start {{ user.first_name }}
+                      div {{ user.first_name }}
                   v-row.no-gutters.flex-nowrap
                     v-col(cols="6" md="5" lg="4")
-                      div.text-start last_name:
+                      div last_name:
                     v-col
-                      div.text-start {{ user.last_name }}
+                      div {{ user.last_name }}
                   v-row.no-gutters.flex-nowrap
                     v-col(cols="6" md="5" lg="4")
-                      div.text-start email:
+                      div email:
                     v-col
-                      div.text-start {{ user.email }}
+                      div {{ user.email }}
                   v-row.no-gutters.flex-nowrap
                     v-col(cols="6" md="5" lg="4")
-                      div.text-start username:
+                      div username:
                     v-col
-                      div.text-start {{ user.username }}
+                      div {{ user.username }}
                   v-row.no-gutters.flex-nowrap
                     v-col(cols="6" md="5" lg="4")
-                      div.text-start password:
+                      div password:
                     v-col
-                      div.text-start {{ user.password }}
+                      div {{ user.password }}
         v-row.pl-3.pt-5
           div.text-justify.
             This is the landing page for the site. It lists all users in the database.
