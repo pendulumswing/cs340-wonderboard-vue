@@ -5,7 +5,7 @@
     @click:outside="onClose"
   )
     v-card
-      v-card-title(class="title blue lighten-2" primary-title) New User
+      v-card-title(class="title blue lighten-2" primary-title) Edit User
       v-card-text
         v-row
           v-col
@@ -69,17 +69,24 @@ export default {
     DialogMixin
   ],
 
+  props: {
+    user: {
+      type: Object,
+      default: undefined
+    }
+  },
+
   data () {
     return {
       show: true,
       request: undefined,
       data: {
-        id: this.$store.state.users.length + 1,
-        username: '',
-        first_name: '',
-        last_name: '',
-        email: '',
-        password: ''
+        id: this.user.id || '',
+        username: this.user.username || '',
+        first_name: this.user.first_name || '',
+        last_name: this.user.last_name || '',
+        email: this.user.email || '',
+        password: this.user.password || ''
       },
       max32chars: v => ( v && v.length <= 32) || 'Input too long',
       max64chars: v => ( v && v.length <= 64) || 'Input too long',

@@ -32,26 +32,11 @@
                   v-spacer
 
                   // Edit User
-                  v-btn(
-                    color="grey lighten-2 white--text"
-                    x-small
-                    depressed
-                    fab
-                    @click.stop.prevent="onEdit"
-                  ).mr-2
-                    v-icon(small) mdi-pencil
+                  EditUserButton(:user="user").pr-2
 
                   // Delete User
                   DeleteUserButton(:user="user")
-                  //
-                    v-btn(
-                      color="grey lighten-2 white--text"
-                      x-small
-                      depressed
-                      fab
-                      @click.stop.prevent="showDeleteUserDialog=true"
-                    )
-                      v-icon(small) mdi-delete
+
                 v-card-text
                   v-row.no-gutters.flex-nowrap
                     v-col(cols="6" md="5" lg="4")
@@ -96,6 +81,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import CreateUserDialog from '../../dialogs/user/Create'
 import DeleteUserDialog from '../../dialogs/user/Delete'
 import DeleteUserButton from './DeleteUserButton'
+import EditUserButton from './EditUserButton'
 
 export default {
   name: 'home',
@@ -103,7 +89,8 @@ export default {
     HelloWorld,
     CreateUserDialog,
     DeleteUserDialog,
-    DeleteUserButton
+    DeleteUserButton,
+    EditUserButton
   },
 
   data () {
