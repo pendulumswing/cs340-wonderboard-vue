@@ -7,21 +7,56 @@
     v-card
       v-card-title(class="title blue lighten-2" primary-title) New List
       v-card-text
-        v-container(grid-list-md)
-          v-layout(justify-center wrap)
-            v-flex(xs8)
+        v-form(ref="form")
+          v-row
+            v-col
+
+              // id
+              v-text-field(
+                v-model="data.id"
+                label="id"
+                disabled
+              )
+
+              // board
+              v-text-field(
+                v-model="data.board"
+                label="board"
+                disabled
+              )
+
+              // index
+              v-text-field(
+                v-model="data.index"
+                label="index"
+                disabled
+              )
+
+              // creator
+              v-text-field(
+                v-model="data.creator"
+                label="creator"
+                disabled
+              )
+
+              // name
               v-text-field(
                 v-model="data.name"
-                label="list name"
-                :rules="[min1chars, max32chars]"
-                counter="32"
+                label="name"
+                :rules="[min1chars, max128chars]"
+                counter="128"
+                required
               )
+
+              // color
               v-text-field(
                 v-model="data.color"
-                label="list color"
-                :rules="[min1chars, max32chars]"
-                counter="32"
+                label="color"
+                :rules="[min1chars, max64chars]"
+                counter="64"
+                required
               )
+
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -29,23 +64,38 @@
 </template>
 
 <script>
-// import DialogMixin from '../../mixins/DialogMixin'
+import DialogMixin from '../../mixins/DialogMixin'
 
 export default {
-  // mixins: [
-  //   DialogMixin
-  // ],
+  mixins: [
+    DialogMixin
+  ],
+
+  props: {
+    lists: {
+      type: [Array, Object],
+      default: undefined
+    }
+  },
 
   data () {
     return {
       show: true,
       request: undefined,
       data: {
+        id: this.$store.state.lists.length + 1,
+        board: this.$route.params.boardId,
         name: '',
         color: '',
+        index: this.lists.length + 1,
+        creator: this.$route.params.userId
       },
-      max32chars: v => v.length <= 32 || 'Input too long',
-      min1chars: v => v.length > 0 || 'Input too short'
+      max32chars: v => ( v && v.length <= 32) || 'Input too long',
+      max64chars: v => ( v && v.length <= 64) || 'Input too long',
+      max128chars: v => ( v && v.length <= 128) || 'Input too long',
+      max256chars: v => ( v && v.length <= 256) || 'Input too long',
+      min1chars: v => ( v && v.length > 0) || 'Input too short',
+      min0chars: v => ( v && v.length < 0) || 'Input too short'
     }
   },
 
@@ -55,19 +105,15 @@ export default {
     //     cid: request.cid
     //   })
     // },
-    onClose () {
-      this.show = false
-      setTimeout(() => {
-        this.$emit('close')
-      }, 300)
-    },
     onSubmit () {
-      // const valid = this.$refs.form.validate()
-      //
-      // if (valid) {
-      //   this.request = this.$lore.actions.user.create(this.data).payload
-      // }
-    }
+      const valid = this.$refs.form.validate()
+
+      if (valid) {
+        // TODO - make call to delete user here
+        console.log('CREATE list submitted')
+        this.onClose()
+      }
+    },
   }
 }
 </script>

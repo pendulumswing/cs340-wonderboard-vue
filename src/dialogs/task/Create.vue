@@ -7,46 +7,53 @@
     v-card
       v-card-title(class="title blue lighten-2" primary-title) New Task
       v-card-text
-        v-container(grid-list-md)
-          v-layout(justify-center wrap)
-            v-flex(xs8)
+        v-form(ref="form")
+          v-row
+            v-col
+              p lists: {{ lists }}
+              p Selected List: {{ data.list }}
+
+              // id
               v-text-field(
-                v-show=false
                 v-model="data.id"
                 label="id"
-                type="number"
-                single-line
-                :rules="[rules.min1, rules.max100]"
-                counter="32"
                 disabled
               )
+
+              // creator
+              v-text-field(
+                v-model="data.creator"
+                label="creator"
+                disabled
+              )
+
+              // name
               v-text-field(
                 v-model="data.name"
                 label="name"
-                :rules="[min1chars, max64chars]"
+                :rules="[min1chars, max128chars]"
                 counter="128"
+                required
               )
+
+              // description
               v-text-field(
-                v-model="data.status"
-                label="status"
-                :rules="[min1chars, max32chars]"
-                counter="32"
+                v-model="data.description"
+                label="description"
+                :rules="[max4096chars]"
+                counter="4096"
               )
-              //
-                v-text-field(
-                  v-model="data.description"
-                  label="description"
-                  :rules="[min1chars, max32chars]"
-                  counter="32"
-                )
-              v-text-field(
+
+              // list
+              v-select(
                 v-model="data.list"
                 label="list"
-                type="number"
-                single-line
-                :rules="[rules.min1, rules.max100]"
-                counter="32"
+                :items="lists"
+                item-text="name"
+                item-value="id"
+                counter="4096"
               )
+
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -61,20 +68,30 @@ export default {
     DialogMixin
   ],
 
+  props: {
+    lists: {
+      type: [Array, Object],
+      default: undefined
+    }
+  },
+
   data () {
     return {
       show: true,
       request: undefined,
       data: {
         id: this.$store.state.tasks.length + 1,
+        list: Object,
         name: '',
-        status: '',
-        list: 1
-        // description: '',
+        description: '',
+        creator: this.$route.params.userId
       },
-      max32chars: v => v.length <= 32 || 'Input too long',
-      max64chars: v => v.length <= 64 || 'Input too long',
-      min1chars: v => v.length > 0 || 'Input too short',
+      max32chars: v => (v && v.length <= 32) || 'Input too long',
+      max64chars: v => (v && v.length <= 64) || 'Input too long',
+      max128chars: v => (v && v.length <= 128) || 'Input too long',
+      max256chars: v => (v && v.length <= 256) || 'Input too long',
+      max4096chars: v => (v.length <= 4096) || 'Input too long',
+      min1chars: v => (v && v.length > 0) || 'Input too short',
       rules: {
         min0: value => value >= 0 || 'Min 0',
         min1: value => value >= 1 || 'Min 1',
@@ -118,15 +135,14 @@ export default {
       }, 300)
     },
     onSubmit () {
-      // TODO add to state using vuex actions
-      // this.$store.state.tasks.push(this.data)
-      this.onClose()
-      // const valid = this.$refs.form.validate()
-      //
-      // if (valid) {
-      //   this.request = this.$lore.actions.user.create(this.data).payload
-      // }
-    }
+      const valid = this.$refs.form.validate()
+
+      if (valid) {
+        // TODO - make call to delete user here
+        console.log('CREATE task submitted')
+        this.onClose()
+      }
+    },
   }
 }
 </script>

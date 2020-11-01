@@ -21,7 +21,7 @@ export default {
 
   props: {
     boardUsers: {
-      type: Object,
+      type: Array,
       default: undefined
     },
     user: {

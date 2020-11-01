@@ -7,9 +7,9 @@
             span.grey--text Home
           span.grey--text.mx-1 :
           router-link(:to="`/users/${user.id}`")
-            span.grey--text {{ user.name }}
+            span.grey--text {{ user.first_name }} {{ user.last_name }}
           span.grey--text.mx-1 :
-          span {{ board.name }}
+          span.grey--text.text--darken-2 {{ board.name }}
         v-spacer
 
         // Add Button
@@ -29,7 +29,12 @@
       v-card-text
         v-row
           v-col(v-for="list in lists" cols="12" sm="6" md="4" lg="3")
-            v-card(:color="list.color")
+            List(
+              :list="list"
+              :lists="lists"
+              :user="user"
+            )
+            // v-card(:color="list.color")
               v-card-title
                 p.title.white--text {{ list.name }}
               v-card-text
@@ -44,11 +49,13 @@
     span
       CreateListDialog(
         v-if="showCreateListDialog"
+        :lists="lists"
         @close="showCreateListDialog = false"
       )
     span
       CreateTaskDialog(
         v-if="showCreateTaskDialog"
+        :lists="lists"
         @close="showCreateTaskDialog = false"
       )
 </template>
@@ -58,13 +65,15 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 import CreateListDialog from '@/dialogs/list/Create'
 import CreateTaskDialog from '@/dialogs/task/Create'
+import List from './List'
 
 export default {
   name: 'home',
   components: {
     HelloWorld,
     CreateListDialog,
-    CreateTaskDialog
+    CreateTaskDialog,
+    List
   },
 
   data () {
@@ -82,7 +91,9 @@ export default {
     },
 
     lists () {
-      return this.$store.state.lists
+      return this.$store.state.lists.filter(list => {
+        return list.board === Number(this.$route.params.boardId)
+      })
     },
 
     tasks () {
