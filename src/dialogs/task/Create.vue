@@ -54,12 +54,12 @@
 </template>
 
 <script>
-// import DialogMixin from '../../mixins/DialogMixin'
+import DialogMixin from '../../mixins/DialogMixin'
 
 export default {
-  // mixins: [
-  //   DialogMixin
-  // ],
+  mixins: [
+    DialogMixin
+  ],
 
   data () {
     return {

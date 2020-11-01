@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     users: [
-      { id: 1, name: 'Jason', email: 'jb@email.com', url: '/users/User' },
-      { id: 2, name: 'Peter', email: 'pw@email.com', url: '/users/User' },
+      { id: 1, username: 'jb', first_name: 'Jason', last_name: 'Brown', email: 'jb@email.com', password: 'password' },
+      { id: 2, username: 'pw', first_name: 'Peter', last_name: 'Wright', email: 'pw@email.com', password: 'password' },
     ],
     boards: [
       { id: 1, name: 'Project 1', tasks: 5, url: '/users/User/boards/Project', color: 'blue lighten-3' },
