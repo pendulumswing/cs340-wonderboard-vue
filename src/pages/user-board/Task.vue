@@ -52,12 +52,14 @@
                   div {{ task.creator }}
 
           // Description
-          div.text-start
+          v-row.no-gutters.flex-nowrap.text-start
             div.subtitle-2 description:
             div {{ task.description }}
+
+          // Assigned to
           v-row.no-gutters.flex-nowrap.text-start
-            v-col(cols="6" md="5" lg="4").pl-0
-            v-col
+            div.subtitle-2 assigned to:
+            div {{ task.description }}
 
         // Buttons
         v-row.no-gutters
@@ -86,6 +88,7 @@
 <script>
 // import DeleteBoardButton from './DeleteBoardButton'
 import EditTaskButton from './EditTaskButton'
+import _ from 'lodash'
 
 export default {
   name: 'task',
@@ -121,13 +124,19 @@ export default {
     }
   },
 
-  // computed: {
-  //   list () {
-  //     return this.$store.state.list.find(list => {
-  //       return list.id === this.task.list
-  //     })
-  //   }
-  // },
+  computed: {
+    boards () {
+      return this.$store.state.boards.filter(board => {
+        return _.find(this.boardUsers, { board: board.id })
+      })
+    },
+
+    taskusers () {
+      return this.$store.state.task_users.filter(taskUser => {
+        return taskUser.task === this.task.id
+      })
+    },
+  },
 
   methods: {
     moveRight () {

@@ -95,7 +95,27 @@ export default {
       return this.$store.state.tasks.filter(task => {
         return task.list === this.list.id
       })
-    }
+    },
+
+    role () {
+      return this.$store.state.board_users.find(boardUser => {
+        console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
+        return boardUser.board === this.data.id && boardUser.user === this.data.user
+      })
+    },
+
+    task_users () {
+      return this.$store.state.task_users.filter(taskUser => {
+        return taskUser.task === Number(this.$route.params.userId)
+      })
+    },
+
+    boards () {
+      return this.$store.state.boards.filter(board => {
+        return _.find(this.boardUsers, { board: board.id })
+      })
+    },
+
   }
 }
 </script>
