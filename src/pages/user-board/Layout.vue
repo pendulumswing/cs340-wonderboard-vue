@@ -12,14 +12,14 @@
           span.grey--text.text--darken-2 {{ board.name }}
         v-spacer
 
-        // Add Button
+        // Add List Button
         v-btn(
           color="grey white--text"
           tile
           @click="showCreateListDialog=true"
         ).mr-3 Add List
 
-        // Add Task
+        // Add Task Button
         v-btn(
           color="grey white--text"
           tile
@@ -27,6 +27,16 @@
         ) Add Task
 
       v-card-text
+        v-row.d-flex.justify-end
+          v-col(cols="12" md="4" lg="3")
+            BoardUsers(
+              :board="board"
+              :boards="boards"
+              :user="user"
+              :users="users"
+              :boardUsers="boardUsers"
+              :key="boardUsers.length"
+            )
         v-row
           v-col(v-for="list in lists" cols="12" sm="6" md="4" lg="3")
             List(
@@ -42,6 +52,7 @@
             associated with the board. Each list may or may not have tasks. Each task can be moved between
             lists using the arrow buttons.
 
+          // lists
           div.pt-3
             div.text-start.subtitle-1 lists
             ul
@@ -54,6 +65,7 @@
               li.text-justify.
                 A list can also be deleted with the delete icon (DELETE).
 
+          // tasks
           div.pt-3
             div.text-start.subtitle-1 tasks
             ul
@@ -68,6 +80,7 @@
               li.text-justify.
                 A task can also be deleted with the delete icon. There is no warning for this action. (DELETE).
 
+          // task_users
           div.pt-3.text-start
             div
               span.text-start.subtitle-1 task_users
@@ -76,12 +89,26 @@
               span  task_users is used to join tasks and users tables.
             ul
               li.text-justify.
-                A new task_user can be created with the 'add user' button on the task tile (CREATE).
+                A new task_user can be created with the 'add user' button on the task tile.
+                There can be zero, one, or multiple users assigned to each task (CREATE).
               li.text-justify.
                 A task_user can be deleted with the delete icon next to the name. There is no warning for this action. (DELETE).
 
-        // Debug
-          p {{ tasks }}
+          // board_users
+          div.pt-3.text-start
+            div
+              span.text-start.subtitle-1 board_users
+            div
+              span.subtitle-2 M-to-M relationship table.
+              span  board_users is used to join boards and users tables.
+            ul
+              li.text-justify.
+                A new board_user can be created with the 'add member' button at the top of the board (CREATE).
+              li.text-justify.
+                A board_user can be deleted with the delete icon next to the name.
+                This is only available for members that are not the original creator of the board.
+                There is no warning for this action. (DELETE).
+
     span
       CreateListDialog(
         v-if="showCreateListDialog"
@@ -97,19 +124,23 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import { mapState } from 'vuex'
 import HelloWorld from '@/components/HelloWorld.vue'
 import CreateListDialog from '@/dialogs/list/Create'
 import CreateTaskDialog from '@/dialogs/task/Create'
 import List from './List'
+import BoardUsers from './BoardUsers'
+import _ from 'lodash'
 
 export default {
   name: 'home',
+
   components: {
     HelloWorld,
     CreateListDialog,
     CreateTaskDialog,
-    List
+    List,
+    BoardUsers
   },
 
   data () {
@@ -120,29 +151,45 @@ export default {
   },
 
   computed: {
-    board () {
-      return this.$store.state.boards.find(board => {
-        return board.id === Number(this.$route.params.boardId)
-      })
-    },
+    ...mapState({
+      board () {
+        return this.$store.state.boards.find(board => {
+          return board.id === Number(this.$route.params.boardId)
+        })
+      },
 
-    lists () {
-      return this.$store.state.lists.filter(list => {
-        return list.board === Number(this.$route.params.boardId)
-      })
-    },
+      boards () {
+        return this.$store.state.boards
+      },
 
-    tasks () {
-      return this.$store.state.tasks.filter(task => {
-        return task.board === Number(this.$route.params.boardId)
-      })
-    },
+      lists () {
+        return this.$store.state.lists.filter(list => {
+          return list.board === Number(this.$route.params.boardId)
+        })
+      },
 
-    user () {
-      return this.$store.state.users.find(user => {
-        return user.id === Number(this.$route.params.userId)
-      })
-    },
+      tasks () {
+        return this.$store.state.tasks.filter(task => {
+          return task.board === Number(this.$route.params.boardId)
+        })
+      },
+
+      user () {
+        return this.$store.state.users.find(user => {
+          return user.id === Number(this.$route.params.userId)
+        })
+      },
+
+      users () {
+        return this.$store.state.users
+      },
+
+      boardUsers () {
+        return this.$store.state.board_users.filter(boardUser => {
+          return boardUser.board === Number(this.$route.params.boardId)
+        })
+      }
+    })
   },
 
   methods: {

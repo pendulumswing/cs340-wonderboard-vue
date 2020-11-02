@@ -5,14 +5,22 @@
     @click:outside="onClose"
   )
     v-card
-      v-card-title(class="title blue lighten-2" primary-title) Edit Board
+      v-card-title(class="title blue lighten-2 white--text" primary-title) Edit Board
       v-card-text
-        p Role: {{ role.role }}
+        // p Role: {{ boardUser }}
         v-form(ref="form")
           // id
           v-text-field(
             v-model="data.id"
             label="id"
+            disabled
+          )
+
+          // creator
+          v-text-field(
+            v-model="data.creator"
+            label="creator"
+            required
             disabled
           )
 
@@ -35,13 +43,13 @@
           )
 
           // role
-          v-text-field(
-            v-model="role.role"
-            label="user role"
-            :rules="[min1chars, max128chars]"
-            counter="128"
-            required
-          )
+            v-text-field(
+              v-model="boardUser.role"
+              label="your role"
+              :rules="[min1chars, max128chars]"
+              counter="128"
+              disabled
+            )
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -49,7 +57,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
+import _ from 'lodash'
 
 export default {
   mixins: [
@@ -71,8 +81,9 @@ export default {
         id: this.board.id || '',
         name: this.board.name || '',
         color: this.board.color || '',
-        role: '',
-        user: Number(this.$route.params.userId) || undefined
+        // role: '',
+        creator: this.board.creator || undefined,
+        blank: 'test'
       },
       // SOURCE: https://vuetifyjs.com/en/components/forms/#misc
       emailRules: [
@@ -87,13 +98,20 @@ export default {
     }
   },
 
+  // mounted () {
+  //   this.creator = this.board.creator
+  //   this.role = this.boardUser.role
+  // },
+
   computed: {
-    role () {
-      return this.$store.state.board_users.find(boardUser => {
-        console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
-        return boardUser.board === this.data.id && boardUser.user === this.data.user
-      })
-    },
+    ...mapState({
+      // boardUser () {
+      //   return _.filter(this.$store.state.board_users, (item) => {
+      //     // console.log('boardUser ID: ', item.id, ' boardBU: ', item.board, ' board: ', this.data.id, ' userBU: ', item.user, ' user: ', this.data.creator)
+      //     return item.board === this.data.id && item.user === this.data.creator
+      //   })
+      // }
+    })
   },
 
   methods: {

@@ -5,7 +5,7 @@
     @click:outside="onClose"
   )
     v-card
-      v-card-title(class="title blue lighten-2" primary-title) New Board
+      v-card-title(class="title blue lighten-2 white--text" primary-title) New Board
       v-card-text
         v-form(ref="form")
 
@@ -13,6 +13,14 @@
           v-text-field(
             v-model="data.id"
             label="id"
+            disabled
+          )
+
+          // creator
+          v-text-field(
+            v-model="data.creator"
+            label="creator"
+            required
             disabled
           )
 
@@ -42,6 +50,7 @@
             counter="128"
             required
           )
+
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -67,7 +76,7 @@ export default {
         name: '',
         color: '',
         role: '',
-        user: this.$route.params.userId || undefined
+        creator: this.$route.params.userId || undefined
       },
       nameRules: [
         v => !!v || 'Name is required',

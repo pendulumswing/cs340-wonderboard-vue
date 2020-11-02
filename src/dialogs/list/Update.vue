@@ -5,7 +5,7 @@
     @click:outside="onClose"
   )
     v-card
-      v-card-title(class="title blue lighten-2" primary-title) Edit List
+      v-card-title(class="title blue lighten-2 white--text" primary-title) Edit List
       v-card-text
         v-form(ref="form")
           // id
