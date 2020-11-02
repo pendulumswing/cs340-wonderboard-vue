@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import Task from './Task'
+import Task from './Task/index'
 import DeleteListButton from './DeleteListButton'
 import EditListButton from './EditListButton'
 import _ from 'lodash'

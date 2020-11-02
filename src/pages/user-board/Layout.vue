@@ -68,6 +68,18 @@
               li.text-justify.
                 A task can also be deleted with the delete icon. There is no warning for this action. (DELETE).
 
+          div.pt-3.text-start
+            div
+              span.text-start.subtitle-1 task_users
+            div
+              span.subtitle-2 M-to-M relationship table.
+              span  task_users is used to join tasks and users tables.
+            ul
+              li.text-justify.
+                A new task_user can be created with the 'add user' button on the task tile (CREATE).
+              li.text-justify.
+                A task_user can be deleted with the delete icon next to the name. There is no warning for this action. (DELETE).
+
         // Debug
           p {{ tasks }}
     span
