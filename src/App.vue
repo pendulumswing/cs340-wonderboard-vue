@@ -1,15 +1,18 @@
 <template lang="pug">
   // div(id="app")
   v-app
+    // v-container
     v-container
-      div(id="nav")
-        router-link(to="/") Home
+      h1.text-center.pt-5.grey--text.text--darken-2 Wonderboard
+      div(id="nav").pt-2.grey--text.text--darken-2
+        router-link(to="/") Users
         span  |
-        router-link(to="/users/1") User
+        router-link(to="/users/1")  Boards
         span  |
-        router-link(to="/users/1/boards/1") Board
-        span  |
-        router-link(to="/api") API Sample
+        router-link(to="/users/1/boards/1")  Lists
+        // API
+          span  |
+          router-link(to="/api") API Sample
       router-view
 </template>
 
@@ -35,12 +38,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #fbfbfb;
 }
 #nav {
   padding: 30px;
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #616161;
     &.router-link-exact-active {
       color: #42b983;
     }

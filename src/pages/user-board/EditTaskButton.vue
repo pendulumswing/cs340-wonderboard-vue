@@ -2,39 +2,46 @@
   div
     // Edit User
     v-btn(
-      color="white lighten-2 white--text"
-      x-small
+      color="grey lighten-1 white--text"
+      small
       depressed
       icon
-      @click.stop.prevent="showUpdateListDialog=true"
+      @click.stop.prevent="showUpdateTaskDialog=true"
     )
       v-icon(small) mdi-pencil
     span
-      UpdateListDialog(
-        v-if="showUpdateListDialog"
-        :list="list"
-        @close="showUpdateListDialog = false"
+      UpdateTaskDialog(
+        v-if="showUpdateTaskDialog"
+        :lists="lists"
+        :task="task"
+        @close="showUpdateTaskDialog = false"
       )
 </template>
 
 <script>
-import UpdateListDialog from '@/dialogs/list/Update'
+import UpdateTaskDialog from '@/dialogs/task/Update'
 
 export default {
-  name: 'editListButton',
+  name: 'editTaskButton',
+
   components: {
-    UpdateListDialog
+    UpdateTaskDialog
   },
+
   props: {
-    list: {
-      type: Object,
+    lists: {
+      type: [Array, Object],
+      default: undefined
+    },
+    task: {
+      type: [Array, Object],
       default: undefined
     }
   },
 
   data () {
     return {
-      showUpdateListDialog: false
+      showUpdateTaskDialog: false
     }
   }
 }

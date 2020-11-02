@@ -1,18 +1,18 @@
 
 <template lang="pug">
   div
-    v-card.elevation-0
+    v-card(color="transparent").elevation-0
 
       // Header
       v-card-title
         div
           router-link(to="/")
-            span.grey--text Home
+            span.grey--text Users
           span.grey--text.mx-1 :
           span.grey--text.text--darken-2 {{ user.first_name }} {{ user.last_name }}
         v-spacer
         v-btn(
-          color="blue white--text"
+          color="grey white--text"
           tile
           @click="showCreateBoardDialog=true"
         ) Add Board
@@ -25,19 +25,21 @@
         )
 
         // Description
-        v-row.pl-3.pt-5
+        v-row.pl-3.pt-7
           div.text-justify.
             This is the boards page for the selected user. It lists all boards associated with the user.
             Selecting a board tile will redirect to the the board detail page for that board and that user.
-          ul
-            li.text-justify.
-              A new board can be created with the 'ADD BOARD' button (CREATE).
-            li.text-justify.
-              All boards are fetched from the the database and listed here, based on route parameter 'userId' (READ).
-            li.text-justify.
-              A board can be updated by selecting the pencil icon on the board tile. A dialog will popup to edit any fields. (UPDATE).
-            li.text-justify.
-              A board can also be deleted with the delete icon (DELETE).
+          div.pt-3
+            div.text-start.subtitle-1 boards
+            ul
+              li.text-justify.
+                A new board can be created with the 'ADD BOARD' button (CREATE).
+              li.text-justify.
+                All boards are fetched from the the database and listed here, based on route parameter 'userId' (READ).
+              li.text-justify.
+                A board can be updated by selecting the pencil icon on the board tile. A dialog will popup to edit any fields. (UPDATE).
+              li.text-justify.
+                A board can also be deleted with the delete icon (DELETE).
 
     // Add Board Dialog
     span

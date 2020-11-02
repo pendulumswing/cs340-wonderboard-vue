@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     v-card(:color="list.color")
-      v-card-title
+      v-card-title.pb-0
         span.title.white--text {{ list.name }}
         v-spacer
 
@@ -11,23 +11,38 @@
         // Delete User
         DeleteListButton(:list="list")
 
-      // Attributes
-      v-card-text.text-start.white--text
-        v-row.no-gutters.flex-nowrap
-          v-col(cols="6" md="5" lg="4")
-            div id:
-          v-col
-            div {{ list.id }}
-        v-row.no-gutters.flex-nowrap
-          v-col(cols="6" md="5" lg="4")
-            div board:
-          v-col
-            div {{ list.board }}
-        v-row.no-gutters.flex-nowrap
-          v-col(cols="6" md="5" lg="4")
-            div index:
-          v-col
-            div {{ list.index }}
+      v-card-text
+
+        // Attributes
+        v-expansion-panels(flat).pa-0
+          v-expansion-panel.elevation-0.pa-0
+            v-expansion-panel-header(:color="list.color").pa-0.body-2 attributes
+            v-expansion-panel-content(:color="list.color").text-start
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div id:
+                v-col
+                  div {{ list.id }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div board:
+                v-col
+                  div {{ list.board }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div index:
+                v-col
+                    div {{ list.index }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div name:
+                v-col
+                  div {{ list.name }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div creator:
+                v-col
+                  div {{ list.creator }}
 
         // Tasks
         v-card(v-for="task in tasks")
@@ -37,17 +52,6 @@
             :list="list"
             :lists="lists"
           ).my-3
-          //
-            v-card-title
-              span {{ task.name }}
-            v-card-text
-              p Status: {{ task.status }}
-            v-row
-              v-col(v-for="task in tasks" cols="6" md="4" lg="3")
-                Task(
-                  :user="user"
-                  :task="task"
-                )
 </template>
 
 <script>

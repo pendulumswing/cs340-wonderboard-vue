@@ -1,11 +1,11 @@
 <template lang="pug">
   div
-    v-card.elevation-0
+    v-card(color="transparent").elevation-0
       v-card-title
-        span.grey--text.text--darken-2 Home
+        span.grey--text.text--darken-2 Users
         v-spacer
         v-btn(
-          color="blue white--text"
+          color="grey white--text"
           tile
           @click="showCreateUserDialog=true"
         ) Add User
@@ -55,19 +55,25 @@
                       div password:
                     v-col
                       div {{ user.password }}
-        v-row.pl-3.pt-5
+
+        // Description
+        v-row.pl-3.pt-7
           div.text-justify.
             This is the landing page for the site. It lists all users in the database.
             Selecting a user tile will redirect to the boards page for that user.
-          ul
-            li.text-justify.
-              A new user can be created with the 'ADD USER' button (CREATE).
-            li.text-justify.
-              All users are fetched from the the database and listed here (READ).
-            li.text-justify.
-              A user can be updated by selecting the pencil icon on the user tile. A dialog will popup to edit any fields. (UPDATE).
-            li.text-justify.
-              A user can also be deleted with the delete icon (DELETE).
+          div.pt-3
+            div.text-start.subtitle-1 users
+            ul
+              li.text-justify.
+                A new user can be created with the 'ADD USER' button (CREATE).
+              li.text-justify.
+                All users are fetched from the the database and listed here (READ).
+              li.text-justify.
+                A user can be updated by selecting the pencil icon on the user tile. A dialog will popup to edit any fields. (UPDATE).
+              li.text-justify.
+                A user can also be deleted with the delete icon (DELETE).
+          div.text-justify.pt-3.
+            NOTE: The path breadcrumbs can also be clicked to move around the site.
     span
       CreateUserDialog(
         v-if="showCreateUserDialog"
@@ -121,5 +127,9 @@ export default {
 <style>
 a {
   text-decoration: none;
+}
+
+body {
+  background-color: transparent;
 }
 </style>

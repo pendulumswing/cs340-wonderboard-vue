@@ -1,49 +1,80 @@
 <template lang="pug">
   div
     v-card
-      v-card-title
-        span.subtitle-2.grey--text.text--darken-2 {{ task.name }}
-        v-spacer
-        // Delete Task
-        v-btn(
-          color="grey white--text"
-          x-small
-          depressed
-          icon
-          @click.stop.prevent="deleteTask()"
-        )
-          v-icon(small) mdi-delete
+      v-card-title.pb-0
+        v-col(cols="8").pa-0.d-flex.justify-start.align-start
+          span.subtitle-1.grey--text.text--darken-2 {{ task.name }}
+        v-col(cols="4").pa-0.d-flex.justify-end.align-end
+          v-row.no-gutters.d-flex.justify-end.align-end
+
+            // Edit Task
+            EditTaskButton(
+            :task="task"
+              :lists="lists"
+            )
+
+            // Delete Task
+            div.pa-0.ma-0
+              v-btn(
+                color="grey lighten-1 white--text"
+                small
+                depressed
+                icon
+                @click.stop.prevent="deleteTask()"
+              )
+                v-icon(small) mdi-delete
+
       v-card-text
-        div lists length: {{ lists.length }}
-        div list: {{ list.id }}
-        v-row.no-gutters.flex-nowrap
-          v-col(cols="6" md="5" lg="4")
-            div id:
-          v-col
-            div {{ task.id }}
-        v-row.no-gutters.flex-nowrap
-          v-col(cols="6" md="5" lg="4")
-            div list:
-          v-col
-            div {{ task.list }}
-        v-row.no-gutters.flex-nowrap
-          v-col(cols="6" md="5" lg="4")
-            div description:
-          v-col
+        // Attributes
+        v-expansion-panels(flat).pa-0
+          v-expansion-panel.elevation-0.pa-0.grey--text
+            v-expansion-panel-header.pa-0.body-2 attributes
+            v-expansion-panel-content.text-start.pa-0
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div id:
+                v-col
+                  div {{ task.id }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div list:
+                v-col
+                  div {{ task.list }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="12" md="6" lg="4")
+                  div description:
+                v-col(cols="12" md="6" lg="4")
+                  div {{ task.description }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div creator:
+                v-col
+                  div {{ task.creator }}
+
+          // Description
+          div.text-start
+            div.subtitle-2 description:
             div {{ task.description }}
+          v-row.no-gutters.flex-nowrap.text-start
+            v-col(cols="6" md="5" lg="4").pl-0
+            v-col
 
         // Buttons
         v-row.no-gutters
-          v-col.d-flex.justify-end
+          v-col.d-flex.align-center
             // Left Button
             v-btn(
+              v-show="hasListLeft()"
               icon
               @click="moveLeft()"
             )
               v-icon(style="transform:rotate(-90deg)") mdi-triangle
 
+            v-spacer
+
             // Right Button
             v-btn(
+              v-show="hasListRight()"
               icon
               @click="moveRight()"
             )
@@ -54,14 +85,14 @@
 
 <script>
 // import DeleteBoardButton from './DeleteBoardButton'
-// import EditBoardButton from './EditBoardButton'
+import EditTaskButton from './EditTaskButton'
 
 export default {
   name: 'task',
 
   components: {
     // DeleteBoardButton,
-    // EditBoardButton
+    EditTaskButton
   },
 
   props: {
@@ -100,7 +131,7 @@ export default {
 
   methods: {
     moveRight () {
-      if (this.list.index < this.lists.length) {
+      if (this.hasListRight()) {
         // console.log('index: ', this.list.index, ' is < ', this.lists.length)
         const newList = this.lists.find(list => {
           return list.index === this.list.index + 1
@@ -111,7 +142,7 @@ export default {
     },
 
     moveLeft () {
-      if (this.list.index > 1) {
+      if (this.hasListLeft()) {
         // console.log('index: ', this.list.index, ' is ', this.lists.length)
         const newList = this.lists.find(list => {
           return list.index === this.list.index - 1
@@ -119,6 +150,14 @@ export default {
         // console.log('newList: ', newList.index)
         this.task.list = newList.id
       }
+    },
+
+    hasListRight () {
+      return this.list.index < this.lists.length
+    },
+
+    hasListLeft () {
+      return this.list.index > 1
     },
 
     deleteTask () {

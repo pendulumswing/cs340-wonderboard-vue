@@ -10,8 +10,6 @@
         v-form(ref="form")
           v-row
             v-col
-              p lists: {{ lists }}
-              p Selected List: {{ data.list }}
 
               // id
               v-text-field(

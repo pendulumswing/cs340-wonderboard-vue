@@ -8,44 +8,50 @@
       v-card-title(class="title blue lighten-2" primary-title) Edit Task
       v-card-text
         v-form(ref="form")
-          // id
-          v-text-field(
-            v-model="data.id"
-            label="id"
-            disabled
-          )
+          v-row
+            v-col
 
-          // board
-          v-text-field(
-            v-model="data.board"
-            label="board"
-            disabled
-          )
+              // id
+              v-text-field(
+                v-model="data.id"
+                label="id"
+                disabled
+              )
 
-          // index
-          v-text-field(
-            v-model="data.index"
-            label="index"
-            disabled
-          )
+              // creator
+              v-text-field(
+                v-model="data.creator"
+                label="creator"
+                disabled
+              )
 
-          // name
-          v-text-field(
-            v-model="data.name"
-            label="name"
-            :rules="[min1chars, max128chars]"
-            counter="128"
-            required
-          )
+              // name
+              v-text-field(
+                v-model="data.name"
+                label="name"
+                :rules="[min1chars, max128chars]"
+                counter="128"
+                required
+              )
 
-          // color
-          v-text-field(
-            v-model="data.color"
-            label="color"
-            :rules="[min1chars, max64chars]"
-            counter="64"
-            required
-          )
+              // description
+              v-text-field(
+                v-model="data.description"
+                label="description"
+                :rules="[max4096chars]"
+                counter="4096"
+              )
+
+              // list
+              v-select(
+                v-model="data.list"
+                label="list"
+                :items="lists"
+                item-text="name"
+                item-value="id"
+                counter="4096"
+              )
+
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -61,8 +67,12 @@ export default {
   ],
 
   props: {
-    list: {
-      type: Object,
+    lists: {
+      type: [Array, Object],
+      default: undefined
+    },
+    task: {
+      type: [Array, Object],
       default: undefined
     }
   },
@@ -72,29 +82,20 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.list.id || '',
-        board: this.list.board || '',
-        index: this.list.index || '',
-        name: this.list.name || '',
-        color: this.list.color || '',
-        // creator: this.$route.params.userId || undefined
+        id: this.task.id || '',
+        list: this.task.list || '',
+        name: this.task.name || '',
+        description: this.task.description || '',
+        creator: this.task.creator
       },
-      max32chars: v => ( v && v.length <= 32) || 'Input too long',
-      max64chars: v => ( v && v.length <= 64) || 'Input too long',
-      max128chars: v => ( v && v.length <= 128) || 'Input too long',
-      max256chars: v => ( v && v.length <= 256) || 'Input too long',
-      min1chars: v => ( v && v.length > 0) || 'Input too short'
+      max32chars: v => (v && v.length <= 32) || 'Input too long',
+      max64chars: v => (v && v.length <= 64) || 'Input too long',
+      max128chars: v => (v && v.length <= 128) || 'Input too long',
+      max256chars: v => (v && v.length <= 256) || 'Input too long',
+      max4096chars: v => (v.length <= 4096) || 'Input too long',
+      min1chars: v => (v && v.length > 0) || 'Input too short',
     }
   },
-
-  // computed: {
-  //   role () {
-  //     return this.$store.state.board_users.find(boardUser => {
-  //       console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
-  //       return boardUser.board === this.data.id && boardUser.user === this.data.user
-  //     })
-  //   },
-  // },
 
   methods: {
     // getRequest (request) {

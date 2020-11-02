@@ -1,10 +1,10 @@
 <template lang="pug">
   div
-    v-card.elevation-0
+    v-card(color="transparent").elevation-0
       v-card-title
         div
           router-link(to="/")
-            span.grey--text Home
+            span.grey--text Users
           span.grey--text.mx-1 :
           router-link(:to="`/users/${user.id}`")
             span.grey--text {{ user.first_name }} {{ user.last_name }}
@@ -14,14 +14,14 @@
 
         // Add Button
         v-btn(
-          color="blue white--text"
+          color="grey white--text"
           tile
           @click="showCreateListDialog=true"
         ).mr-3 Add List
 
         // Add Task
         v-btn(
-          color="blue white--text"
+          color="grey white--text"
           tile
           @click="showCreateTaskDialog=true"
         ) Add Task
@@ -34,15 +34,39 @@
               :lists="lists"
               :user="user"
             )
-            // v-card(:color="list.color")
-              v-card-title
-                p.title.white--text {{ list.name }}
-              v-card-text
-                v-card(v-for="task in sortTasksByListId(list.id)").ma-3
-                  v-card-title
-                    span {{ task.name }}
-                  v-card-text
-                    p Status: {{ task.status }}
+
+        // Description
+        v-row.pl-3.pt-7
+          div.text-justify.
+            This is the board detail page for the selected user and the selected board. It shows all lists
+            associated with the board. Each list may or may not have tasks. Each task can be moved between
+            lists using the arrow buttons.
+
+          div.pt-3
+            div.text-start.subtitle-1 lists
+            ul
+              li.text-justify.
+                A new list can be created with the 'ADD LIST' button (CREATE).
+              li.text-justify.
+                All lists are fetched based on route parameter 'boardId' (READ).
+              li.text-justify.
+                A list can be updated by selecting the pencil icon on the list tile. A dialog will popup to edit any fields. (UPDATE).
+              li.text-justify.
+                A list can also be deleted with the delete icon (DELETE).
+
+          div.pt-3
+            div.text-start.subtitle-1 tasks
+            ul
+              li.text-justify.
+                A new task can be created with the 'ADD TASK' button (CREATE).
+              li.text-justify.
+                All tasks are fetched based on each list id (READ).
+              li.text-justify.
+                A task can be updated by selecting the pencil icon on the tile. A dialog will popup to edit any fields. (UPDATE).
+              li.text-justify.
+                A task can also be moved to a new list by updated its list attribute (UPDATE).
+              li.text-justify.
+                A task can also be deleted with the delete icon. There is no warning for this action. (DELETE).
 
         // Debug
           p {{ tasks }}
