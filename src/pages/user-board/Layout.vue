@@ -27,8 +27,8 @@
         ) Add Task
 
       v-card-text
-        v-row.d-flex.justify-end
-          v-col(cols="12" md="4" lg="3")
+        v-row
+          v-col(cols="12" sm="6" md="3" lg="2" xl="1")
             BoardUsers(
               :board="board"
               :boards="boards"
@@ -36,8 +36,7 @@
               :users="users"
               :boardUsers="boardUsers"
               :key="boardUsers.length"
-            )
-        v-row
+            ).pa-0
           v-col(v-for="list in lists" cols="12" sm="6" md="4" lg="3")
             List(
               :list="list"

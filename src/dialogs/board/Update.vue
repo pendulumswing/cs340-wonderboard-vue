@@ -98,11 +98,6 @@ export default {
     }
   },
 
-  // mounted () {
-  //   this.creator = this.board.creator
-  //   this.role = this.boardUser.role
-  // },
-
   computed: {
     ...mapState({
       // boardUser () {

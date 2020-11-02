@@ -1,45 +1,40 @@
 <template lang="pug">
   div
-    v-card.elevation-0
-
-      v-card-text
-        // Assigned to
-        div.text-start
-          v-row.no-gutters
-            v-col
-              div.subtitle-1 Members:
-          v-row.no-gutters
-            v-col.pl-5
-              v-row(v-for="user in assignedUsers").no-gutters
-                span {{ user.first_name }} {{ user.last_name }}
-                v-spacer
-                v-btn(
-                  v-show="user.id !== board.creator"
-                  color="grey lighten-1 white--text"
-                  x-small
-                  depressed
-                  icon
-                  @click.stop.prevent="onRemoveUser(user)"
-                )
-                  v-icon(small) mdi-minus
-          v-row.no-gutters
-            v-col.pl-1.pb-0
-              v-select(
-                v-show="assignedUsers.length < users.length"
-                :items="unassignedUsers"
-                label="add member"
-                return-object
-                dense
-                single-line
-                prepend-inner-icon="mdi-plus"
-                @change="onAddUser"
-                height="20"
-                solo
-                flat
-                append-icon=""
-              ).pb-0
-                template(v-slot:item="{ item }")
-                  span {{ item.first_name }} {{ item.last_name }}
+    v-row.no-gutters.text-start
+      v-col
+        div.subtitle-1 Members:
+    v-row.no-gutters.text-start.pl-3
+      v-col
+        v-row(v-for="user in assignedUsers").no-gutters
+          span {{ user.first_name }} {{ user.last_name }}
+          v-spacer
+          v-btn(
+            v-show="user.id !== board.creator"
+            color="grey lighten-1 white--text"
+            x-small
+            depressed
+            icon
+            @click.stop.prevent="onRemoveUser(user)"
+          )
+            v-icon(small) mdi-minus
+    v-row.no-gutters
+      v-col.pb-0
+        v-select(
+          v-show="assignedUsers.length < users.length"
+          :items="unassignedUsers"
+          label="add member"
+          return-object
+          dense
+          single-line
+          prepend-inner-icon="mdi-plus"
+          @change="onAddUser"
+          height="20"
+          solo
+          flat
+          append-icon=""
+        ).pb-0
+          template(v-slot:item="{ item }")
+            span {{ item.first_name }} {{ item.last_name }}
 </template>
 
 <script>
