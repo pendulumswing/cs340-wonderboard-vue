@@ -3,6 +3,7 @@ REST API Resource Routing
 http://flask-restplus.readthedocs.io
 """
 
+import 
 from datetime import datetime
 from flask import request
 from flask_restplus import Resource
@@ -10,6 +11,8 @@ from flask_restplus import Resource
 from .security import require_auth
 from . import api_rest
 
+if not os.getenv("DATABASE_URL"):
+    raise RuntimeError("DATABASE_URL is not set")
 
 class SecureResource(Resource):
     """ Calls require_auth decorator on all requests """
