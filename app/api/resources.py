@@ -14,6 +14,7 @@ from . import api_rest
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 
+
 class SecureResource(Resource):
     """ Calls require_auth decorator on all requests """
     method_decorators = [require_auth]
