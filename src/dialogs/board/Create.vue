@@ -40,7 +40,7 @@
             label="color"
             item-value="color"
             item-text="name"
-          ).pb-0
+          )
 
           // role
             v-text-field(

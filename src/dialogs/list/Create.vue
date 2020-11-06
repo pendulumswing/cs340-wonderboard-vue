@@ -49,12 +49,12 @@
               )
 
               // color
-              v-text-field(
+              v-select(
                 v-model="data.color"
+                :items="colors"
                 label="color"
-                :rules="[min1chars, max64chars]"
-                counter="64"
-                required
+                item-value="color"
+                item-text="name"
               )
 
       v-card-actions
@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 
 export default {
@@ -97,6 +98,14 @@ export default {
       min1chars: v => ( v && v.length > 0) || 'Input too short',
       min0chars: v => ( v && v.length < 0) || 'Input too short'
     }
+  },
+
+  computed: {
+    ...mapState({
+      colors () {
+        return this.$store.state.colors
+      }
+    })
   },
 
   methods: {
