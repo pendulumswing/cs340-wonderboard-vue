@@ -34,15 +34,6 @@
           )
 
           // color
-            v-text-field(
-              v-model="data.color"
-              label="color"
-              :rules="[min1chars, max64chars]"
-              counter="64"
-              required
-            )
-
-          // color
           v-select(
             v-model="data.color"
             :items="colors"

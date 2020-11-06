@@ -34,13 +34,13 @@
           )
 
           // color
-          v-text-field(
+          v-select(
             v-model="data.color"
+            :items="colors"
             label="color"
-            :rules="[min1chars, max64chars]"
-            counter="64"
-            required
-          )
+            item-value="color"
+            item-text="name"
+          ).pb-0
 
           // role
             v-text-field(
@@ -100,12 +100,15 @@ export default {
 
   computed: {
     ...mapState({
-      // boardUser () {
-      //   return _.filter(this.$store.state.boardUsers.boardUsers, (item) => {
-      //     // console.log('boardUser ID: ', item.id, ' boardBU: ', item.board, ' board: ', this.data.id, ' userBU: ', item.user, ' user: ', this.data.creator)
-      //     return item.board === this.data.id && item.user === this.data.creator
-      //   })
-      // }
+      colors () {
+        return this.$store.state.colors
+      }
+    //   boardUser () {
+    //     return _.filter(this.$store.state.boardUsers.boardUsers, (item) => {
+    //       // console.log('boardUser ID: ', item.id, ' boardBU: ', item.board, ' board: ', this.data.id, ' userBU: ', item.user, ' user: ', this.data.creator)
+    //       return item.board === this.data.id && item.user === this.data.creator
+    //     })
+    //   }
     })
   },
 
