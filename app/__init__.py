@@ -8,6 +8,10 @@ app = Flask(__name__, static_folder='../dist/static')
 app.register_blueprint(api_bp)
 # app.register_blueprint(client_bp)
 
+if not os.getenv("DATABASE_URL"):
+    raise RuntimeError("DATABASE_URL is not set")
+
+
 from .config import Config
 app.logger.info('>>> {}'.format(Config.FLASK_ENV))
 

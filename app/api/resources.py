@@ -3,17 +3,18 @@ REST API Resource Routing
 http://flask-restplus.readthedocs.io
 """
 
-import 
+import os
+import psycopg2
 from datetime import datetime
 from flask import request
 from flask_restplus import Resource
-
 from .security import require_auth
 from . import api_rest
 
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
-
+#Database initialization
+DATABASE_URL = os.getenv("DATABASE_URL")
+conn = psycopg2.connect(DATABASE_URL)
+cur = conn.cursor()
 
 class SecureResource(Resource):
     """ Calls require_auth decorator on all requests """
