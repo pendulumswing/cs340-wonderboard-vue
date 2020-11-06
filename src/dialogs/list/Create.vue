@@ -83,7 +83,7 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.$store.state.lists.length + 1,
+        id: this.$store.state.lists.lists.length + 1,
         board: this.$route.params.boardId,
         name: '',
         color: '',

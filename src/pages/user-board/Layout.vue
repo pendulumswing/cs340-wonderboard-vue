@@ -162,7 +162,7 @@ export default {
       },
 
       lists () {
-        return this.$store.state.lists.filter(list => {
+        return this.$store.state.lists.lists.filter(list => {
           return list.board === Number(this.$route.params.boardId)
         })
       },
