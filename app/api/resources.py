@@ -12,9 +12,9 @@ from .security import require_auth
 from . import api_rest
 
 #Database initialization
-DATABASE_URL = os.getenv("DATABASE_URL")
-conn = psycopg2.connect(DATABASE_URL)
-cur = conn.cursor()
+# DATABASE_URL = os.getenv("DATABASE_URL")
+# conn = psycopg2.connect(DATABASE_URL)
+# cur = conn.cursor()
 
 class SecureResource(Resource):
     """ Calls require_auth decorator on all requests """
