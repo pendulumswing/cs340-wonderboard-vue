@@ -21,7 +21,7 @@
         // Board Array
         Boards(
           :user="user"
-          :boardUsers="board_users"
+          :boardUsers="boardUsers"
         )
 
         // Description
@@ -73,8 +73,8 @@ export default {
       })
     },
 
-    board_users () {
-      return this.$store.state.boardUsers.board_users.filter(boardUser => {
+    boardUsers () {
+      return this.$store.state.boardUsers.boardUsers.filter(boardUser => {
         return boardUser.user === Number(this.$route.params.userId)
       })
     },

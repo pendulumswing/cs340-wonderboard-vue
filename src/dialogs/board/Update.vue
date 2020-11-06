@@ -101,7 +101,7 @@ export default {
   computed: {
     ...mapState({
       // boardUser () {
-      //   return _.filter(this.$store.state.boardUsers.board_users, (item) => {
+      //   return _.filter(this.$store.state.boardUsers.boardUsers, (item) => {
       //     // console.log('boardUser ID: ', item.id, ' boardBU: ', item.board, ' board: ', this.data.id, ' userBU: ', item.user, ' user: ', this.data.creator)
       //     return item.board === this.data.id && item.user === this.data.creator
       //   })

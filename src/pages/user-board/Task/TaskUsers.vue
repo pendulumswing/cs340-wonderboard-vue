@@ -219,7 +219,7 @@ export default {
     },
 
     onAddUser (user) {
-      const id = this.$store.state.taskUsers.task_users.length + 1
+      const id = this.$store.state.taskUsers.taskUsers.length + 1
       const payload = { id: id, task: this.task.id, user: user.id }
       this.$store.commit('addTaskUser', payload)
     },

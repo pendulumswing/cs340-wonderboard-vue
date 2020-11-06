@@ -92,7 +92,7 @@ export default {
 
   methods: {
     onAddUser (user) {
-      const id = this.$store.state.boardUsers.board_users.length + 1
+      const id = this.$store.state.boardUsers.boardUsers.length + 1
       const payload = { id: id, board: this.board.id, user: user.id }
       this.$store.commit('addBoardUser', payload)
     },

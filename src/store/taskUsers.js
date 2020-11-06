@@ -1,5 +1,5 @@
 const state = {
-  task_users: [
+  taskUsers: [
     { id: 1, user: 1, task: 1 },
     { id: 1, user: 1, task: 2 },
     { id: 1, user: 1, task: 3 },
@@ -25,15 +25,15 @@ const getters = {
 
 const mutations = {
   addTaskUser (state, payload) {
-    state.task_users.push(payload)
+    state.taskUsers.push(payload)
   },
 
   removeTaskUser (state, payload) {
-    const index = state.task_users.findIndex(item => {
+    const index = state.taskUsers.findIndex(item => {
       return item.task === payload.taskId && item.user === payload.userId
     })
     if (index >= 0) {
-      state.task_users.splice(index, 1)
+      state.taskUsers.splice(index, 1)
     }
   }
 }

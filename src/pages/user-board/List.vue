@@ -98,14 +98,14 @@ export default {
     },
 
     role () {
-      return this.$store.state.boardUsers.board_users.find(boardUser => {
+      return this.$store.state.boardUsers.boardUsers.find(boardUser => {
         console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
         return boardUser.board === this.data.id && boardUser.user === this.data.user
       })
     },
 
-    task_users () {
-      return this.$store.state.taskUsers.task_users.filter(taskUser => {
+    taskUsers () {
+      return this.$store.state.taskUsers.taskUsers.filter(taskUser => {
         return taskUser.task === Number(this.$route.params.userId)
       })
     },

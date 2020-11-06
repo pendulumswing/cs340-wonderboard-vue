@@ -44,7 +44,7 @@ export default {
   computed: {
     ...mapState({
       taskUsers () {
-        return this.$store.state.taskUsers.task_users.filter(taskUser => {
+        return this.$store.state.taskUsers.taskUsers.filter(taskUser => {
           return taskUser.task === this.task.id
         })
       },
