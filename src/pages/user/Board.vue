@@ -19,23 +19,22 @@
             v-col
               div {{ board.id }}
 
-          v-row.no-gutters.flex-nowrap
-            v-col(cols="6" md="5" lg="4")
-              div tasks:
-            v-col
-              div {{ tasks.length }}
+          v-row.no-gutters
+            TaskCount(:lists="lists")
 </template>
 
 <script>
 import DeleteBoardButton from './DeleteBoardButton'
 import EditBoardButton from './EditBoardButton'
+import TaskCount from './TaskCount'
 
 export default {
   name: 'board',
 
   components: {
     DeleteBoardButton,
-    EditBoardButton
+    EditBoardButton,
+    TaskCount
   },
 
   props: {
@@ -57,10 +56,17 @@ export default {
   },
 
   computed: {
-    tasks () {
-      return this.$store.state.tasks.tasks.filter(task => {
-        return task.board === this.board.id
+
+    lists () {
+      const lists = this.$store.state.lists.lists.filter(list => {
+        return list.board === this.board.id
       })
+
+      const listArray = []
+      lists.forEach(list => {
+        listArray.push(list.id)
+      })
+      return listArray
     }
   }
 }
