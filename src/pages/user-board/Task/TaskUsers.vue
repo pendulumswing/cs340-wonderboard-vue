@@ -172,19 +172,19 @@ export default {
   computed: {
     ...mapState({
       boards () {
-        return this.$store.state.boards.filter(board => {
+        return this.$store.state.boards.boards.filter(board => {
           return _.find(this.boardUsers, { board: board.id })
         })
       },
 
       assignedUsers () {
-        return this.$store.state.users.filter(user => {
+        return this.$store.state.users.users.filter(user => {
           return _.find(this.taskUsers, { user: user.id })
         })
       },
 
       unassignedUsers () {
-        return this.$store.state.users.filter(user => {
+        return this.$store.state.users.users.filter(user => {
           return _.find(this.taskUsers, { user: user.id }) === undefined
         })
       }
