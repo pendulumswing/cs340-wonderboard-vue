@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    v-card(:color="list.color" min-height="800")
+    v-card(:color="list.color" min-height="800").mb-4
       v-card-title.pb-0
         span.title.white--text {{ list.name }}
         v-spacer

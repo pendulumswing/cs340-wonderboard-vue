@@ -13,22 +13,31 @@
         v-spacer
 
         // Add List Button
-        v-btn(
-          color="grey white--text"
-          tile
-          @click="showCreateListDialog=true"
-        ).mr-3 Add List
+        v-col(cols="12" sm="3" :class="buttonClass").d-flex.pa-0
+          v-btn(
+            color="grey white--text"
+            tile
+            @click="showCreateListDialog=true"
+          ).mr-3 Add List
 
-        // Add Task Button
-        v-btn(
-          color="grey white--text"
-          tile
-          @click="showCreateTaskDialog=true"
-        ) Add Task
+          // Add Task Button
+          v-btn(
+            color="grey white--text"
+            tile
+            @click="showCreateTaskDialog=true"
+          ) Add Task
 
       v-card-text
-        v-row
-          v-col(cols="12" sm="6" md="3" lg="2" xl="1")
+        v-row(v-if="this.$vuetify.breakpoint.smAndUp")
+          v-col(cols="12" sm="8" md="9" lg="10" xl="11")
+            v-row.no-gutters.pa-0.ma-0
+              v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
+                List(
+                  :list="list"
+                  :lists="lists"
+                  :user="user"
+                ).px-2
+          v-col(cols="12" sm="4" md="3" lg="2" xl="1")
             BoardUsers(
               :board="board"
               :boards="boards"
@@ -37,12 +46,24 @@
               :boardUsers="boardUsers"
               :key="boardUsers.length"
             ).pa-0
-          v-col(v-for="list in lists" cols="12" sm="6" md="4" lg="3")
-            List(
-              :list="list"
-              :lists="lists"
+        v-row(v-else)
+          v-col(cols="12" sm="4" md="3" lg="2" xl="1")
+            BoardUsers(
+              :board="board"
+              :boards="boards"
               :user="user"
-            )
+              :users="users"
+              :boardUsers="boardUsers"
+              :key="boardUsers.length"
+            ).pa-0
+          v-col(cols="12" sm="8" md="9" lg="10" xl="11")
+            v-row.no-gutters.pa-0.ma-0
+              v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
+                List(
+                  :list="list"
+                  :lists="lists"
+                  :user="user"
+                ).px-2
 
         // Description
         v-row.pl-3.pt-7
@@ -150,6 +171,9 @@ export default {
   },
 
   computed: {
+    buttonClass () {
+      return this.$vuetify.breakpoint.smAndUp ? 'justify-end pa-0 ma-0' : 'justify-center pt-3 px-0 pb-0'
+    },
     ...mapState({
       board () {
         return this.$store.state.boards.boards.find(board => {
