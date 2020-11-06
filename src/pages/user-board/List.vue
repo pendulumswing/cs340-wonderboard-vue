@@ -105,7 +105,7 @@ export default {
     },
 
     task_users () {
-      return this.$store.state.task_users.filter(taskUser => {
+      return this.$store.state.taskUsers.task_users.filter(taskUser => {
         return taskUser.task === Number(this.$route.params.userId)
       })
     },
