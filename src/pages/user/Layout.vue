@@ -74,7 +74,7 @@ export default {
     },
 
     board_users () {
-      return this.$store.state.board_users.filter(boardUser => {
+      return this.$store.state.boardUsers.board_users.filter(boardUser => {
         return boardUser.user === Number(this.$route.params.userId)
       })
     },

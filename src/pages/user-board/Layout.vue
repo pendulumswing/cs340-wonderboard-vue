@@ -184,7 +184,7 @@ export default {
       },
 
       boardUsers () {
-        return this.$store.state.board_users.filter(boardUser => {
+        return this.$store.state.boardUsers.board_users.filter(boardUser => {
           return boardUser.board === Number(this.$route.params.boardId)
         })
       }

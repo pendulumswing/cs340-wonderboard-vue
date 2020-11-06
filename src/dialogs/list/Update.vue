@@ -89,7 +89,7 @@ export default {
 
   // computed: {
   //   role () {
-  //     return this.$store.state.board_users.find(boardUser => {
+  //     return this.$store.state.boardUsers.board_users.find(boardUser => {
   //       console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
   //       return boardUser.board === this.data.id && boardUser.user === this.data.user
   //     })

@@ -2,17 +2,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import users from './users'
 import boards from './boards'
+import boardUsers from './board_users'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    // boards: [
-    //   { id: 1, name: 'Banana 1', creator: 1, tasks: 5, url: '/users/User/boards/Project', color: 'blue lighten-3' },
-    //   { id: 2, name: 'Banana 2', creator: 1, tasks: 9, url: '/users/User/boards/Project', color: 'orange lighten-3' },
-    //   { id: 3, name: 'Apple 1', creator: 2, tasks: 5, url: '/users/User/boards/Project', color: 'red lighten-3' },
-    //   { id: 4, name: 'Apple 2', creator: 2, tasks: 9, url: '/users/User/boards/Project', color: 'green lighten-3' },
-    // ],
     lists: [
       { id: 1, board: 1, name: 'To Do', index: 1, creator: 1, color: 'red lighten-3' },
       { id: 2, board: 1, name: 'In Process', index: 2, creator: 1, color: 'blue lighten-3' },
@@ -40,12 +35,6 @@ export default new Vuex.Store({
       { id: 10, list: 11, name: 'Vue tutorials', description: 'do some stuff', creator: 2 },
       { id: 11, list: 12, name: 'review project step 2', description: 'do some stuff', creator: 2 },
       { id: 12, list: 12, name: 'connect web app to server', description: 'do some stuff', creator: 2 },
-    ],
-    board_users: [
-      { id: 1, user: 1, board: 1, role: 'admin' },
-      { id: 2, user: 1, board: 2, role: 'designer' },
-      { id: 3, user: 2, board: 3, role: 'admin' },
-      { id: 4, user: 2, board: 4, role: 'observer' },
     ],
     task_users: [
       { id: 1, user: 1, task: 1 },
@@ -78,19 +67,6 @@ export default new Vuex.Store({
       if (index >= 0) {
         state.task_users.splice(index, 1)
       }
-    },
-
-    addBoardUser (state, payload) {
-      state.board_users.push(payload)
-    },
-
-    removeBoardUser (state, payload) {
-      const index = state.board_users.findIndex(item => {
-        return item.board === payload.boardId && item.user === payload.userId
-      })
-      if (index >= 0) {
-        state.board_users.splice(index, 1)
-      }
     }
   },
   actions: {
@@ -98,6 +74,7 @@ export default new Vuex.Store({
   },
   modules: {
     users,
-    boards
+    boards,
+    boardUsers
   }
 })
