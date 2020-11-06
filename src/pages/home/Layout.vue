@@ -11,7 +11,7 @@
         ) Add User
       v-card-text
         v-row
-          v-col(v-for="user in users" cols="6" md="4")
+          v-col(v-for="user in users" cols="12" sm="6" md="4" lg="3")
             router-link(:to="`/users/${user.id}`")
               v-card
                 v-card-title.pb-3

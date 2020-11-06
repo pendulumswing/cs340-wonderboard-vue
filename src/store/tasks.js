@@ -2,6 +2,7 @@ const state = {
   tasks: [
     { id: 1, list: 1, name: 'finish project', description: 'do some stuff', creator: 1 },
     { id: 3, list: 2, name: 'make front end', description: 'do some stuff', creator: 1 },
+    { id: 13, list: 2, name: 'update front end', description: 'do some stuff', creator: 1 },
     { id: 6, list: 3, name: 'ERD diagram', description: 'do some stuff', creator: 1 },
     { id: 2, list: 4, name: 'Flask tutorials', description: 'do some stuff', creator: 1 },
     { id: 4, list: 5, name: 'work on routes', description: 'do some stuff', creator: 1 },
