@@ -174,13 +174,13 @@ export default {
       },
 
       user () {
-        return this.$store.state.users.find(user => {
+        return this.$store.state.users.users.find(user => {
           return user.id === Number(this.$route.params.userId)
         })
       },
 
       users () {
-        return this.$store.state.users
+        return this.$store.state.users.users
       },
 
       boardUsers () {

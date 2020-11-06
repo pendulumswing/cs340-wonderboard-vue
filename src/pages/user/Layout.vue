@@ -68,7 +68,7 @@ export default {
 
   computed: {
     user () {
-      return this.$store.state.users.find(user => {
+      return this.$store.state.users.users.find(user => {
         return user.id === Number(this.$route.params.userId)
       })
     },

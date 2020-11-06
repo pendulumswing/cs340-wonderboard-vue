@@ -108,7 +108,7 @@ export default {
 
   computed: {
     users () {
-      return this.$store.state.users
+      return this.$store.state.users.users
     }
   },
 

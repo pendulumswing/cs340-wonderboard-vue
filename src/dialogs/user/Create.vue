@@ -74,7 +74,7 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.$store.state.users.length + 1,
+        id: this.$store.state.users.users.length + 1,
         username: '',
         first_name: '',
         last_name: '',
