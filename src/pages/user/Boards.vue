@@ -32,7 +32,7 @@ export default {
 
   computed: {
     boards () {
-      return this.$store.state.boards.filter(board => {
+      return this.$store.state.boards.boards.filter(board => {
         return _.find(this.boardUsers, { board: board.id })
       })
     },

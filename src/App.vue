@@ -25,7 +25,7 @@ export default {
     },
 
     boards () {
-      return this.$store.state.boards
+      return this.$store.state.boards.boards
     }
   }
 }

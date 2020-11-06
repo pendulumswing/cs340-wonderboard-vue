@@ -152,13 +152,13 @@ export default {
   computed: {
     ...mapState({
       board () {
-        return this.$store.state.boards.find(board => {
+        return this.$store.state.boards.boards.find(board => {
           return board.id === Number(this.$route.params.boardId)
         })
       },
 
       boards () {
-        return this.$store.state.boards
+        return this.$store.state.boards.boards
       },
 
       lists () {

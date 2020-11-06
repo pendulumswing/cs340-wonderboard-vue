@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import users from './users'
+import boards from './boards'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    boards: [
-      { id: 1, name: 'Banana 1', creator: 1, tasks: 5, url: '/users/User/boards/Project', color: 'blue lighten-3' },
-      { id: 2, name: 'Banana 2', creator: 1, tasks: 9, url: '/users/User/boards/Project', color: 'orange lighten-3' },
-      { id: 3, name: 'Apple 1', creator: 2, tasks: 5, url: '/users/User/boards/Project', color: 'red lighten-3' },
-      { id: 4, name: 'Apple 2', creator: 2, tasks: 9, url: '/users/User/boards/Project', color: 'green lighten-3' },
-    ],
+    // boards: [
+    //   { id: 1, name: 'Banana 1', creator: 1, tasks: 5, url: '/users/User/boards/Project', color: 'blue lighten-3' },
+    //   { id: 2, name: 'Banana 2', creator: 1, tasks: 9, url: '/users/User/boards/Project', color: 'orange lighten-3' },
+    //   { id: 3, name: 'Apple 1', creator: 2, tasks: 5, url: '/users/User/boards/Project', color: 'red lighten-3' },
+    //   { id: 4, name: 'Apple 2', creator: 2, tasks: 9, url: '/users/User/boards/Project', color: 'green lighten-3' },
+    // ],
     lists: [
       { id: 1, board: 1, name: 'To Do', index: 1, creator: 1, color: 'red lighten-3' },
       { id: 2, board: 1, name: 'In Process', index: 2, creator: 1, color: 'blue lighten-3' },
@@ -66,12 +67,37 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
+    addTaskUser (state, payload) {
+      state.task_users.push(payload)
+    },
 
+    removeTaskUser (state, payload) {
+      const index = state.task_users.findIndex(item => {
+        return item.task === payload.taskId && item.user === payload.userId
+      })
+      if (index >= 0) {
+        state.task_users.splice(index, 1)
+      }
+    },
+
+    addBoardUser (state, payload) {
+      state.board_users.push(payload)
+    },
+
+    removeBoardUser (state, payload) {
+      const index = state.board_users.findIndex(item => {
+        return item.board === payload.boardId && item.user === payload.userId
+      })
+      if (index >= 0) {
+        state.board_users.splice(index, 1)
+      }
+    }
   },
   actions: {
 
   },
   modules: {
-    users
+    users,
+    boards
   }
 })

@@ -72,7 +72,7 @@ export default {
       request: undefined,
       form: undefined,
       data: {
-        id: this.$store.state.boards.length + 1,
+        id: this.$store.state.boards.boards.length + 1,
         name: '',
         color: '',
         role: '',
