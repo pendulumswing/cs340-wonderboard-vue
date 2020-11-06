@@ -34,22 +34,22 @@
           )
 
           // color
-          v-text-field(
+          v-select(
             v-model="data.color"
+            :items="colors"
             label="color"
-            :rules="[min1chars, max64chars]"
-            counter="64"
-            required
+            item-value="color"
+            item-text="name"
           )
 
           // role
-          v-text-field(
-            v-model="data.role"
-            label="user role"
-            :rules="[min1chars, max128chars]"
-            counter="128"
-            required
-          )
+            v-text-field(
+              v-model="data.role"
+              label="user role"
+              :rules="[min1chars, max128chars]"
+              counter="128"
+              required
+            )
 
       v-card-actions
         v-spacer
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 import _ from 'lodash'
 
@@ -72,10 +73,10 @@ export default {
       request: undefined,
       form: undefined,
       data: {
-        id: this.$store.state.boards.length + 1,
+        id: this.$store.state.boards.boards.length + 1,
         name: '',
         color: '',
-        role: '',
+        // role: '',
         creator: this.$route.params.userId || undefined
       },
       nameRules: [
@@ -88,6 +89,14 @@ export default {
       max256chars: v => ( v && v.length <= 256) || 'Input too long',
       min1chars: v => ( v && v.length > 0) || 'Input too short'
     }
+  },
+
+  computed: {
+    ...mapState({
+      colors () {
+        return this.$store.state.colors
+      }
+    })
   },
 
   mounted () {

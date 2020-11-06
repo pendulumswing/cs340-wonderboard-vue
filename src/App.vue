@@ -21,11 +21,11 @@ export default {
 
   computed: {
     users () {
-      return this.$store.state.users
+      return this.$store.state.users.users
     },
 
     boards () {
-      return this.$store.state.boards
+      return this.$store.state.boards.boards
     }
   }
 }

@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    v-card(:color="list.color")
+    v-card(:color="list.color" min-height="800").mb-4
       v-card-title.pb-0
         span.title.white--text {{ list.name }}
         v-spacer
@@ -86,32 +86,32 @@ export default {
 
   computed: {
     // boards () {
-    //   return this.$store.state.boards.filter(board => {
+    //   return this.$store.state.boards.boards.filter(board => {
     //     return _.find(this.boardUsers, { board: board.id })
     //   })
     // },
 
     tasks () {
-      return this.$store.state.tasks.filter(task => {
+      return this.$store.state.tasks.tasks.filter(task => {
         return task.list === this.list.id
       })
     },
 
     role () {
-      return this.$store.state.board_users.find(boardUser => {
+      return this.$store.state.boardUsers.boardUsers.find(boardUser => {
         console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
         return boardUser.board === this.data.id && boardUser.user === this.data.user
       })
     },
 
-    task_users () {
-      return this.$store.state.task_users.filter(taskUser => {
+    taskUsers () {
+      return this.$store.state.taskUsers.taskUsers.filter(taskUser => {
         return taskUser.task === Number(this.$route.params.userId)
       })
     },
 
     boards () {
-      return this.$store.state.boards.filter(board => {
+      return this.$store.state.boards.boards.filter(board => {
         return _.find(this.boardUsers, { board: board.id })
       })
     },

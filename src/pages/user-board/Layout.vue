@@ -13,22 +13,31 @@
         v-spacer
 
         // Add List Button
-        v-btn(
-          color="grey white--text"
-          tile
-          @click="showCreateListDialog=true"
-        ).mr-3 Add List
+        v-col(cols="12" sm="3" :class="buttonClass").d-flex.pa-0
+          v-btn(
+            color="grey white--text"
+            tile
+            @click="showCreateListDialog=true"
+          ).mr-3 Add List
 
-        // Add Task Button
-        v-btn(
-          color="grey white--text"
-          tile
-          @click="showCreateTaskDialog=true"
-        ) Add Task
+          // Add Task Button
+          v-btn(
+            color="grey white--text"
+            tile
+            @click="showCreateTaskDialog=true"
+          ) Add Task
 
       v-card-text
-        v-row
-          v-col(cols="12" sm="6" md="3" lg="2" xl="1")
+        v-row(v-if="this.$vuetify.breakpoint.smAndUp")
+          v-col(cols="12" sm="8" md="9" lg="10" xl="11")
+            v-row.no-gutters.pa-0.ma-0
+              v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
+                List(
+                  :list="list"
+                  :lists="lists"
+                  :user="user"
+                ).px-2
+          v-col(cols="12" sm="4" md="3" lg="2" xl="1")
             BoardUsers(
               :board="board"
               :boards="boards"
@@ -37,12 +46,24 @@
               :boardUsers="boardUsers"
               :key="boardUsers.length"
             ).pa-0
-          v-col(v-for="list in lists" cols="12" sm="6" md="4" lg="3")
-            List(
-              :list="list"
-              :lists="lists"
+        v-row(v-else)
+          v-col(cols="12" sm="4" md="3" lg="2" xl="1")
+            BoardUsers(
+              :board="board"
+              :boards="boards"
               :user="user"
-            )
+              :users="users"
+              :boardUsers="boardUsers"
+              :key="boardUsers.length"
+            ).pa-0
+          v-col(cols="12" sm="8" md="9" lg="10" xl="11")
+            v-row.no-gutters.pa-0.ma-0
+              v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
+                List(
+                  :list="list"
+                  :lists="lists"
+                  :user="user"
+                ).px-2
 
         // Description
         v-row.pl-3.pt-7
@@ -79,13 +100,13 @@
               li.text-justify.
                 A task can also be deleted with the delete icon. There is no warning for this action. (DELETE).
 
-          // task_users
+          // taskUsers
           div.pt-3.text-start
             div
-              span.text-start.subtitle-1 task_users
+              span.text-start.subtitle-1 taskUsers
             div
               span.subtitle-2 M-to-M relationship table.
-              span  task_users is used to join tasks and users tables.
+              span  taskUsers is used to join tasks and users tables.
             ul
               li.text-justify.
                 A new task_user can be created with the 'add user' button on the task tile.
@@ -93,13 +114,13 @@
               li.text-justify.
                 A task_user can be deleted with the delete icon next to the name. There is no warning for this action. (DELETE).
 
-          // board_users
+          // boardUsers
           div.pt-3.text-start
             div
-              span.text-start.subtitle-1 board_users
+              span.text-start.subtitle-1 boardUsers
             div
               span.subtitle-2 M-to-M relationship table.
-              span  board_users is used to join boards and users tables.
+              span  boardUsers is used to join boards and users tables.
             ul
               li.text-justify.
                 A new board_user can be created with the 'add member' button at the top of the board (CREATE).
@@ -150,41 +171,44 @@ export default {
   },
 
   computed: {
+    buttonClass () {
+      return this.$vuetify.breakpoint.smAndUp ? 'justify-end pa-0 ma-0' : 'justify-center pt-3 px-0 pb-0'
+    },
     ...mapState({
       board () {
-        return this.$store.state.boards.find(board => {
+        return this.$store.state.boards.boards.find(board => {
           return board.id === Number(this.$route.params.boardId)
         })
       },
 
       boards () {
-        return this.$store.state.boards
+        return this.$store.state.boards.boards
       },
 
       lists () {
-        return this.$store.state.lists.filter(list => {
+        return this.$store.state.lists.lists.filter(list => {
           return list.board === Number(this.$route.params.boardId)
         })
       },
 
       tasks () {
-        return this.$store.state.tasks.filter(task => {
+        return this.$store.state.tasks.tasks.filter(task => {
           return task.board === Number(this.$route.params.boardId)
         })
       },
 
       user () {
-        return this.$store.state.users.find(user => {
+        return this.$store.state.users.users.find(user => {
           return user.id === Number(this.$route.params.userId)
         })
       },
 
       users () {
-        return this.$store.state.users
+        return this.$store.state.users.users
       },
 
       boardUsers () {
-        return this.$store.state.board_users.filter(boardUser => {
+        return this.$store.state.boardUsers.boardUsers.filter(boardUser => {
           return boardUser.board === Number(this.$route.params.boardId)
         })
       }

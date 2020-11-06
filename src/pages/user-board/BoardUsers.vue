@@ -77,13 +77,13 @@ export default {
   computed: {
     ...mapState({
       assignedUsers () {
-        return this.$store.state.users.filter(user => {
+        return this.$store.state.users.users.filter(user => {
           return _.find(this.boardUsers, { user: user.id })
         })
       },
 
       unassignedUsers () {
-        return this.$store.state.users.filter(user => {
+        return this.$store.state.users.users.filter(user => {
           return _.find(this.boardUsers, { user: user.id }) === undefined
         })
       }
@@ -92,7 +92,7 @@ export default {
 
   methods: {
     onAddUser (user) {
-      const id = this.$store.state.board_users.length + 1
+      const id = this.$store.state.boardUsers.boardUsers.length + 1
       const payload = { id: id, board: this.board.id, user: user.id }
       this.$store.commit('addBoardUser', payload)
     },

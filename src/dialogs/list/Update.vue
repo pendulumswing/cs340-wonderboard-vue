@@ -39,13 +39,14 @@
           )
 
           // color
-          v-text-field(
+          v-select(
             v-model="data.color"
+            :items="colors"
             label="color"
-            :rules="[min1chars, max64chars]"
-            counter="64"
-            required
+            item-value="color"
+            item-text="name"
           )
+
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -53,6 +54,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 
 export default {
@@ -87,14 +89,13 @@ export default {
     }
   },
 
-  // computed: {
-  //   role () {
-  //     return this.$store.state.board_users.find(boardUser => {
-  //       console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
-  //       return boardUser.board === this.data.id && boardUser.user === this.data.user
-  //     })
-  //   },
-  // },
+  computed: {
+    ...mapState({
+      colors () {
+        return this.$store.state.colors
+      }
+    })
+  },
 
   methods: {
     // getRequest (request) {

@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     v-row
-      v-col(v-for="board in boards" cols="6" md="4" lg="3")
+      v-col(v-for="board in boards" cols="12" sm="6" md="4" lg="3")
         Board(
           :user="user"
           :board="board"
@@ -32,7 +32,7 @@ export default {
 
   computed: {
     boards () {
-      return this.$store.state.boards.filter(board => {
+      return this.$store.state.boards.boards.filter(board => {
         return _.find(this.boardUsers, { board: board.id })
       })
     },
