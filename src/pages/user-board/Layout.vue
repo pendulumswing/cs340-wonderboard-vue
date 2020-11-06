@@ -168,7 +168,7 @@ export default {
       },
 
       tasks () {
-        return this.$store.state.tasks.filter(task => {
+        return this.$store.state.tasks.tasks.filter(task => {
           return task.board === Number(this.$route.params.boardId)
         })
       },

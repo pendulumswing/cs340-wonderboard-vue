@@ -78,7 +78,7 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.$store.state.tasks.length + 1,
+        id: this.$store.state.tasks.tasks.length + 1,
         list: Object,
         name: '',
         description: '',
