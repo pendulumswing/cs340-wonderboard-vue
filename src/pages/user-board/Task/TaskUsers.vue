@@ -20,7 +20,7 @@
                 small
                 depressed
                 icon
-                @click.stop.prevent="deleteTask()"
+                @click.once="onSubmitDelete"
               )
                 v-icon(small) mdi-delete
 
@@ -120,11 +120,10 @@
             )
               v-icon(style="transform:rotate(90deg)") mdi-triangle
 
-
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import EditTaskButton from './EditTaskButton'
 import _ from 'lodash'
 
@@ -165,7 +164,7 @@ export default {
   data () {
     return {
       showDeleteBoardDialog: false,
-      showUpdateBoardDialog: false,
+      showUpdateBoardDialog: false
     }
   },
 
@@ -192,6 +191,10 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'deleteTask'
+    ]),
+
     moveRight () {
       if (this.hasListRight()) {
         const newList = this.lists.find(list => {
@@ -221,20 +224,21 @@ export default {
     onAddUser (user) {
       const id = this.$store.state.taskUsers.taskUsers.length + 1
       const payload = { id: id, task: this.task.id, user: user.id }
-      this.$store.commit('addTaskUser', payload)
+      this.$store.commit('createTaskUser', payload)
     },
 
     onRemoveUser (user) {
       const taskId = this.task.id
       const userId = user.id
       const payload = { taskId, userId }
-      this.$store.commit('removeTaskUser', payload)
+      this.$store.commit('deleteTaskUser', payload)
     },
 
-    deleteTask () {
+    onSubmitDelete () {
       // TODO - make call to delete user here
+      this.deleteTask(this.task)
       console.log('DELETE task submitted')
-    },
+    }
   }
 }
 </script>

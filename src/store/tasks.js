@@ -12,8 +12,8 @@ const state = {
     { id: 9, list: 8, name: 'submit project step 3', description: 'do some stuff', creator: 2 },
     { id: 10, list: 11, name: 'Vue tutorials', description: 'do some stuff', creator: 2 },
     { id: 11, list: 12, name: 'review project step 2', description: 'do some stuff', creator: 2 },
-    { id: 12, list: 12, name: 'connect web app to server', description: 'do some stuff', creator: 2 },
-  ],
+    { id: 12, list: 12, name: 'connect web app to server', description: 'do some stuff', creator: 2 }
+  ]
 }
 
 const getters = {
@@ -21,11 +21,76 @@ const getters = {
 }
 
 const mutations = {
+  createTask: (state, payload) => {
+    state.tasks.push(payload)
+  },
 
+  deleteTask: (state, payload) => {
+    const index = state.tasks.findIndex(task => {
+      return task.id === payload.id
+    })
+    if (index >= 0) {
+      state.tasks.splice(index, 1)
+    }
+  },
+  updateTask: (state, payload) => {
+    const index = state.tasks.findIndex(task => {
+      return task.id === payload.id
+    })
+    if (index >= 0) {
+      state.tasks.splice(index, 1, payload)
+    }
+  },
+  getTasks: (state, payload) => {
+    this.state.tasks = payload
+  }
 }
 
 const actions = {
+  createTask: (context, payload) => {
+    // TODO - set up async call to server,
+    //  add to DB, on success commit to store
+    // Commit
+    context.commit('createTask', payload)
+    // Create Payload for taskUser
+    const taskUsersLength = context.getters.getTaskUsersLength + 1
+    const taskUserPayload = {
+      id: taskUsersLength,
+      user: Number(payload.creator),
+      task: Number(payload.id)
+    }
+    context.dispatch('createTaskUser', taskUserPayload)
 
+    // TODO - this might be hangled by the server whenever a task is created
+    // Create Payload for taskUser
+    // context.dispatch('createTaskUser', taskUserPayload)
+
+    // TODO - this might be hangled by the server whenever a task is created
+    // Create Default Tasks for Task
+  },
+
+  deleteTask: (context, payload) => {
+    // TODO - set up async call to server,
+    //  add to DB, on success commit to store
+    // Payload includes task and TaskUser
+    console.log('delete task action called')
+    context.commit('deleteTask', payload)
+
+    // TODO - this might be handled by the server CASCADE whenever a task is delete
+    // Delete TaskUsers
+    console.log('delete taskUser action called')
+    context.dispatch('deleteAllTaskUsers', payload)
+  },
+  updateTask: (context, payload) => {
+    // TODO - set up async call to server,
+    //  add to DB, on success commit to store
+    context.commit('updateTask', payload)
+  },
+  getTasks: (context, payload) => {
+    // TODO - set up async call to server,
+    //  retrieve from DB, on success commit to store
+    context.commit('getTasks', payload)
+  }
 }
 
 export default {

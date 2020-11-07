@@ -60,6 +60,7 @@
 
 <script>
 import DialogMixin from '../../mixins/DialogMixin'
+import { mapActions } from 'vuex'
 
 export default {
   mixins: [
@@ -82,18 +83,18 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.task.id || '',
-        list: this.task.list || '',
+        id: Number(this.task.id) || '',
+        list: Number(this.task.list) || '',
         name: this.task.name || '',
         description: this.task.description || '',
-        creator: this.task.creator
+        creator: Number(this.task.creator)
       },
       max32chars: v => (v && v.length <= 32) || 'Input too long',
       max64chars: v => (v && v.length <= 64) || 'Input too long',
       max128chars: v => (v && v.length <= 128) || 'Input too long',
       max256chars: v => (v && v.length <= 256) || 'Input too long',
       max4096chars: v => (v.length <= 4096) || 'Input too long',
-      min1chars: v => (v && v.length > 0) || 'Input too short',
+      min1chars: v => (v && v.length > 0) || 'Input too short'
     }
   },
 
@@ -103,15 +104,21 @@ export default {
     //     cid: request.cid
     //   })
     // },
+
+    ...mapActions([
+      'updateTask'
+    ]),
+
     onSubmit () {
       const valid = this.$refs.form.validate()
 
       if (valid) {
         // TODO - make call to delete user here
+        this.updateTask(this.data)
         console.log('UPDATE user submitted')
         this.onClose()
       }
-    },
+    }
   }
 }
 </script>

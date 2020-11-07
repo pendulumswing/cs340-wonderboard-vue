@@ -60,6 +60,7 @@
 
 <script>
 import DialogMixin from '../../mixins/DialogMixin'
+import { mapActions } from 'vuex'
 
 export default {
   mixins: [
@@ -82,7 +83,7 @@ export default {
         list: Object,
         name: '',
         description: '',
-        creator: this.$route.params.userId
+        creator: Number(this.$route.params.userId)
       },
       max32chars: v => (v && v.length <= 32) || 'Input too long',
       max64chars: v => (v && v.length <= 64) || 'Input too long',
@@ -121,26 +122,20 @@ export default {
   },
 
   methods: {
-    // getRequest (request) {
-    //   return this.$useConnect('user.byCid', {
-    //     cid: request.cid
-    //   })
-    // },
-    onClose () {
-      this.show = false
-      setTimeout(() => {
-        this.$emit('close')
-      }, 300)
-    },
+    ...mapActions([
+      'createTask'
+    ]),
+
     onSubmit () {
       const valid = this.$refs.form.validate()
 
       if (valid) {
         // TODO - make call to delete user here
+        this.createTask(this.data)
         console.log('CREATE task submitted')
         this.onClose()
       }
-    },
+    }
   }
 }
 </script>
