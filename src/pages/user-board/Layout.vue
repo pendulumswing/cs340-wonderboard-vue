@@ -188,15 +188,9 @@ export default {
         return this.$store.state.boards.boards
       },
 
-      // lists () {
-      //   return this.$store.state.lists.lists.filter(list => {
-      //     return list.board === Number(this.$route.params.boardId)
-      //   })
-      // },
-
       lists () {
         return this.$store.state.lists.lists.filter(list => {
-          return list.board === 5
+          return list.board === Number(this.$route.params.boardId)
         })
       },
 
