@@ -62,6 +62,7 @@
 
 <script>
 import DialogMixin from '../../mixins/DialogMixin'
+import { mapAction, mapActions } from 'vuex'
 
 export default {
   mixins: [
@@ -106,11 +107,15 @@ export default {
     //     cid: request.cid
     //   })
     // },
+    ...mapActions([
+      'updateUser'
+    ]),
+
     onSubmit () {
       const valid = this.$refs.form.validate()
 
       if (valid) {
-        // TODO - make call to delete user here
+        this.updateUser(this.data)
         console.log('UPDATE user submitted')
         this.onClose()
       }

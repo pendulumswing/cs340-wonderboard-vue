@@ -63,6 +63,7 @@
 
 <script>
 import DialogMixin from '../../mixins/DialogMixin'
+import { mapActions } from 'vuex'
 
 export default {
   mixins: [
@@ -94,6 +95,9 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'createUser'
+    ]),
     // getRequest (request) {
     //   return this.$useConnect('user.byCid', {
     //     cid: request.cid
@@ -104,6 +108,7 @@ export default {
 
       if (valid) {
         // TODO - make call to delete user here
+        this.createUser(this.data)
         console.log('CREATE user submitted')
         this.onClose()
       }

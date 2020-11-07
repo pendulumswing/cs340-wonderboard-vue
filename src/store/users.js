@@ -10,11 +10,44 @@ const getters = {
 }
 
 const mutations = {
+  createUser: (state, payload) => {
+    state.users.push(payload)
+  },
 
+  deleteUser: (state, payload) => {
+    const index = state.users.findIndex(user => {
+      return user.id === payload.id
+    })
+    if (index >= 0) {
+      state.users.splice(index, 1)
+    }
+  },
+  updateUser: (state, payload) => {
+    const index = state.users.findIndex(user => {
+      return user.id === payload.id
+    })
+    if (index >= 0) {
+      state.users.splice(index, 1, payload)
+    }
+  },
 }
 
 const actions = {
-
+  createUser: (context, payload) => {
+    // TODO - set up async call to server,
+    //  add to DB, on success commit to store
+    context.commit('createUser', payload)
+  },
+  deleteUser: (context, payload) => {
+    // TODO - set up async call to server,
+    //  add to DB, on success commit to store
+    context.commit('deleteUser', payload)
+  },
+  updateUser: (context, payload) => {
+    // TODO - set up async call to server,
+    //  add to DB, on success commit to store
+    context.commit('updateUser', payload)
+  }
 }
 
 export default {

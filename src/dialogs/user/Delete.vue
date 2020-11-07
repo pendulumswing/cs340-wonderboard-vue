@@ -28,7 +28,7 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 
 export default {
@@ -84,9 +84,14 @@ export default {
   // },
 
   methods: {
+    ...mapActions([
+      'deleteUser'
+    ]),
+
     onSubmit () {
       // TODO - make call to delete user here
       console.log('DELETE user submitted')
+      this.deleteUser(this.user)
       this.onClose()
     },
   }
