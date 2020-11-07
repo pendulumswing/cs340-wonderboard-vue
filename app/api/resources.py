@@ -13,6 +13,8 @@ from . import api_rest
 
 #Database initialization
 # DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASE_URL = os.getenv("PW_DATABASE_URL")
+# DATABASE_URL = os.getenv("JB_DATABASE_URL")
 # conn = psycopg2.connect(DATABASE_URL)
 # cur = conn.cursor()
 
