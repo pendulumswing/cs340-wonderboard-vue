@@ -6,6 +6,7 @@ import boardUsers from './boardUsers'
 import lists from './lists'
 import tasks from './tasks'
 import taskUsers from './taskUsers'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -37,5 +38,6 @@ export default new Vuex.Store({
     lists,
     tasks,
     taskUsers
-  }
+  },
+  plugins: [createPersistedState()]
 })
