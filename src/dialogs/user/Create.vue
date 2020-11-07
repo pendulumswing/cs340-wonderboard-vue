@@ -84,13 +84,13 @@ export default {
       },
       emailRules: [
         v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
       ],
-      max32chars: v => ( v && v.length <= 32) || 'Input too long',
-      max64chars: v => ( v && v.length <= 64) || 'Input too long',
-      max128chars: v => ( v && v.length <= 128) || 'Input too long',
-      max256chars: v => ( v && v.length <= 256) || 'Input too long',
-      min1chars: v => ( v && v.length > 0) || 'Input too short'
+      max32chars: v => (v && v.length <= 32) || 'Input too long',
+      max64chars: v => (v && v.length <= 64) || 'Input too long',
+      max128chars: v => (v && v.length <= 128) || 'Input too long',
+      max256chars: v => (v && v.length <= 256) || 'Input too long',
+      min1chars: v => (v && v.length > 0) || 'Input too short'
     }
   },
 
@@ -98,11 +98,7 @@ export default {
     ...mapActions([
       'createUser'
     ]),
-    // getRequest (request) {
-    //   return this.$useConnect('user.byCid', {
-    //     cid: request.cid
-    //   })
-    // },
+
     onSubmit () {
       const valid = this.$refs.form.validate()
 
@@ -112,7 +108,7 @@ export default {
         console.log('CREATE user submitted')
         this.onClose()
       }
-    },
+    }
   }
 }
 </script>

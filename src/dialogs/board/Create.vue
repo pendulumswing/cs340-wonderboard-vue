@@ -58,9 +58,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
-import _ from 'lodash'
+import { mapState, mapActions } from 'vuex'
+// import _ from 'lodash'
 
 export default {
   mixins: [
@@ -75,19 +75,18 @@ export default {
       data: {
         id: this.$store.state.boards.boards.length + 1,
         name: '',
-        color: '',
-        // role: '',
-        creator: this.$route.params.userId || undefined
+        creator: this.$route.params.userId || undefined,
+        color: ''
       },
       nameRules: [
         v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
-      max32chars: v => ( v && v.length <= 32) || 'Input too long',
-      max64chars: v => ( v && v.length <= 64) || 'Input too long',
-      max128chars: v => ( v && v.length <= 128) || 'Input too long',
-      max256chars: v => ( v && v.length <= 256) || 'Input too long',
-      min1chars: v => ( v && v.length > 0) || 'Input too short'
+      max32chars: v => (v && v.length <= 32) || 'Input too long',
+      max64chars: v => (v && v.length <= 64) || 'Input too long',
+      max128chars: v => (v && v.length <= 128) || 'Input too long',
+      max256chars: v => (v && v.length <= 256) || 'Input too long',
+      min1chars: v => (v && v.length > 0) || 'Input too short'
     }
   },
 
@@ -101,24 +100,23 @@ export default {
 
   mounted () {
     this.form = this.$refs.form
-    // console.log('form: ', _.isEmpty(this.form))
   },
 
   methods: {
-    // getRequest (request) {
-    //   return this.$useConnect('user.byCid', {
-    //     cid: request.cid
-    //   })
-    // },
+    ...mapActions([
+      'createBoard'
+    ]),
+
     onSubmit () {
       const valid = this.$refs.form.validate()
 
       if (valid) {
         // TODO - make call to delete user here
+        this.createBoard(this.data)
         console.log('CREATE board submitted')
         this.onClose()
       }
-    },
+    }
   }
 }
 </script>

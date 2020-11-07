@@ -57,9 +57,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
-import _ from 'lodash'
+// import _ from 'lodash'
 
 export default {
   mixins: [
@@ -88,13 +88,13 @@ export default {
       // SOURCE: https://vuetifyjs.com/en/components/forms/#misc
       emailRules: [
         v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
       ],
-      max32chars: v => ( v && v.length <= 32) || 'Input too long',
-      max64chars: v => ( v && v.length <= 64) || 'Input too long',
-      max128chars: v => ( v && v.length <= 128) || 'Input too long',
-      max256chars: v => ( v && v.length <= 256) || 'Input too long',
-      min1chars: v => ( v && v.length > 0) || 'Input too short'
+      max32chars: v => (v && v.length <= 32) || 'Input too long',
+      max64chars: v => (v && v.length <= 64) || 'Input too long',
+      max128chars: v => (v && v.length <= 128) || 'Input too long',
+      max256chars: v => (v && v.length <= 256) || 'Input too long',
+      min1chars: v => (v && v.length > 0) || 'Input too short'
     }
   },
 
@@ -103,30 +103,24 @@ export default {
       colors () {
         return this.$store.state.colors
       }
-    //   boardUser () {
-    //     return _.filter(this.$store.state.boardUsers.boardUsers, (item) => {
-    //       // console.log('boardUser ID: ', item.id, ' boardBU: ', item.board, ' board: ', this.data.id, ' userBU: ', item.user, ' user: ', this.data.creator)
-    //       return item.board === this.data.id && item.user === this.data.creator
-    //     })
-    //   }
     })
   },
 
   methods: {
-    // getRequest (request) {
-    //   return this.$useConnect('user.byCid', {
-    //     cid: request.cid
-    //   })
-    // },
+    ...mapActions([
+      'updateBoard'
+    ]),
+
     onSubmit () {
       const valid = this.$refs.form.validate()
 
       if (valid) {
         // TODO - make call to delete user here
         console.log('UPDATE user submitted')
+        this.updateBoard(this.data)
         this.onClose()
       }
-    },
+    }
   }
 }
 </script>

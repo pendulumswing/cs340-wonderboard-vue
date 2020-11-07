@@ -1,7 +1,7 @@
 const state = {
   users: [
     { id: 1, username: 'jb', first_name: 'Jason', last_name: 'Brown', email: 'jb@email.com', password: 'password' },
-    { id: 2, username: 'pw', first_name: 'Peter', last_name: 'Wright', email: 'pw@email.com', password: 'password' },
+    { id: 2, username: 'pw', first_name: 'Peter', last_name: 'Wright', email: 'pw@email.com', password: 'password' }
   ]
 }
 
@@ -30,6 +30,9 @@ const mutations = {
       state.users.splice(index, 1, payload)
     }
   },
+  getUsers: (state, payload) => {
+    this.state.users = payload
+  }
 }
 
 const actions = {
@@ -47,6 +50,11 @@ const actions = {
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     context.commit('updateUser', payload)
+  },
+  getUsers: (context, payload) => {
+    // TODO - set up async call to server,
+    //  retrieve from DB, on success commit to store
+    context.commit('getUsers', payload)
   }
 }
 

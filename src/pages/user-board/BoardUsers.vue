@@ -70,7 +70,7 @@ export default {
   data () {
     return {
       showDeleteBoardDialog: false,
-      showUpdateBoardDialog: false,
+      showUpdateBoardDialog: false
     }
   },
 
@@ -94,14 +94,14 @@ export default {
     onAddUser (user) {
       const id = this.$store.state.boardUsers.boardUsers.length + 1
       const payload = { id: id, board: this.board.id, user: user.id }
-      this.$store.commit('addBoardUser', payload)
+      this.$store.commit('createBoardUser', payload)
     },
 
     onRemoveUser (user) {
       const boardId = this.board.id
       const userId = user.id
       const payload = { boardId, userId }
-      this.$store.commit('removeBoardUser', payload)
+      this.$store.commit('deleteBoardUser', payload)
     }
   }
 }

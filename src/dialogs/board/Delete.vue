@@ -29,6 +29,7 @@
 
 <script>
 // import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 
 export default {
@@ -84,11 +85,16 @@ export default {
   // },
 
   methods: {
+    ...mapActions([
+      'deleteBoard'
+    ]),
+
     onSubmit () {
       // TODO - make call to delete user here
       console.log('DELETE board submitted')
+      this.deleteBoard(this.board)
       this.onClose()
-    },
+    }
   }
 }
 </script>

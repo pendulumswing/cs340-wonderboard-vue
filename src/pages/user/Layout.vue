@@ -17,6 +17,10 @@
           @click="showCreateBoardDialog=true"
         ) Add Board
       v-card-text
+        // Debug
+          div
+          p boardUsers: {{ boardUsers }}
+          p length: {{ boardUsers.length }}
 
         // Board Array
         Boards(
@@ -62,7 +66,7 @@ export default {
 
   data () {
     return {
-      showCreateBoardDialog: false,
+      showCreateBoardDialog: false
     }
   },
 
@@ -77,7 +81,7 @@ export default {
       return this.$store.state.boardUsers.boardUsers.filter(boardUser => {
         return boardUser.user === Number(this.$route.params.userId)
       })
-    },
+    }
   }
 }
 </script>
