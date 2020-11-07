@@ -75,7 +75,7 @@ export default {
       data: {
         id: this.$store.state.boards.boards.length + 1,
         name: '',
-        creator: this.$route.params.userId || undefined,
+        creator: Number(this.$route.params.userId) || undefined,
         color: ''
       },
       nameRules: [

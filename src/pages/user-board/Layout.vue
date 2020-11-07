@@ -12,6 +12,10 @@
           span.grey--text.text--darken-2 {{ board.name }}
         v-spacer
 
+        //Debug
+          p lists: {{ lists }}
+          p state.lists {{ $store.state.lists.lists }}
+
         // Add List Button
         v-col(cols="12" sm="3" :class="buttonClass").d-flex.pa-0
           v-btn(
@@ -150,7 +154,6 @@ import CreateListDialog from '@/dialogs/list/Create'
 import CreateTaskDialog from '@/dialogs/task/Create'
 import List from './List'
 import BoardUsers from './BoardUsers'
-import _ from 'lodash'
 
 export default {
   name: 'home',
@@ -185,9 +188,15 @@ export default {
         return this.$store.state.boards.boards
       },
 
+      // lists () {
+      //   return this.$store.state.lists.lists.filter(list => {
+      //     return list.board === Number(this.$route.params.boardId)
+      //   })
+      // },
+
       lists () {
         return this.$store.state.lists.lists.filter(list => {
-          return list.board === Number(this.$route.params.boardId)
+          return list.board === 5
         })
       },
 

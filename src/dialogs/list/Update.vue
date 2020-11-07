@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 
 export default {
@@ -74,18 +74,18 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.list.id || '',
-        board: this.list.board || '',
-        index: this.list.index || '',
+        id: Number(this.list.id) || '',
+        board: Number(this.list.board) || '',
+        index: Number(this.list.index) || '',
         name: this.list.name || '',
-        color: this.list.color || '',
+        color: this.list.color || ''
         // creator: this.$route.params.userId || undefined
       },
-      max32chars: v => ( v && v.length <= 32) || 'Input too long',
-      max64chars: v => ( v && v.length <= 64) || 'Input too long',
-      max128chars: v => ( v && v.length <= 128) || 'Input too long',
-      max256chars: v => ( v && v.length <= 256) || 'Input too long',
-      min1chars: v => ( v && v.length > 0) || 'Input too short'
+      max32chars: v => (v && v.length <= 32) || 'Input too long',
+      max64chars: v => (v && v.length <= 64) || 'Input too long',
+      max128chars: v => (v && v.length <= 128) || 'Input too long',
+      max256chars: v => (v && v.length <= 256) || 'Input too long',
+      min1chars: v => (v && v.length > 0) || 'Input too short'
     }
   },
 
@@ -103,15 +103,20 @@ export default {
     //     cid: request.cid
     //   })
     // },
+    ...mapActions([
+      'updateList'
+    ]),
+
     onSubmit () {
       const valid = this.$refs.form.validate()
 
       if (valid) {
         // TODO - make call to delete user here
+        this.updateList(this.data)
         console.log('UPDATE user submitted')
         this.onClose()
       }
-    },
+    }
   }
 }
 </script>

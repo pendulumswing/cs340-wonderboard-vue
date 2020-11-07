@@ -64,7 +64,7 @@ const actions = {
     //  add to DB, on success commit to store
     context.commit('deleteBoard', payload)
 
-    // TODO - this might be hangled by the server CASCADE whenever a board is delete
+    // TODO - this might be handled by the server CASCADE whenever a board is delete
     // Delete BoardUser
     const boardUserPayload = {
       board: Number(payload.id)
