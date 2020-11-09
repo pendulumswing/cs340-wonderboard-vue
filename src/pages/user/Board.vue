@@ -7,10 +7,10 @@
           v-spacer
 
           // Edit User
-          EditBoardButton(:board="board").pr-2
+          EditBoardButton(:user="user" :board="board").pr-2
 
           // Delete User
-          DeleteBoardButton(:board="board")
+          DeleteBoardButton(:user="user" :board="board")
 
         v-card-text.text-start.white--text
           v-row.no-gutters.flex-nowrap
@@ -51,7 +51,7 @@ export default {
   data () {
     return {
       showDeleteBoardDialog: false,
-      showUpdateBoardDialog: false,
+      showUpdateBoardDialog: false
     }
   },
 
