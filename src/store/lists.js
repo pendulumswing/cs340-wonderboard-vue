@@ -1,4 +1,5 @@
 const state = {
+  id: 12,
   lists: [
     { id: 1, board: 1, name: 'To Do', index: 1, creator: 1, color: 'red lighten-3' },
     { id: 2, board: 1, name: 'In Process', index: 2, creator: 1, color: 'blue lighten-3' },
@@ -16,12 +17,14 @@ const state = {
 }
 
 const getters = {
-
+  getId () {
+    return state.id
+  }
 }
 
 const mutations = {
   createList: (state, payload) => {
-    console.log('pushing data to list state: ', payload)
+    // console.log('pushing data to list state: ', payload)
     state.lists.push(payload)
   },
 
@@ -41,13 +44,33 @@ const mutations = {
       state.lists.splice(index, 1, payload)
     }
   },
+
   getLists: (state, payload) => {
     this.state.lists = payload
+  },
+
+  updateId (state, payload) {
+    state.id += 1
+  },
+
+  decrementIndex (state, payload) {
+    const index = state.lists.findIndex(list => {
+      return list.id === payload.id
+    })
+    if (index >= 0) {
+      if (state.lists[index].index > 1) {
+        state.lists[index].index -= 1
+      }
+    }
   }
 }
 
 const actions = {
   createList: (context, payload) => {
+    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
+    context.commit('updateId')
+    payload.id = state.id
+
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     // Commit
@@ -67,7 +90,17 @@ const actions = {
     // Create Default Lists for List
   },
 
+  // TODO - REMAINING LIST INDICES MUST UPDATE
   deleteList: (context, payload) => {
+    const lists = state.lists.filter(list => {
+      return list.board === payload.board && list.index > payload.index
+    })
+
+    // Update indices for each list not to be deleted
+    lists.forEach(list => {
+      context.commit('decrementIndex', list)
+    })
+
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     context.commit('deleteList', payload)
