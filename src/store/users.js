@@ -1,4 +1,5 @@
 const state = {
+  id: 2,
   users: [
     { id: 1, username: 'jb', first_name: 'Jason', last_name: 'Brown', email: 'jb@email.com', password: 'password' },
     { id: 2, username: 'pw', first_name: 'Peter', last_name: 'Wright', email: 'pw@email.com', password: 'password' }
@@ -6,7 +7,9 @@ const state = {
 }
 
 const getters = {
-
+  getUserAutoId () {
+    return state.id
+  }
 }
 
 const mutations = {
@@ -32,11 +35,19 @@ const mutations = {
   },
   getUsers: (state, payload) => {
     this.state.users = payload
+  },
+
+  updateUserAutoId (state, payload) {
+    state.id += 1
   }
 }
 
 const actions = {
   createUser: (context, payload) => {
+    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
+    context.commit('updateUserAutoId')
+    payload.id = state.id
+
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     context.commit('createUser', payload)

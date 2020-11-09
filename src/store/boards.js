@@ -1,4 +1,5 @@
 const state = {
+  id: 4,
   boards: [
     { id: 1, name: 'Banana 1', creator: 1, color: 'blue lighten-3' },
     { id: 2, name: 'Banana 2', creator: 1, color: 'orange lighten-3' },
@@ -8,7 +9,9 @@ const state = {
 }
 
 const getters = {
-
+  getBoardAutoId () {
+    return state.id
+  }
 }
 
 const mutations = {
@@ -35,11 +38,19 @@ const mutations = {
   },
   getBoards: (state, payload) => {
     this.state.boards = payload
+  },
+
+  updateBoardAutoId (state, payload) {
+    state.id += 1
   }
 }
 
 const actions = {
   createBoard: (context, payload) => {
+    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
+    context.commit('updateBoardAutoId')
+    payload.id = state.id
+
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     // Commit
@@ -47,9 +58,9 @@ const actions = {
 
     // TODO - this might be hangled by the server whenever a board is created
     // Create Payload for boardUser
-    const boardUsersLength = context.getters.getBoardUsersLength + 1
+    // const boardUsersLength = context.getters.getBoardUsersLength + 1
     const boardUserPayload = {
-      id: boardUsersLength,
+      // id: boardUsersLength,
       user: Number(payload.creator),
       board: Number(payload.id)
     }

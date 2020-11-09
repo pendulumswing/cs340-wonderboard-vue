@@ -1,4 +1,5 @@
 const state = {
+  id: 4,
   boardUsers: [
     { id: 1, user: 1, board: 1 },
     { id: 2, user: 1, board: 2 },
@@ -10,6 +11,10 @@ const state = {
 const getters = {
   getBoardUsersLength () {
     return state.boardUsers.length
+  },
+
+  getBoardAutoId () {
+    return state.id
   }
 }
 
@@ -32,11 +37,19 @@ const mutations = {
       return boardUser.board !== Number(payload.board)
     })
     state.boardUsers = test
+  },
+
+  updateBoardUsersAutoId (state, payload) {
+    state.id += 1
   }
 }
 
 const actions = {
   createBoardUser: (context, payload) => {
+    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
+    context.commit('updateBoardUsersAutoId')
+    payload.id = state.id
+
     context.commit('createBoardUser', payload)
     console.log('createBoardUser from action: ', payload)
   },
