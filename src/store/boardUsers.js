@@ -13,7 +13,7 @@ const getters = {
     return state.boardUsers.length
   },
 
-  getBoardAutoId () {
+  getBoardUsersAutoId () {
     return state.id
   }
 }

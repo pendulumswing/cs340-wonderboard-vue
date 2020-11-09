@@ -70,6 +70,7 @@ const actions = {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
     context.commit('updateListAutoId')
     payload.id = state.id
+    console.log('setting new id for list: ', payload.id)
 
     // TODO - set up async call to server,
     //  add to DB, on success commit to store

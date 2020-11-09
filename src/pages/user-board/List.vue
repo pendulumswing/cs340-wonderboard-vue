@@ -12,6 +12,7 @@
         DeleteListButton(:list="list")
 
       v-card-text
+        p {{ tasks }}
 
         // Attributes
         v-expansion-panels(flat).pa-0
@@ -114,7 +115,7 @@ export default {
       return this.$store.state.boards.boards.filter(board => {
         return _.find(this.boardUsers, { board: board.id })
       })
-    },
+    }
 
   }
 }

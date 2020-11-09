@@ -79,7 +79,7 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.$store.state.tasks.tasks.length + 1,
+        id: this.$store.getters.getTaskAutoId + 1,
         list: Object,
         name: '',
         description: '',

@@ -56,8 +56,8 @@ const actions = {
     // Commit
     context.commit('createBoard', payload)
 
+    // Create BoardUser Relationship
     // TODO - this might be hangled by the server whenever a board is created
-    // Create Payload for boardUser
     // const boardUsersLength = context.getters.getBoardUsersLength + 1
     const boardUserPayload = {
       // id: boardUsersLength,
@@ -68,6 +68,10 @@ const actions = {
 
     // TODO - this might be hangled by the server whenever a board is created
     // Create Default Lists for Board
+    context.rootState.defaultLists.forEach(list => {
+      list.board = payload.id
+      context.dispatch('createList', list)
+    })
   },
 
   deleteBoard: (context, payload) => {

@@ -25,7 +25,7 @@
                 v-icon(small) mdi-delete
 
       v-card-text
-        // p {{ taskUsers }}
+        p {{ taskUsers }}
 
         // Attributes
         v-expansion-panels(flat).pa-0

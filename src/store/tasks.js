@@ -36,6 +36,7 @@ const mutations = {
       state.tasks.splice(index, 1)
     }
   },
+
   updateTask: (state, payload) => {
     const index = state.tasks.findIndex(task => {
       return task.id === payload.id
@@ -44,7 +45,8 @@ const mutations = {
       state.tasks.splice(index, 1, payload)
     }
   },
-  getTasks: (state, payload) => {
+
+  setTasks: (state, payload) => {
     this.state.tasks = payload
   },
 
@@ -56,8 +58,11 @@ const mutations = {
 const actions = {
   createTask: (context, payload) => {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
+    // console.log('task payload: ', payload)
     context.commit('updateTaskAutoId')
     payload.id = state.id
+    // console.log('createTask id set to: ', payload.id)
+
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     // Commit
@@ -86,20 +91,22 @@ const actions = {
     console.log('delete task action called')
     context.commit('deleteTask', payload)
 
-    // TODO - this might be handled by the server CASCADE whenever a task is delete
     // Delete TaskUsers
+    // TODO - this might be handled by the server CASCADE whenever a task is delete
     console.log('delete taskUser action called')
     context.dispatch('deleteAllTaskUsers', payload)
   },
+
   updateTask: (context, payload) => {
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     context.commit('updateTask', payload)
   },
-  getTasks: (context, payload) => {
+
+  setTasks: (context, payload) => {
     // TODO - set up async call to server,
     //  retrieve from DB, on success commit to store
-    context.commit('getTasks', payload)
+    context.commit('setTasks', payload)
   }
 }
 
