@@ -89,7 +89,7 @@ export default {
         name: '',
         index: this.lists.length + 1,
         creator: Number(this.$route.params.userId),
-        color: ''
+        color: this.$store.state.colors[0].color
       },
       max32chars: v => (v && v.length <= 32) || 'Input too long',
       max64chars: v => (v && v.length <= 64) || 'Input too long',
