@@ -12,6 +12,7 @@
           span.grey--text.text--darken-2 {{ board.name }}
         v-spacer
 
+        p tasks {{ this.$store.state.tasks.tasks }}
         //Debug
           p state.tasks {{ $store.state.tasks.tasks }}
           p state.taskUsers {{ $store.state.taskUsers.taskUsers }}

@@ -66,13 +66,13 @@ const actions = {
   createTask: (context, payload) => {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
     context.commit('updateTaskAutoId')
-    // let newPayload = _.cloneDeep(payload)
-    // payload.id = state.id
 
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     // Commit
     context.commit('createTask', payload)
+    console.log('task: ', ' id: ', payload.id, ', ', payload)
+
     // Create Payload for taskUser
     // const taskUsersLength = context.getters.getTaskUsersLength + 1
     const taskUserPayload = {
