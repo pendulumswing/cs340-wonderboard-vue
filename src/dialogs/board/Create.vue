@@ -40,6 +40,7 @@
             label="color"
             item-value="color"
             item-text="name"
+            required
           )
 
           // role
@@ -60,7 +61,6 @@
 <script>
 import DialogMixin from '../../mixins/DialogMixin'
 import { mapState, mapActions } from 'vuex'
-// import _ from 'lodash'
 
 export default {
   mixins: [
@@ -76,7 +76,7 @@ export default {
         id: this.$store.getters.getBoardAutoId + 1,
         name: '',
         creator: Number(this.$route.params.userId) || undefined,
-        color: ''
+        color: this.$store.state.colors[0].color
       },
       nameRules: [
         v => !!v || 'Name is required',

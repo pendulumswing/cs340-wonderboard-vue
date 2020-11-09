@@ -1,4 +1,5 @@
 import _ from 'lodash'
+
 const state = {
   id: 16,
   taskUsers: [
@@ -22,10 +23,10 @@ const state = {
 }
 
 const getters = {
-  getTaskUsersLength () {
+  getTaskUsersLength (state) {
     return state.taskUsers.length
   },
-  getTaskUsersNextId () {
+  getTaskUsersNextId (state) {
     const maxId = _.maxBy(state.taskUsers, taskUser => {
       return taskUser.id
     })
@@ -33,7 +34,7 @@ const getters = {
     return maxId.id + 1
   },
 
-  getTaskUsersAutoId () {
+  getTaskUsersAutoId (state) {
     return state.id
   }
 }
@@ -60,7 +61,7 @@ const mutations = {
 
   udpateTaskUserAutoId (state, payload) {
     state.id += 1
-    // console.log('state.id = ', state.id)
+    console.log('state.id = ', state.id)
   }
 }
 
@@ -68,7 +69,6 @@ const actions = {
   createTaskUser: (context, payload) => {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
     context.commit('udpateTaskUserAutoId')
-    payload.id = state.id
 
     // Add user to Store
     context.commit('createTaskUser', payload)

@@ -12,7 +12,6 @@
         DeleteListButton(:list="list")
 
       v-card-text
-        p {{ tasks }}
 
         // Attributes
         v-expansion-panels(flat).pa-0
@@ -98,12 +97,12 @@ export default {
       })
     },
 
-    role () {
-      return this.$store.state.boardUsers.boardUsers.find(boardUser => {
-        console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
-        return boardUser.board === this.data.id && boardUser.user === this.data.user
-      })
-    },
+    // role () {
+    //   return this.$store.state.boardUsers.boardUsers.find(boardUser => {
+    //     console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
+    //     return boardUser.board === this.data.id && boardUser.user === this.data.user
+    //   })
+    // },
 
     taskUsers () {
       return this.$store.state.taskUsers.taskUsers.filter(taskUser => {

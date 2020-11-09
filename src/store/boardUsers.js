@@ -9,11 +9,11 @@ const state = {
 }
 
 const getters = {
-  getBoardUsersLength () {
+  getBoardUsersLength (state) {
     return state.boardUsers.length
   },
 
-  getBoardUsersAutoId () {
+  getBoardUsersAutoId (state) {
     return state.id
   }
 }
@@ -33,10 +33,9 @@ const mutations = {
   },
 
   deleteAllBoardUsers (state, payload) {
-    const test = state.boardUsers.filter(boardUser => {
+    state.boardUsers = state.boardUsers.filter(boardUser => {
       return boardUser.board !== Number(payload.board)
     })
-    state.boardUsers = test
   },
 
   updateBoardUsersAutoId (state, payload) {

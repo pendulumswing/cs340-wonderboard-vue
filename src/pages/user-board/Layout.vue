@@ -13,8 +13,8 @@
         v-spacer
 
         //Debug
-          p lists: {{ lists }}
-          p state.lists {{ $store.state.lists.lists }}
+          p state.tasks {{ $store.state.tasks.tasks }}
+          p state.taskUsers {{ $store.state.taskUsers.taskUsers }}
 
         // Add List Button
         v-col(cols="12" sm="3" :class="buttonClass").d-flex.pa-0
@@ -202,11 +202,11 @@ export default {
         })
       },
 
-      tasks () {
-        return this.$store.state.tasks.tasks.filter(task => {
-          return task.board === Number(this.$route.params.boardId)
-        })
-      },
+      // tasks () {
+      //   return this.$store.state.tasks.tasks.filter(task => {
+      //     return task.board === Number(this.$route.params.boardId)
+      //   })
+      // },
 
       user () {
         return this.$store.state.users.users.find(user => {

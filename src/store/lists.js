@@ -17,7 +17,7 @@ const state = {
 }
 
 const getters = {
-  getListAutoId () {
+  getListAutoId (state) {
     return state.id
   }
 }
@@ -106,12 +106,12 @@ const actions = {
     //  add to DB, on success commit to store
     context.commit('deleteList', payload)
 
+    // Delete List Tasks
     // TODO - this might be handled by the server CASCADE whenever a list is delete
-    // // Delete ListUser
-    // const listUserPayload = {
-    //   list: Number(payload.id)
+    // const listPayload = {
+    //   id: Number(payload.id)
     // }
-    // context.dispatch('deleteAllListUsers', listUserPayload)
+    context.dispatch('deleteAllTasks', payload)
   },
   updateList: (context, payload) => {
     // TODO - set up async call to server,

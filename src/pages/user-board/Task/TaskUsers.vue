@@ -25,7 +25,7 @@
                 v-icon(small) mdi-delete
 
       v-card-text
-        p {{ taskUsers }}
+        // p {{ taskUsers }}
 
         // Attributes
         v-expansion-panels(flat).pa-0
@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import EditTaskButton from './EditTaskButton'
 import _ from 'lodash'
 
@@ -170,27 +170,26 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      boards () {
-        return this.$store.state.boards.boards.filter(board => {
-          return _.find(this.boardUsers, { board: board.id })
-        })
-      },
+    boards () {
+      return this.$store.state.boards.boards.filter(board => {
+        return _.find(this.boardUsers, { board: board.id })
+      })
+    },
 
-      assignedUsers () {
-        return this.$store.state.users.users.filter(user => {
-          return _.find(this.taskUsers, { user: user.id })
-        })
-      },
+    assignedUsers () {
+      return this.$store.state.users.users.filter(user => {
+        return _.find(this.taskUsers, { user: user.id })
+      })
+    },
 
-      unassignedUsers () {
-        return this.$store.state.users.users.filter(user => {
-          return _.find(this.taskUsers, { user: user.id }) === undefined
-        })
-      }
-    }),
+    unassignedUsers () {
+      return this.$store.state.users.users.filter(user => {
+        return _.find(this.taskUsers, { user: user.id }) === undefined
+      })
+    },
 
     ...mapGetters({
+      getTaskUsersAutoId: 'getTaskUsersAutoId'
       // getTaskUsersLength: 'getTaskUsersLength',
       // getTaskUsersNextId: 'getTaskUsersNextId'
     })
@@ -235,7 +234,8 @@ export default {
 
     onAddUser (user) {
       // console.log('taskUsersNextId: ', this.getTaskUsersNextId)
-      const payload = { task: this.task.id, user: user.id }
+      const taskUserId = this.getTaskUsersAutoId + 1
+      const payload = { id: taskUserId, task: this.task.id, user: user.id }
       this.createTaskUser(payload)
     },
 

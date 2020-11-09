@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import _ from 'lodash'
 
 export default {
@@ -87,6 +87,10 @@ export default {
           return _.find(this.boardUsers, { user: user.id }) === undefined
         })
       }
+    }),
+
+    ...mapGetters({
+      getBoardUsersAutoId: 'getBoardUsersAutoId'
     })
   },
 
@@ -97,9 +101,8 @@ export default {
     ]),
 
     onAddUser (user) {
-      const id = this.$store.state.boardUsers.boardUsers.length + 1
+      const id = this.getBoardUsersAutoId + 1
       const payload = { id: id, board: this.board.id, user: user.id }
-      // this.$store.commit('createBoardUser', payload)
       this.createBoardUser(payload)
     },
 
@@ -107,7 +110,6 @@ export default {
       const boardId = this.board.id
       const userId = user.id
       const payload = { boardId, userId }
-      // this.$store.commit('deleteBoardUser', payload)
       this.deleteBoardUser(payload)
     }
   }

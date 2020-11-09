@@ -7,7 +7,7 @@ const state = {
 }
 
 const getters = {
-  getUserAutoId () {
+  getUserAutoId (state) {
     return state.id
   }
 }
@@ -46,6 +46,7 @@ const actions = {
   createUser: (context, payload) => {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
     context.commit('updateUserAutoId')
+    console.log('user state id: ', state.id, ', : ', context.getters.getUserAutoId)
     payload.id = state.id
 
     // TODO - set up async call to server,

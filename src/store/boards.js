@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const state = {
   id: 4,
   boards: [
@@ -49,7 +51,7 @@ const actions = {
   createBoard: (context, payload) => {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
     context.commit('updateBoardAutoId')
-    payload.id = state.id
+    // payload.id = state.id
 
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
@@ -69,8 +71,9 @@ const actions = {
     // TODO - this might be hangled by the server whenever a board is created
     // Create Default Lists for Board
     context.rootState.defaultLists.forEach(list => {
-      list.board = payload.id
-      context.dispatch('createList', list)
+      let newList = _.cloneDeep(list)
+      newList.board = payload.id
+      context.dispatch('createList', newList)
     })
   },
 

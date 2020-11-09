@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 
 export default {
@@ -84,7 +84,7 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.$store.state.lists.lists.length + 1,
+        id: this.$store.getters.getListAutoId + 1,
         board: Number(this.$route.params.boardId),
         name: '',
         index: this.lists.length + 1,
@@ -105,6 +105,9 @@ export default {
       colors () {
         return this.$store.state.colors
       }
+    }),
+    ...mapGetters({
+      getListAutoId: 'getListAutoId'
     })
   },
 
@@ -124,6 +127,7 @@ export default {
       if (valid) {
         // TODO - make call to delete user here
         console.log('CREATE list submitted')
+        console.log('listId to create: ', this.data.id)
         this.createList(this.data)
         this.onClose()
       }

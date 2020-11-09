@@ -80,7 +80,7 @@ export default {
       request: undefined,
       data: {
         id: this.$store.getters.getTaskAutoId + 1,
-        list: Object,
+        list: this.lists[0] || undefined,
         name: '',
         description: '',
         creator: Number(this.$route.params.userId)
