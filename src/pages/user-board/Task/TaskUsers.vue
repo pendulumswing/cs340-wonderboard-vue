@@ -25,6 +25,7 @@
                 v-icon(small) mdi-delete
 
       v-card-text
+        p {{ taskUsers }}
 
         // Attributes
         v-expansion-panels(flat).pa-0
@@ -123,7 +124,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import EditTaskButton from './EditTaskButton'
 import _ from 'lodash'
 
@@ -187,12 +188,19 @@ export default {
           return _.find(this.taskUsers, { user: user.id }) === undefined
         })
       }
+    }),
+
+    ...mapGetters({
+      // getTaskUsersLength: 'getTaskUsersLength',
+      // getTaskUsersNextId: 'getTaskUsersNextId'
     })
   },
 
   methods: {
     ...mapActions([
-      'deleteTask'
+      'deleteTask',
+      'createTaskUser',
+      'deleteTaskUser'
     ]),
 
     moveRight () {
@@ -222,16 +230,14 @@ export default {
     },
 
     onAddUser (user) {
-      const id = this.$store.state.taskUsers.taskUsers.length + 1
-      const payload = { id: id, task: this.task.id, user: user.id }
-      this.$store.commit('createTaskUser', payload)
+      // console.log('taskUsersNextId: ', this.getTaskUsersNextId)
+      const payload = { task: this.task.id, user: user.id }
+      this.createTaskUser(payload)
     },
 
     onRemoveUser (user) {
-      const taskId = this.task.id
-      const userId = user.id
-      const payload = { taskId, userId }
-      this.$store.commit('deleteTaskUser', payload)
+      const payload = { task: this.task.id, user: user.id }
+      this.deleteTaskUser(payload)
     },
 
     onSubmitDelete () {

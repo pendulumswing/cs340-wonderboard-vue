@@ -1,4 +1,5 @@
 const state = {
+  id: 13,
   tasks: [
     { id: 1, list: 1, name: 'finish project', description: 'do some stuff', creator: 1 },
     { id: 3, list: 2, name: 'make front end', description: 'do some stuff', creator: 1 },
@@ -43,19 +44,26 @@ const mutations = {
   },
   getTasks: (state, payload) => {
     this.state.tasks = payload
+  },
+
+  updateId (state, payload) {
+    state.id += 1
   }
 }
 
 const actions = {
   createTask: (context, payload) => {
+    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
+    context.commit('updateId')
+    payload.id = state.id
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     // Commit
     context.commit('createTask', payload)
     // Create Payload for taskUser
-    const taskUsersLength = context.getters.getTaskUsersLength + 1
+    // const taskUsersLength = context.getters.getTaskUsersLength + 1
     const taskUserPayload = {
-      id: taskUsersLength,
+      // id: taskUsersLength,
       user: Number(payload.creator),
       task: Number(payload.id)
     }
