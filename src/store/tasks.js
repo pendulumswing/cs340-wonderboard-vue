@@ -46,7 +46,7 @@ const mutations = {
     this.state.tasks = payload
   },
 
-  updateId (state, payload) {
+  updateTaskId (state, payload) {
     state.id += 1
   }
 }
@@ -54,7 +54,7 @@ const mutations = {
 const actions = {
   createTask: (context, payload) => {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-    context.commit('updateId')
+    context.commit('updateTaskId')
     payload.id = state.id
     // TODO - set up async call to server,
     //  add to DB, on success commit to store

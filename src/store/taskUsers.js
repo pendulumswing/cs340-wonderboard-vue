@@ -33,7 +33,7 @@ const getters = {
     return maxId.id + 1
   },
 
-  getId () {
+  getTaskUsersAutoId () {
     return state.id
   }
 }
@@ -58,16 +58,16 @@ const mutations = {
     })
   },
 
-  updateId (state, payload) {
+  udpateTaskUserId (state, payload) {
     state.id += 1
-    console.log('state.id = ', state.id)
+    // console.log('state.id = ', state.id)
   }
 }
 
 const actions = {
   createTaskUser: (context, payload) => {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-    context.commit('updateId')
+    context.commit('udpateTaskUserId')
     payload.id = state.id
 
     // Add user to Store

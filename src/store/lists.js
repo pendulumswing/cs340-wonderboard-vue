@@ -17,7 +17,7 @@ const state = {
 }
 
 const getters = {
-  getId () {
+  getListAutoId () {
     return state.id
   }
 }
@@ -49,7 +49,7 @@ const mutations = {
     this.state.lists = payload
   },
 
-  updateId (state, payload) {
+  updateListId (state, payload) {
     state.id += 1
   },
 
@@ -68,7 +68,7 @@ const mutations = {
 const actions = {
   createList: (context, payload) => {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-    context.commit('updateId')
+    context.commit('updateListId')
     payload.id = state.id
 
     // TODO - set up async call to server,

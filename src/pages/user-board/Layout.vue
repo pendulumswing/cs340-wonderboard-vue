@@ -32,7 +32,9 @@
           ) Add Task
 
       v-card-text
+
         v-row(v-if="this.$vuetify.breakpoint.smAndUp")
+          // Lists
           v-col(cols="12" sm="8" md="9" lg="10" xl="11")
             v-row.no-gutters.pa-0.ma-0
               v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
@@ -41,6 +43,7 @@
                   :lists="lists"
                   :user="user"
                 ).px-2
+          // Board Users
           v-col(cols="12" sm="4" md="3" lg="2" xl="1")
             BoardUsers(
               :board="board"
@@ -50,7 +53,11 @@
               :boardUsers="boardUsers"
               :key="boardUsers.length"
             ).pa-0
+
+        // Alt Order on breakpoint
+        // TODO - Modify responsive logic to be more elegant
         v-row(v-else)
+          // Board Users
           v-col(cols="12" sm="4" md="3" lg="2" xl="1")
             BoardUsers(
               :board="board"
@@ -60,6 +67,7 @@
               :boardUsers="boardUsers"
               :key="boardUsers.length"
             ).pa-0
+          // Lists
           v-col(cols="12" sm="8" md="9" lg="10" xl="11")
             v-row.no-gutters.pa-0.ma-0
               v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
