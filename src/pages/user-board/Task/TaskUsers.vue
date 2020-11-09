@@ -200,24 +200,28 @@ export default {
     ...mapActions([
       'deleteTask',
       'createTaskUser',
-      'deleteTaskUser'
+      'deleteTaskUser',
+      'updateTask'
     ]),
 
+    // TODO - Update to use store
     moveRight () {
       if (this.hasListRight()) {
-        const newList = this.lists.find(list => {
+        const targetList = this.lists.find(list => {
           return list.index === this.list.index + 1
         })
-        this.task.list = newList.id
+        this.task.list = targetList.id
+        this.updateTask(this.task)
       }
     },
 
     moveLeft () {
       if (this.hasListLeft()) {
-        const newList = this.lists.find(list => {
+        const targetList = this.lists.find(list => {
           return list.index === this.list.index - 1
         })
-        this.task.list = newList.id
+        this.task.list = targetList.id
+        this.updateTask(this.task)
       }
     },
 

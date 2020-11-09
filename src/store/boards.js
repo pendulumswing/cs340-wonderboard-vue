@@ -13,7 +13,7 @@ const getters = {
 
 const mutations = {
   createBoard: (state, payload) => {
-    console.log('pushing data to board state: ', payload)
+    // console.log('pushing data to board state: ', payload)
     state.boards.push(payload)
   },
 

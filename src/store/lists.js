@@ -76,7 +76,7 @@ const actions = {
     // Commit
     context.commit('createList', payload)
 
-    // TODO - this might be hangled by the server whenever a list is created
+    // TODO - this might be handled by the server whenever a list is created
     // Create Payload for listUser
     // const listUsersLength = context.getters.getListUsersLength + 1
     // const listUserPayload = {
