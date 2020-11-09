@@ -4,7 +4,7 @@ http://flask-restplus.readthedocs.io
 """
 
 import os
-import psycopg2
+# import psycopg2
 from datetime import datetime
 from flask import request
 from flask_restplus import Resource
