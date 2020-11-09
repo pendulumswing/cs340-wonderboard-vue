@@ -10,6 +10,14 @@
           @click="showCreateUserDialog=true"
         ) Add User
       v-card-text
+        // Debug
+          div
+            p users: {{ $store.state.users.users }}
+            p boards: {{ $store.state.boards.boards }}
+            p boardsUsers: {{ $store.state.boardUsers.boardUsers }}
+            p lists: {{ $store.state.lists.lists }}
+            p tasks: {{ $store.state.tasks.tasks }}
+            p tasksUsers: {{ $store.state.taskUsers.taskUsers }}
         v-row
           v-col(v-for="user in users" cols="12" sm="6" md="4" lg="3")
             router-link(:to="`/users/${user.id}`")
@@ -82,7 +90,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import CreateUserDialog from '../../dialogs/user/Create'
 import DeleteUserDialog from '../../dialogs/user/Delete'

@@ -62,6 +62,12 @@ const mutations = {
         state.lists[index].index -= 1
       }
     }
+  },
+
+  deleteAllLists (state, payload) {
+    state.lists = state.lists.filter(list => {
+      return list.board !== Number(payload.id)
+    })
   }
 }
 
@@ -122,6 +128,20 @@ const actions = {
     // TODO - set up async call to server,
     //  retrieve from DB, on success commit to store
     context.commit('getLists', payload)
+  },
+
+  deleteAllLists: (context, payload) => {
+    const listsToDelete = state.lists.filter(list => {
+      return list.board === Number(payload.id)
+    })
+    context.commit('deleteAllLists', payload)
+
+    // Delete TaskUsers
+    // TODO - this might be handled by the server CASCADE
+    //  whenever multiple lists are deleted
+    listsToDelete.forEach(list => {
+      context.dispatch('deleteAllTasks', list)
+    })
   }
 }
 

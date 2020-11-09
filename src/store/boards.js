@@ -44,6 +44,12 @@ const mutations = {
 
   updateBoardAutoId (state, payload) {
     state.id += 1
+  },
+
+  deleteAllBoards (state, payload) {
+    state.boards = state.boards.filter(board => {
+      return board.creator !== Number(payload.id)
+    })
   }
 }
 
@@ -84,10 +90,11 @@ const actions = {
 
     // TODO - this might be handled by the server CASCADE whenever a board is delete
     // Delete BoardUser
-    const boardUserPayload = {
-      board: Number(payload.id)
-    }
-    context.dispatch('deleteAllBoardUsers', boardUserPayload)
+    // const boardUserPayload = {
+    //   board: Number(payload.id)
+    // }
+    context.dispatch('deleteAllBoardUsers', payload)
+    context.dispatch('deleteAllLists', payload)
   },
   updateBoard: (context, payload) => {
     // TODO - set up async call to server,
@@ -98,6 +105,21 @@ const actions = {
     // TODO - set up async call to server,
     //  retrieve from DB, on success commit to store
     context.commit('getBoards', payload)
+  },
+
+  deleteAllBoards: (context, payload) => {
+    const boardsToDelete = state.boards.filter(board => {
+      return board.creator === Number(payload.id)
+    })
+    context.commit('deleteAllBoards', payload)
+
+    // Delete TaskUsers
+    // TODO - this might be handled by the server CASCADE
+    //  whenever multiple boards are deleted
+    boardsToDelete.forEach(board => {
+      context.dispatch('deleteAllLists', board)
+      context.dispatch('deleteAllBoardUsers', board)
+    })
   }
 }
 

@@ -57,6 +57,9 @@ const actions = {
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     context.commit('deleteUser', payload)
+
+    // TODO Handle CASCADE deletion
+    context.dispatch('deleteAllBoards', payload)
   },
   updateUser: (context, payload) => {
     // TODO - set up async call to server,

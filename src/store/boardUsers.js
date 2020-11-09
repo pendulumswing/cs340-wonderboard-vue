@@ -34,9 +34,15 @@ const mutations = {
 
   deleteAllBoardUsers (state, payload) {
     state.boardUsers = state.boardUsers.filter(boardUser => {
-      return boardUser.board !== Number(payload.board)
+      return boardUser.board !== Number(payload.id)
     })
   },
+
+  // deleteAllBoardUsersByUser (state, payload) {
+  //   state.boardUsers = state.boardUsers.filter(boardUser => {
+  //     return boardUser.user !== Number(payload.id)
+  //   })
+  // },
 
   updateBoardUsersAutoId (state, payload) {
     state.id += 1
@@ -58,9 +64,12 @@ const actions = {
   },
 
   deleteAllBoardUsers: (context, payload) => {
-    console.log('deleteAllboardUsers action called')
     context.commit('deleteAllBoardUsers', payload)
   }
+
+  // deleteAllBoardUsersByUser: (context, payload) => {
+  //   context.commit('deleteAllBoardUsersByUser', payload)
+  // }
 }
 
 export default {
