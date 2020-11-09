@@ -1,12 +1,15 @@
 <template lang="pug">
   div
-    v-row
+    v-row(v-if="boards.length > 0")
       // p Boards: {{ boards }}
       v-col(v-for="board in boards" cols="12" sm="6" md="4" lg="3")
         Board(
           :user="user"
           :board="board"
         )
+    v-row(v-else)
+      v-col.d-flex.justify-center
+        div.text-center.subtitle-1 Add a board to get started.
 </template>
 
 <script>

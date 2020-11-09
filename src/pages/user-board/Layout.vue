@@ -37,13 +37,16 @@
         v-row(v-if="this.$vuetify.breakpoint.smAndUp")
           // Lists
           v-col(cols="12" sm="8" md="9" lg="10" xl="11")
-            v-row.no-gutters.pa-0.ma-0
+            v-row.no-gutters.pa-0.ma-0(v-if="lists.length > 0")
               v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
                 List(
                   :list="list"
                   :lists="lists"
                   :user="user"
                 ).px-2
+            v-row(v-else)
+              v-col.d-flex.justify-center
+                div.text-center.subtitle-1 Add a list to get started.
           // Board Users
           v-col(cols="12" sm="4" md="3" lg="2" xl="1")
             BoardUsers(
@@ -70,13 +73,16 @@
             ).pa-0
           // Lists
           v-col(cols="12" sm="8" md="9" lg="10" xl="11")
-            v-row.no-gutters.pa-0.ma-0
+            v-row.no-gutters.pa-0.ma-0(v-if="lists.length > 0")
               v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
                 List(
                   :list="list"
                   :lists="lists"
                   :user="user"
                 ).px-2
+            v-row(v-else)
+              v-col.d-flex.justify-center
+                div.text-center.subtitle-1 Add a list to get started.
 
         // Description
         v-row.pl-3.pt-7

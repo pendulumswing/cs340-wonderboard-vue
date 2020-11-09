@@ -18,7 +18,7 @@
             p lists: {{ $store.state.lists.lists }}
             p tasks: {{ $store.state.tasks.tasks }}
             p tasksUsers: {{ $store.state.taskUsers.taskUsers }}
-        v-row
+        v-row(v-if="users.length > 0")
           v-col(v-for="user in users" cols="12" sm="6" md="4" lg="3")
             router-link(:to="`/users/${user.id}`")
               v-card
@@ -63,6 +63,9 @@
                       div password:
                     v-col
                       div {{ user.password }}
+        v-row(v-else)
+          v-col.d-flex.justify-center
+            div.text-center.subtitle-1 Add a user to get started.
 
         // Description
         v-row.pl-3.pt-7

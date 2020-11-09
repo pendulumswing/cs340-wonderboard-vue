@@ -5,11 +5,12 @@
     v-container
       h1.text-center.pt-5.grey--text.text--darken-2 Wonderboard
       div(id="nav").pt-2.grey--text.text--darken-2
+        // p {{ this.$store.state.users.users[0].id }}
         router-link(to="/") Users
         span  |
-        router-link(to="/users/1")  Boards
+        router-link(:to="boardsUrl")  Boards
         span  |
-        router-link(to="/users/1/boards/1")  Lists
+        router-link(:to="listsUrl")  Lists
         // API
           span  |
           router-link(to="/api") API Sample
@@ -18,8 +19,28 @@
 
 <script>
 export default {
+  data () {
+    return {
+      // boardsUrl: `/users/${this.$store.state.users.users[0].id || 1}`,
+      // listsUrl: `/users/${this.$store.state.users.users[0].id || 1}/boards/${this.$store.state.boards.boards[0].id || 1}`
+    }
+  },
 
   computed: {
+    boardsUrl () {
+      if (this.$store.state.users.users.length > 0) {
+        return `/users/${this.$store.state.users.users[0].id}`
+      }
+      return '/'
+    },
+
+    listsUrl () {
+      if (this.$store.state.users.users.length > 0 && this.$store.state.boards.boards.length > 0) {
+        return `/users/${this.$store.state.users.users[0].id || 1}/boards/${this.$store.state.boards.boards[0].id}`
+      }
+      return '/'
+    },
+
     users () {
       return this.$store.state.users.users
     },
