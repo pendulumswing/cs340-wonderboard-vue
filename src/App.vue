@@ -11,6 +11,8 @@
         router-link(:to="boardsUrl")  Boards
         span  |
         router-link(:to="listsUrl")  Lists
+        span  |
+        router-link(to="/dev")  Dev
         // API
           span  |
           router-link(to="/api") API Sample
