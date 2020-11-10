@@ -16,6 +16,7 @@
           | into the box below:
       v-card-text
         v-text-field(
+          autofocus
           filled
           v-model="confirmDelete"
           placeholder="DELETE"

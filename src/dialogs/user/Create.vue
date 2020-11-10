@@ -18,6 +18,8 @@
 
             // username
             v-text-field(
+              ref="inputFocus"
+              autofocus
               v-model="data.username"
               label="username"
               :rules="[min1chars, max64chars]"
@@ -74,6 +76,7 @@ export default {
     return {
       show: true,
       request: undefined,
+      inputIsVisible: false,
       data: {
         id: this.$store.getters.getUserAutoId + 1,
         username: '',

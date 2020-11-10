@@ -16,6 +16,7 @@
           | into the box below:
       v-card-text
         v-text-field(
+          autofocus
           filled
           v-model="confirmDelete"
           placeholder="DELETE"
@@ -93,7 +94,7 @@ export default {
       console.log('DELETE user submitted')
       this.deleteUser(this.user)
       this.onClose()
-    },
+    }
   }
 }
 </script>

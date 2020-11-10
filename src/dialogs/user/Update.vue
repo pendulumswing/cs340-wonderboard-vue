@@ -17,6 +17,7 @@
 
           // username
           v-text-field(
+            autofocus
             v-model="data.username"
             label="username"
             :rules="[min1chars, max64chars]"
@@ -62,7 +63,7 @@
 
 <script>
 import DialogMixin from '../../mixins/DialogMixin'
-import { mapAction, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   mixins: [
@@ -91,13 +92,13 @@ export default {
       // SOURCE: https://vuetifyjs.com/en/components/forms/#misc
       emailRules: [
         v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
       ],
-      max32chars: v => ( v && v.length <= 32) || 'Input too long',
-      max64chars: v => ( v && v.length <= 64) || 'Input too long',
-      max128chars: v => ( v && v.length <= 128) || 'Input too long',
-      max256chars: v => ( v && v.length <= 256) || 'Input too long',
-      min1chars: v => ( v && v.length > 0) || 'Input too short'
+      max32chars: v => (v && v.length <= 32) || 'Input too long',
+      max64chars: v => (v && v.length <= 64) || 'Input too long',
+      max128chars: v => (v && v.length <= 128) || 'Input too long',
+      max256chars: v => (v && v.length <= 256) || 'Input too long',
+      min1chars: v => (v && v.length > 0) || 'Input too short'
     }
   },
 
@@ -119,7 +120,7 @@ export default {
         console.log('UPDATE user submitted')
         this.onClose()
       }
-    },
+    }
   }
 }
 </script>

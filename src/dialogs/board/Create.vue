@@ -26,6 +26,7 @@
 
           // name
           v-text-field(
+            autofocus
             v-model="data.name"
             label="name"
             :rules="[min1chars, max64chars]"
