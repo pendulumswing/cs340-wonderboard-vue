@@ -82,6 +82,12 @@ class Users(Resource):
         return result, 201
 
 
+@api_rest.route('/users/<int:resource_id>')
+class User(Resource):
+    def get(self, resource_id):
+        return find_one('users', resource_id), 200
+
+
 @api_rest.route('/resource/<string:resource_id>')
 class ResourceOne(Resource):
     """ Unsecure Resource Class: Inherit from Resource """
