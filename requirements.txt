@@ -1,12 +1,13 @@
 gunicorn==20.0.4
 flask-restplus==0.13.0
 python-dotenv==0.14.0
-Werkzeug==0.16.1
-Flask==1.1.2
+flask==1.1.2
 requests==2.24.0
+psycopg2==2.8.6
+werkzeug==0.16.1
 
 # dev packages
-bumpversion==0.6.0
-pytest==6.1.2
-pytest-cov==2.10.1
-pytest-sugar==0.9.4
+# bumpversion==0.6.0
+# pytest==6.1.2
+# pytest-cov==2.10.1
+# pytest-sugar==0.9.4
