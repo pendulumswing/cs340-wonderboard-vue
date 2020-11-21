@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const state = {
   id: 2,
   users: [
@@ -17,9 +19,9 @@ const mutations = {
     state.users.push(payload)
   },
 
-  deleteUser: (state, payload) => {
+  deleteUser: (state, id) => {
     const index = state.users.findIndex(user => {
-      return user.id === payload.id
+      return user.id === id
     })
     if (index >= 0) {
       state.users.splice(index, 1)
@@ -34,7 +36,9 @@ const mutations = {
     }
   },
   getUsers: (state, payload) => {
-    this.state.users = payload
+    console.log('inside getUsers')
+    state.users = payload
+    console.log('this.state.users: ', state.users)
   },
 
   updateUserAutoId (state, payload) {
@@ -45,31 +49,51 @@ const mutations = {
 const actions = {
   createUser: (context, payload) => {
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-    context.commit('updateUserAutoId')
-    console.log('user state id: ', state.id, ', : ', context.getters.getUserAutoId)
-    payload.id = state.id
+    // context.commit('updateUserAutoId')
+    // console.log('user state id: ', state.id, ', : ', context.getters.getUserAutoId)
+    // payload.id = state.id
 
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
-    context.commit('createUser', payload)
+    axios.post('users', payload)
+      .then(res => {
+        console.log('createUser:', res.data)
+        // this.onGetUsers()
+        context.commit('createUser', res.data)
+      })
+      .catch(error => console.log(error))
   },
-  deleteUser: (context, payload) => {
+  deleteUser: (context, id) => {
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
-    context.commit('deleteUser', payload)
+    axios.delete(`users/${id}`)
+      .then(res => {
+        console.log('delete: ', res)
+        context.commit('deleteUser', id)
+      })
+      .catch(error => console.log(error))
 
-    // TODO Handle CASCADE deletion
-    context.dispatch('deleteAllBoards', payload)
+    // // TODO Handle CASCADE deletion
+    // context.dispatch('deleteAllBoards', id)
   },
   updateUser: (context, payload) => {
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
-    context.commit('updateUser', payload)
+    // let payload = { username: 'test_update', first_name: 'fName_update', last_name: 'lName_update', email:
+    // 'test@email.com', password: 'password' }
+    axios.put(`users/${payload.id}`, payload)
+      .then(res => {
+        console.log('update: ', res)
+        // this.onGetUsers()
+        context.commit('updateUser', payload)
+      })
+      .catch(error => console.log(error))
   },
-  getUsers: (context, payload) => {
-    // TODO - set up async call to server,
-    //  retrieve from DB, on success commit to store
-    context.commit('getUsers', payload)
+  getUsers: (context) => {
+    axios.get('users')
+      .then(res => {
+        context.commit('getUsers', res.data)
+      })
   }
 }
 
