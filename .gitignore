@@ -3,6 +3,7 @@
 .mypy_cache\
 .env
 venv
+.flaskenv
 
 /dist
 .coverage
