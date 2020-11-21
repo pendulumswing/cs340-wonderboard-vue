@@ -4,12 +4,11 @@ http://flask-restplus.readthedocs.io
 """
 
 import os
-# import psycopg2
 from datetime import datetime
 from flask import request
 from flask_restplus import Resource
 
-from .security import require_auth
+# from .security import require_auth
 from . import api_rest
 
 import psycopg2
@@ -24,9 +23,9 @@ import json
 # conn = psycopg2.connect(DATABASE_URL)
 # cur = conn.cursor()
 
-class SecureResource(Resource):
-    """ Calls require_auth decorator on all requests """
-    method_decorators = [require_auth]
+# class SecureResource(Resource):
+#     """ Calls require_auth decorator on all requests """
+#     method_decorators = [require_auth]
 
 
 # Method to turn a response into a dictionary
@@ -40,7 +39,7 @@ def get_connection():
     DATABASE_URL = os.getenv('DATABASE_URL')
     return psycopg2.connect(DATABASE_URL)
 
-#
+# Query function from class materials
 def execute_query(db_connection = None, query = None, query_params = ()):
     '''
     executes a given SQL query on the given db connection and returns a Cursor object
@@ -124,73 +123,23 @@ def delete_one(table, id):
     return f"{result.rowcount} row deleted"
 
 
-def update_one_user(table, data, id):
-        conn = get_connection()
-        query = (f"""UPDATE {table}
-                SET username = '{data['username']}',
-                first_name = '{data['first_name']}',
-                last_name = '{data['last_name']}',
-                email = '{data['email']}',
-                password = '{data['password']}'
-                WHERE id={id};""")
-        query_params = (id,)
-
-        with conn.cursor() as cur:
-            cur.execute(query)
-            conn.commit()
-            result = find_one('users', id)
-
-        return result, 200
-
-@api_rest.route('/users')
-class Users(Resource):
-    def get(self):
-        return find_all('users'), 200
-
-    def post(self):
-        data = request.json
-        conn = get_connection()
-        with conn.cursor() as cursor:
-            cursor.execute(f"INSERT INTO users (username, first_name, last_name, email, password) VALUES ('{data['username']}', '{data['first_name']}', '{data['last_name']}', '{data['email']}', '{data['password']}') RETURNING id;")
-            conn.commit()
-            id = cursor.fetchone()[0]
-            result = find_one('users', id)
-
-        return result, 201
-
-
-@api_rest.route('/users/<int:resource_id>')
-class User(Resource):
-    def get(self, resource_id):
-        return find_one('users', resource_id), 200
-
-    def delete(self, resource_id):
-        return delete_one('users', resource_id)
-
-    def put(self, resource_id):
-        data = request.json
-        print(data['username'])
-        return update_one_user('users', data, resource_id)
-
-
-
-@api_rest.route('/resource/<string:resource_id>')
-class ResourceOne(Resource):
-    """ Unsecure Resource Class: Inherit from Resource """
-
-    def get(self, resource_id):
-        timestamp = datetime.utcnow().isoformat()
-        return {'timestamp': timestamp}
-
-    def post(self, resource_id):
-        json_payload = request.json
-        return {'timestamp': json_payload}, 201
-
-
-@api_rest.route('/secure-resource/<string:resource_id>')
-class SecureResourceOne(SecureResource):
-    """ Unsecure Resource Class: Inherit from Resource """
-
-    def get(self, resource_id):
-        timestamp = datetime.utcnow().isoformat()
-        return {'timestamp': timestamp}
+# @api_rest.route('/resource/<string:resource_id>')
+# class ResourceOne(Resource):
+#     """ Unsecure Resource Class: Inherit from Resource """
+#
+#     def get(self, resource_id):
+#         timestamp = datetime.utcnow().isoformat()
+#         return {'timestamp': timestamp}
+#
+#     def post(self, resource_id):
+#         json_payload = request.json
+#         return {'timestamp': json_payload}, 201
+#
+#
+# @api_rest.route('/secure-resource/<string:resource_id>')
+# class SecureResourceOne(SecureResource):
+#     """ Unsecure Resource Class: Inherit from Resource """
+#
+#     def get(self, resource_id):
+#         timestamp = datetime.utcnow().isoformat()
+#         return {'timestamp': timestamp}

@@ -12,6 +12,9 @@ def add_header(response):
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
     return response
 
+# Add individual route modules here
+from .users import *
+
 
 # Import resources to ensure view is registered
 from .resources import * # NOQA
