@@ -4,35 +4,29 @@
       v-card-title
         span.grey--text.text--darken-2
         v-spacer
-        //
-          v-btn(
-            color="grey white--text"
-            tile
-            @click="showCreateUserDialog=true"
-          ) Add User
-
       v-card-text
+
+        // CRUD Operations
         v-card
-          v-card-title
-            p.grey--text.text--darken-2 Development
+          v-card-title(class="title grey white--text" primary-title) CRUD operations
           v-card-text
             v-row.d-flex.justify-space-between.justify-lg-space-around.align-center
-              v-col(cols="2")
+              v-col
                 v-btn(
                   color="grey white--text"
                   tile
                   @click="onGetUsers"
                 ) Get Users
-              v-col(cols="2")
+              v-col
                 v-btn(
                   color="grey white--text"
                   tile
                   @click="onCreateUser"
-                ) Add User
-              v-col(cols="2")
+                ) Create User
+              v-col
                 p.title Select User:
                 v-select(
-                  v-model="selectedUser"
+                  v-model="userPayload"
                   :items="users"
                   label="select user"
                   return-object
@@ -46,140 +40,130 @@
                     span id: {{ item.id }}, name: {{ item.first_name }}
                   template(v-slot:selection="{ item }")
                     span id: {{ item.id }}
-              v-col(cols="2")
-                v-btn(
-                  color="grey white--text"
-                  tile
-                  @click="onDeleteUser(selectedUser.id)"
-                ) Delete User
-              v-col(cols="2")
+              v-col
                 v-btn(
                   color="grey white--text"
                   tile
                   @click="onUpdateUser"
-                ) Edit User
-            v-row.py-5
+                ) Update User
               v-col
-                p Show Results Here
-                p {{ usersResponse }}
-            v-row.py-5
-              p store
-              p {{ $store.state.users.users }}
-    v-card(color="transparent" flat)
-      v-card-text
-        UserForm
-        // Debug
-          div
-            p users: {{ $store.state.users.users }}
-            p boards: {{ $store.state.boards.boards }}
-            p boardsUsers: {{ $store.state.boardUsers.boardUsers }}
-            p lists: {{ $store.state.lists.lists }}
-            p tasks: {{ $store.state.tasks.tasks }}
-            p tasksUsers: {{ $store.state.taskUsers.taskUsers }}
-        //
-          v-row(v-if="users.length > 0")
-            v-col(v-for="user in users" cols="12" sm="6" md="4" lg="3")
-              router-link(:to="`/users/${user.id}`")
-                v-card
-                  v-card-title.pb-3
-                    p.title.grey--text.text--darken-2 {{ user.first_name + ' ' + user.last_name}}
-                    v-spacer
+                v-btn(
+                  color="grey white--text"
+                  tile
+                  @click="onDeleteUser(userPayload)"
+                ) Delete User
 
-                    // Edit User
-                    EditUserButton(:user="user").pr-2
+        // User Form
+        v-row
+          v-col(cols="12" md="6").pr-2
+            v-card
+              v-card-title(class="title grey white--text" primary-title) User Form
+              v-card-text
+                v-form(ref="form")
 
-                    // Delete User
-                    DeleteUserButton(:user="user")
+                  // id
+                  v-text-field(
+                    v-model="userPayload.id"
+                    label="id"
+                    disabled
+                  )
 
-                  v-card-text.text-start
-                    v-row.no-gutters.flex-nowrap
-                      v-col(cols="6" md="5" lg="4")
-                        div id:
+                  // username
+                  v-text-field(
+                    ref="inputFocus"
+                    autofocus
+                    v-model="userPayload.username"
+                    label="username"
+                    :rules="[min1chars, max64chars]"
+                    counter="64"
+                  )
+
+                  // first_name
+                  v-text-field(
+                    v-model="userPayload.first_name"
+                    label="first_name"
+                    :rules="[min1chars, max64chars]"
+                    counter="64"
+                  )
+
+                  // last_name
+                  v-text-field(
+                    v-model="userPayload.last_name"
+                    label="last_name"
+                    :rules="[min1chars, max64chars]"
+                    counter="64"
+                  )
+
+                  // Email
+                  v-text-field(
+                    v-model="userPayload.email"
+                    label="email"
+                    :rules="emailRules"
+                    counter="128"
+                  )
+
+                  // Password
+                  v-text-field(
+                    v-model="userPayload.password"
+                    label="password"
+                    :rules="[min1chars, max256chars]"
+                    counter="256"
+                  )
+
+          // Database
+          v-col(cols="12" md="6").pl-1
+            v-card
+              v-card-title(class="title grey white--text" primary-title) Database
+              v-card-text.pt-2
+                div
+                  div(v-for="(user, index) in users").py-1
+                    v-row.no-gutters
+                      v-col.text-justify
+                        span.subtitle-2 User {{ user.id }}
+                    v-row.no-gutters.pb-1
+                      v-col(cols="1")
                       v-col
-                        div {{ user.id }}
-                    v-row.no-gutters.flex-nowrap
-                      v-col(cols="6" md="5" lg="4")
-                        div first_name:
-                      v-col
-                        div {{ user.first_name }}
-                    v-row.no-gutters.flex-nowrap
-                      v-col(cols="6" md="5" lg="4")
-                        div last_name:
-                      v-col
-                        div {{ user.last_name }}
-                    v-row.no-gutters.flex-nowrap
-                      v-col(cols="6" md="5" lg="4")
-                        div email:
-                      v-col
-                        div {{ user.email }}
-                    v-row.no-gutters.flex-nowrap
-                      v-col(cols="6" md="5" lg="4")
-                        div username:
-                      v-col
-                        div {{ user.username }}
-                    v-row.no-gutters.flex-nowrap
-                      v-col(cols="6" md="5" lg="4")
-                        div password:
-                      v-col
-                        div {{ user.password }}
-          v-row(v-else)
-            v-col.d-flex.justify-center
-              div.text-center.subtitle-1 Add a user to get started.
-    span
-      CreateUserDialog(
-        v-if="showCreateUserDialog"
-        @close="showCreateUserDialog = false"
-      )
+                        div(v-for="pair in Object.entries(user)").text-start
+                          span.subtitle-2 {{ pair[0] }}:
+                          span   {{ pair[1] }}
+                    v-divider
+
+            // Debug
+              div
+                p users: {{ $store.state.users.users }}
+                p boards: {{ $store.state.boards.boards }}
+                p boardsUsers: {{ $store.state.boardUsers.boardUsers }}
+                p lists: {{ $store.state.lists.lists }}
+                p tasks: {{ $store.state.tasks.tasks }}
+                p tasksUsers: {{ $store.state.taskUsers.taskUsers }}
+            //
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import HelloWorld from '@/components/HelloWorld.vue'
-import CreateUserDialog from '../../dialogs/user/Create'
-import DeleteUserDialog from '../../dialogs/user/Delete'
-import DeleteUserButton from './DeleteUserButton'
-import EditUserButton from './EditUserButton'
-import UserForm from './UserForm'
 
 export default {
-  name: 'home',
-  components: {
-    HelloWorld,
-    CreateUserDialog,
-    DeleteUserDialog,
-    DeleteUserButton,
-    EditUserButton,
-    UserForm
-  },
+  name: 'dev',
 
   data () {
     return {
-      showCreateUserDialog: false,
-      showDeleteUserDialog: false,
-      usersResponse: [],
       userPayload: {
-        username: 'test',
-        first_name: 'fName',
-        last_name: 'lName',
-        email: 'test@email.com',
-        password: 'password'
+        id: undefined,
+        username: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: ''
       },
-      selectedUser: {
-        id: 1,
-        username: 'test_update',
-        first_name: 'fName_update',
-        last_name: 'lName_update',
-        email: 'test@email.com_update',
-        password: 'password'
-      },
-      updateUserPayload: {
-        id: 1,
-        username: 'test_update',
-        first_name: 'fName_update',
-        last_name: 'lName_update',
-        email: 'test@email.com_update',
-        password: 'password'
-      }
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      ],
+      max32chars: v => (v && v.length <= 32) || 'Input too long',
+      max64chars: v => (v && v.length <= 64) || 'Input too long',
+      max128chars: v => (v && v.length <= 128) || 'Input too long',
+      max256chars: v => (v && v.length <= 256) || 'Input too long',
+      min1chars: v => (v && v.length > 0) || 'Input too short'
     }
   },
 
@@ -205,18 +189,41 @@ export default {
     },
 
     onCreateUser () {
-      const payload = this.userPayload
-      this.createUser(payload)
+      const valid = this.$refs.form.validate()
+
+      if (valid) {
+        const payload = this.userPayload
+        this.createUser(payload)
+        this.resetUserPayload()
+        this.$refs.form.reset()
+      }
     },
 
     onDeleteUser (id) {
       this.deleteUser(id)
+      this.resetUserPayload()
     },
 
     onUpdateUser () {
-      let payload = this.updateUserPayload
-      payload.id = this.selectedUser.id
-      this.updateUser(payload)
+      const valid = this.$refs.form.validate()
+
+      if (valid) {
+        let payload = this.userPayload
+        this.updateUser(payload)
+        this.resetUserPayload()
+        this.$refs.form.reset()
+      }
+    },
+
+    resetUserPayload () {
+      this.userPayload = {
+        id: undefined,
+        username: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: ''
+      }
     }
   }
 }
