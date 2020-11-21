@@ -142,6 +142,7 @@ export default {
       axios.get('users')
         .then(res => {
           console.log('users: ', res)
+          this.usersResponse = []
           this.usersResponse = res.data
         })
     },

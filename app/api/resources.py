@@ -87,6 +87,7 @@ def find_all(table):
 
     with conn.cursor() as cur:
         cur.execute(f"SELECT * FROM {table};")
+        conn.commit()
         rows = cur.fetchall()
         column_names = [desc[0] for desc in cur.description]
 
@@ -103,6 +104,7 @@ def find_one(table, id):
 
     with conn.cursor() as cur:
         cur.execute(f"SELECT * FROM {table} where id={id};")
+        conn.commit()
         row = cur.fetchone()
         column_names = [desc[0] for desc in cur.description]
 
