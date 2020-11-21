@@ -202,6 +202,7 @@ export default {
     onDeleteUser (id) {
       this.deleteUser(id)
       this.resetUserPayload()
+      this.$refs.form.reset()
     },
 
     onUpdateUser () {
