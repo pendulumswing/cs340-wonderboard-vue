@@ -29,16 +29,59 @@ class SecureResource(Resource):
     method_decorators = [require_auth]
 
 
+# Method to turn a response into a dictionary
 def create_record(obj, fields):
     return dict(zip(fields, obj))
 
 
+# Connect to DB
 def get_connection():
     # return psycopg2.connect("dbname=wonderboard")
     DATABASE_URL = os.getenv('DATABASE_URL')
     return psycopg2.connect(DATABASE_URL)
 
+#
+def execute_query(db_connection = None, query = None, query_params = ()):
+    '''
+    executes a given SQL query on the given db connection and returns a Cursor object
 
+    db_connection: a MySQLdb connection object created by connect_to_database()
+    query: string containing SQL query
+
+    returns: A Cursor object as specified at https://www.python.org/dev/peps/pep-0249/#cursor-objects.
+    You need to run .fetchall() or .fetchone() on that object to actually acccess the results.
+
+    '''
+
+    if db_connection is None:
+        print("No connection to the database found! Have you called connect_to_database() first?")
+        return None
+
+    if query is None or len(query.strip()) == 0:
+        print("query is empty! Please pass a SQL query in query")
+        return None
+
+    print("Executing %s with %s" % (query, query_params))
+    # Create a cursor to execute query. Why? Because apparently they optimize execution by retaining a reference according to PEP0249
+    # Argument 'mariadb.cursors.DictCursor' will include dict keys in response SOURCE: Piazza @40
+    cursor = db_connection.cursor(mariadb.cursors.DictCursor)
+
+    '''
+    params = tuple()
+    #create a tuple of paramters to send with the query
+    for q in query_params:
+        params = params + (q)
+    '''
+    #TODO: Sanitize the query before executing it!!!
+    cursor.execute(query, query_params)
+    # this will actually commit any changes to the database. without this no
+    # changes will be committed!
+    db_connection.commit()
+    return cursor
+
+
+
+# Find all rows in a table
 def find_all(table):
     conn = get_connection()
 
@@ -54,6 +97,7 @@ def find_all(table):
     return data
 
 
+#Find one item in a table by id
 def find_one(table, id):
     conn = get_connection()
 
@@ -64,6 +108,37 @@ def find_one(table, id):
 
     return create_record(row, column_names)
 
+#Delete one item in a table by id
+def delete_one(table, id):
+    conn = get_connection()
+    query = f"DELETE FROM {table} WHERE id={id};"
+    query_params = (id,)
+
+    with conn.cursor() as cur:
+        cur.execute(query, query_params)
+        conn.commit()
+        result = cur
+
+    return f"{result.rowcount} row deleted"
+
+
+def update_one_user(table, data, id):
+        conn = get_connection()
+        query = (f"""UPDATE {table}
+                SET username = '{data['username']}',
+                first_name = '{data['first_name']}',
+                last_name = '{data['last_name']}',
+                email = '{data['email']}',
+                password = '{data['password']}'
+                WHERE id={id};""")
+        query_params = (id,)
+
+        with conn.cursor() as cur:
+            cur.execute(query)
+            conn.commit()
+            result = find_one('users', id)
+
+        return result, 200
 
 @api_rest.route('/users')
 class Users(Resource):
@@ -86,6 +161,15 @@ class Users(Resource):
 class User(Resource):
     def get(self, resource_id):
         return find_one('users', resource_id), 200
+
+    def delete(self, resource_id):
+        return delete_one('users', resource_id)
+
+    def put(self, resource_id):
+        data = request.json
+        print(data['username'])
+        return update_one_user('users', data, resource_id)
+
 
 
 @api_rest.route('/resource/<string:resource_id>')

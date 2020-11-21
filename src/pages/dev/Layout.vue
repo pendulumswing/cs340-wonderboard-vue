@@ -20,22 +20,27 @@
               v-btn(
                 color="grey white--text"
                 tile
+                @click="onGetUsers"
               ) Get Users
               v-btn(
                 color="grey white--text"
                 tile
+                @click="onAddUser"
               ) Add User
               v-btn(
                 color="grey white--text"
                 tile
+                @click="onDeleteUser"
               ) Delete User
               v-btn(
                 color="grey white--text"
                 tile
+                @click="onUpdateUser"
               ) Edit User
             v-row.py-5
               v-col
                 p Show Results Here
+                p {{ usersResponse }}
         // Debug
           div
             p users: {{ $store.state.users.users }}
@@ -106,6 +111,7 @@ import CreateUserDialog from '../../dialogs/user/Create'
 import DeleteUserDialog from '../../dialogs/user/Delete'
 import DeleteUserButton from './DeleteUserButton'
 import EditUserButton from './EditUserButton'
+import axios from 'axios'
 
 export default {
   name: 'home',
@@ -120,7 +126,8 @@ export default {
   data () {
     return {
       showCreateUserDialog: false,
-      showDeleteUserDialog: false
+      showDeleteUserDialog: false,
+      usersResponse: []
     }
   },
 
@@ -131,8 +138,41 @@ export default {
   },
 
   methods: {
-    onDelete () {
-      alert('deleting user')
+    onGetUsers () {
+      axios.get('users')
+        .then(res => {
+          console.log('users: ', res)
+          this.usersResponse = res.data
+        })
+    },
+
+    onAddUser (userPayload) {
+      let payload = { username: 'test', first_name: 'fName', last_name: 'lName', email: 'test@email.com', password: 'password' }
+      axios.post('users', payload)
+        .then(res => {
+          console.log(res)
+          this.onGetUsers()
+        })
+        .catch(error => console.log(error))
+    },
+
+    onDeleteUser () {
+      axios.delete('users/6')
+        .then(res => {
+          console.log('delete: ', res)
+          this.onGetUsers()
+        })
+        .catch(error => console.log(error))
+    },
+
+    onUpdateUser () {
+      let payload = { username: 'test_update', first_name: 'fName_update', last_name: 'lName_update', email: 'test@email.com', password: 'password' }
+      axios.put('users/5', payload)
+        .then(res => {
+          console.log('update: ', res)
+          this.onGetUsers()
+        })
+        .catch(error => console.log(error))
     },
 
     onEdit () {
