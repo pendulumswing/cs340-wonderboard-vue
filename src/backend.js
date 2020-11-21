@@ -3,14 +3,14 @@ import axios from 'axios'
 let $axios = axios.create({
   baseURL: '/api/',
   timeout: 5000,
-  headers: {'Content-Type': 'application/json'}
+  headers: { 'Content-Type': 'application/json' }
 })
 
 // Request Interceptor
-$axios.interceptors.request.use(function (config) {
-  config.headers['Authorization'] = 'Fake Token'
-  return config
-})
+// $axios.interceptors.request.use(function (config) {
+//   config.headers['Authorization'] = 'Fake Token'
+//   return config
+// })
 
 // Response Interceptor to handle and log errors
 $axios.interceptors.response.use(function (response) {
@@ -22,6 +22,7 @@ $axios.interceptors.response.use(function (response) {
 })
 
 export default {
+  $axios,
 
   fetchResource () {
     return $axios.get(`resource/xxx`)
