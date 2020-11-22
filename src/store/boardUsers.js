@@ -1,3 +1,4 @@
+import axios from 'axios'
 const state = {
   id: 4,
   boardUsers: [
@@ -51,6 +52,11 @@ const mutations = {
 
 const actions = {
   createBoardUser: (context, payload) => {
+    axios.get('board_users')
+      .then(res => {
+        console.log('lists:', res.data)
+      })
+      .catch(error => console.log(error))
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
     context.commit('updateBoardUsersAutoId')
     payload.id = state.id
@@ -58,8 +64,13 @@ const actions = {
     context.commit('createBoardUser', payload)
     console.log('createBoardUser from action: ', payload)
   },
-
+  // pw - delete board user based on
   deleteBoardUser: (context, payload) => {
+    axios.delete(`board_users/${payload.id}`)
+      .then(res => {
+        console.log('lists:', res.data)
+      })
+      .catch(error => console.log(error))
     context.commit('deleteBoardUser', payload)
   },
 

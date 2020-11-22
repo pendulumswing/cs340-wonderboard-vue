@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import axios from 'axios'
 
 const state = {
   id: 16,
@@ -66,7 +67,13 @@ const mutations = {
 }
 
 const actions = {
+  // pw - create task user
   createTaskUser: (context, payload) => {
+    axios.poost('task_users', payload)
+      .then(res => {
+        console.log('task_user: ', res.data)
+      })
+      .catch(error => console.log(error))
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
     context.commit('udpateTaskUserAutoId')
 
@@ -74,7 +81,14 @@ const actions = {
     context.commit('createTaskUser', payload)
   },
 
+  // pw - delete based on taskUserId
   deleteTaskUser: (context, payload) => {
+    axios.delete(`task_users/${payload.id}`)
+      .then(res => {
+        console.log('task_users: ', res.data)
+      })
+      .catch(error => console.log(error))
+
     context.commit('deleteTaskUser', payload)
   },
 

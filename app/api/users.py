@@ -54,5 +54,5 @@ class User(Resource):
 
     def put(self, resource_id):
         data = request.json
-        print(data['username'])
+        # print(data['username'])
         return update_one_user('users', data, resource_id)

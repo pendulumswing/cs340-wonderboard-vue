@@ -160,7 +160,7 @@ const actions = {
   getLists: (context, payload) => {
     axios.get('lists')
       .then(res => {
-        console.log('list:', res.data)
+        console.log('lists:', res.data)
       })
       .catch(error => console.log(error))
     // TODO - set up async call to server,

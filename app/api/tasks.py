@@ -19,7 +19,7 @@ def update_one_task(table, data, id):
 
 
 @api_rest.route('/tasks')
-class Task(Resource):
+class Tasks(Resource):
 
     # finding all lists
     def get(self):
@@ -44,7 +44,7 @@ class Task(Resource):
         return result, 201
 
 @api_rest.route('/tasks/<int:resource_id>')
-class Tasks(Resource):
+class Task(Resource):
 
     # finding all tasks based on board id
 

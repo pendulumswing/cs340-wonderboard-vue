@@ -151,7 +151,7 @@ const actions = {
     })
   },
 
-  // pw - Note: need to verify if this is what setasks should return
+  // pw - Note: need to verify if this is what setTasks should return
   // pw - set tasks
   setTasks: (context, payload) => {
     axios.get(`tasks`)

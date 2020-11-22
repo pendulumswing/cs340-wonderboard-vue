@@ -59,7 +59,7 @@ const actions = {
   createBoard: (context, payload) => {
     axios.post('boards', payload)
       .then(res => {
-        console.log('createBoards:', res.data)
+        console.log('createBoard:', res.data)
       })
       .catch(error => console.log(error))
 
