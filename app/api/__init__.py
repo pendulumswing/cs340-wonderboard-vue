@@ -16,7 +16,7 @@ def add_header(response):
 from .users import *
 from .boards import *
 from .lists import *
-
+from .tasks import *
 
 # Import resources to ensure view is registered
 from .resources import * # NOQA

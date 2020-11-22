@@ -38,6 +38,7 @@ const mutations = {
       state.lists.splice(index, 1)
     }
   },
+
   updateList: (state, payload) => {
     const index = state.lists.findIndex(list => {
       return list.id === payload.id
@@ -74,9 +75,9 @@ const mutations = {
 }
 
 const actions = {
-  createList: (context, payload) => {
-    console.log(payload)
 
+  // pw - add list to board
+  createList: (context, payload) => {
     // TODO - set up async call to server,
     axios.post('lists', payload)
       .then(res => {
@@ -108,7 +109,15 @@ const actions = {
   },
 
   // TODO - REMAINING LIST INDICES MUST UPDATE
+
+  // pw - delete list from board on listId
   deleteList: (context, payload) => {
+    axios.delete(`lists/${payload.id}`, payload)
+      .then(res => {
+        console.log('list:', res.data)
+      })
+      .catch(error => console.log(error))
+
     const lists = state.lists.filter(list => {
       return list.board === payload.board && list.index > payload.index
     })
@@ -120,6 +129,7 @@ const actions = {
 
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
+
     context.commit('deleteList', payload)
 
     // Delete List Tasks
@@ -129,12 +139,30 @@ const actions = {
     // }
     context.dispatch('deleteAllTasks', payload)
   },
+
+  // pw - update list based on listId
   updateList: (context, payload) => {
+    // console.log(payload)
+
     // TODO - set up async call to server,
+    axios.put(`lists/${payload.id}`, payload)
+      .then(res => {
+        console.log('list:', res.data)
+      })
+      .catch(error => console.log(error))
+
     //  add to DB, on success commit to store
     context.commit('updateList', payload)
   },
+
+  // pw - Note: need to verify if this is what setasks should return
+  // pw - get all lists
   getLists: (context, payload) => {
+    axios.get('lists')
+      .then(res => {
+        console.log('list:', res.data)
+      })
+      .catch(error => console.log(error))
     // TODO - set up async call to server,
     //  retrieve from DB, on success commit to store
     context.commit('getLists', payload)

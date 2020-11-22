@@ -19,45 +19,49 @@ def update_one_board(table, data, id):
 
 
 @api_rest.route('/boards')
-class Boards(Resource):
+class Board(Resource):
+
+    # get all boards
+    def get(self):
+        return find_all('boards'), 200
+
     # insert board
     def post(self):
         data = request.json
         conn = get_connection()
         with conn.cursor() as cursor:
-            cursor.execute(f"""INSERT INTO boards
-                           (name, creator, color)
-                           VALUES ('{data['name']}',
-                           '{data['creator']}',
-                           '{data['color']}')
-                           RETURNING id;""")
+            cursor.execute(f"""INSERT INTO boards 
+                            (name, creator, color)
+                            VALUES ('{data['name']}',
+                            '{data['creator']}',
+                            '{data['color']}')
+                            RETURNING id;""")
             conn.commit()
             id = cursor.fetchone()[0]
             result = find_one('boards', id)
 
         return result, 201
 
+
 @api_rest.route('/boards/<int:resource_id>')
-class User(Resource):
+class Boards(Resource):
 
     # finding all boards where all user boards fit a userId (or creator)
 
     def get(self, resource_id):
         print(resource_id)
-        # print(find_one('boards', resource_id))
         return find_one('boards', resource_id), 200
-        # return {'resource_id': 'dasd'}
 
     # def get(self, resource_id):
     #     return find_one('users', resource_id), 200
 
-    # delete board based on boardid
-
+    # delete board based on boardId
+    
     def delete(self, resource_id):
         return delete_one('boards', resource_id)
 
 
-    #update board based on boardid
+    #update board based on boardId
 
     def put(self, resource_id):
         data = request.json

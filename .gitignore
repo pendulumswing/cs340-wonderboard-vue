@@ -26,3 +26,4 @@ package-lock.json
 *.sln
 *security-sgps.py
 *security_backend.py
+.flaskenv

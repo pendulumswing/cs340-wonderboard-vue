@@ -55,20 +55,11 @@ const mutations = {
 }
 
 const actions = {
+  // pw - insert a board in store
   createBoard: (context, payload) => {
-    // axios.post('boards', payload)
-    //   console.log(payload)
-    //   .then(res => {
-    //     console.log('this is', res.data)
-    //     // this.onGetUsers()
-    //   })
-    //   .catch(error => console.log(error))
-
     axios.post('boards', payload)
       .then(res => {
         console.log('createBoards:', res.data)
-      // this.onGetUsers()
-      // context.commit('createUser', res.data)
       })
       .catch(error => console.log(error))
 
@@ -101,7 +92,13 @@ const actions = {
     })
   },
 
+  // delete board corresponding to boardId
   deleteBoard: (context, payload) => {
+    axios.delete('boards', payload.id)
+      .then(res => {
+        console.log('deleteBoard:', res.data)
+      })
+      .catch(error => console.log(error))
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     context.commit('deleteBoard', payload)
@@ -114,19 +111,25 @@ const actions = {
     context.dispatch('deleteAllBoardUsers', payload)
     context.dispatch('deleteAllLists', payload)
   },
+
+  // update board with corresponding id
   updateBoard: (context, payload) => {
+    axios.put('boards', payload.id)
+      .then(res => {
+        console.log('deleteBoard:', res.data)
+      })
+      .catch(error => console.log(error))
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     context.commit('updateBoard', payload)
   },
 
+  // get all boards boards
   getBoards: (context, payload) => {
-    console.log(payload)
-    axios.get(`boards/${payload.creator}`)
+    // console.log(payload)
+    axios.get(`boards`)
       .then(res => {
         console.log('getBoards:', res.data)
-      // this.onGetUsers()
-      // context.commit('createUser', res.data)
       })
       .catch(error => console.log(error))
     // TODO - set up async call to server,

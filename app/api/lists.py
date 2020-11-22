@@ -21,7 +21,12 @@ def update_one_list(table, data, id):
 
 
 @api_rest.route('/lists')
-class Boards(Resource):
+class List(Resource):
+
+    # finding all lists
+    def get(self):
+        return find_one('lists'), 200
+
     # insert list
     def post(self):
         data = request.json
@@ -29,7 +34,7 @@ class Boards(Resource):
         with conn.cursor() as cursor:
             cursor.execute(f"""INSERT INTO lists
                            (board, name, index, creator, color)
-                           VALUES ('{data['color']}',
+                           VALUES ('{data['board']}',
                            '{data['name']}',
                            '{data['index']}',
                            '{data['creator']}',
@@ -41,24 +46,23 @@ class Boards(Resource):
 
         return result, 201
 
+    
+
 @api_rest.route('/lists/<int:resource_id>')
-class User(Resource):
+class Lists(Resource):
 
-    # finding all lists based on board id
-
+    # finding all lists based on boardId
     def get(self, resource_id):
-        print(resource_id)
-        # print(find_one('lists', resource_id))
+        # print(resource_id)
         return find_one('lists', resource_id), 200
 
     # delete board based on listId
-
     def delete(self, resource_id):
+        # print(resource_id)
         return delete_one('lists', resource_id)
 
 
-    #update board based on boardid
-
+    #update board based on boardId
     def put(self, resource_id):
-        data = request.json
+        # print(resource_id)
         return update_one_list('lists', data, resource_id)

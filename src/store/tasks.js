@@ -65,6 +65,7 @@ const mutations = {
 }
 
 const actions = {
+  // pw - creates Task
   createTask: (context, payload) => {
     axios.post('tasks', payload)
       .then(res => {
@@ -99,6 +100,7 @@ const actions = {
     // Create Default Tasks for Task
   },
 
+  // pw - delete task based on taskId
   deleteTask: (context, payload) => {
     axios.delete(`tasks/${payload.id}`)
       .then(res => {
@@ -118,6 +120,7 @@ const actions = {
     context.dispatch('deleteAllTaskUsers', payload)
   },
 
+  // pw - update task based on taskId
   updateTask: (context, payload) => {
     axios.put(`tasks/${payload.id}`)
       .then(res => {
@@ -148,7 +151,14 @@ const actions = {
     })
   },
 
+  // pw - Note: need to verify if this is what setasks should return
+  // pw - set tasks
   setTasks: (context, payload) => {
+    axios.get(`tasks`)
+      .then(res => {
+        console.log('tasks:', res.data)
+      })
+      .catch(error => console.log(error))
     // TODO - set up async call to server,
     //  retrieve from DB, on success commit to store
     context.commit('setTasks', payload)
