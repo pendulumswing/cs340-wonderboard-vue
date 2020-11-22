@@ -63,13 +63,13 @@ const actions = {
       })
       .catch(error => console.log(error))
   },
-  deleteUser: (context, id) => {
+  deleteUser: (context, payload) => {
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
-    axios.delete(`users/${id}`)
+    axios.delete(`users/${payload.id}`)
       .then(res => {
         console.log('delete: ', res)
-        context.commit('deleteUser', id)
+        context.commit('deleteUser', payload.id)
       })
       .catch(error => console.log(error))
 
