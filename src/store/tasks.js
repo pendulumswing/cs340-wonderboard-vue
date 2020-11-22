@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const state = {
   id: 13,
   tasks: [
@@ -64,6 +66,12 @@ const mutations = {
 
 const actions = {
   createTask: (context, payload) => {
+    axios.post('tasks', payload)
+      .then(res => {
+        console.log('task:', res.data)
+      })
+      .catch(error => console.log(error))
+
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
     context.commit('updateTaskAutoId')
 
@@ -92,6 +100,12 @@ const actions = {
   },
 
   deleteTask: (context, payload) => {
+    axios.delete(`tasks/${payload.id}`)
+      .then(res => {
+        console.log('task:', res.data)
+      })
+      .catch(error => console.log(error))
+
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     // Payload includes task and TaskUser
@@ -105,10 +119,18 @@ const actions = {
   },
 
   updateTask: (context, payload) => {
+    axios.put(`tasks/${payload.id}`)
+      .then(res => {
+        console.log('tasks:', res.data)
+      })
+      .catch(error => console.log(error))
+
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     context.commit('updateTask', payload)
   },
+
+  // -- left off here
 
   deleteAllTasks: (context, payload) => {
     const tasksToDelete = state.tasks.filter(task => {

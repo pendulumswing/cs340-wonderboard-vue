@@ -14,6 +14,8 @@ def add_header(response):
 
 # Add individual route modules here
 from .users import *
+from .boards import *
+from .lists import *
 
 
 # Import resources to ensure view is registered

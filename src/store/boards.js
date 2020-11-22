@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import axios from 'axios'
 
 const state = {
   id: 4,
@@ -55,7 +56,24 @@ const mutations = {
 
 const actions = {
   createBoard: (context, payload) => {
+    // axios.post('boards', payload)
+    //   console.log(payload)
+    //   .then(res => {
+    //     console.log('this is', res.data)
+    //     // this.onGetUsers()
+    //   })
+    //   .catch(error => console.log(error))
+
+    axios.post('boards', payload)
+      .then(res => {
+        console.log('createBoards:', res.data)
+      // this.onGetUsers()
+      // context.commit('createUser', res.data)
+      })
+      .catch(error => console.log(error))
+
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
+    console.log('this is ', payload)
     context.commit('updateBoardAutoId')
     // payload.id = state.id
 
@@ -101,7 +119,16 @@ const actions = {
     //  add to DB, on success commit to store
     context.commit('updateBoard', payload)
   },
+
   getBoards: (context, payload) => {
+    console.log(payload)
+    axios.get(`boards/${payload.creator}`)
+      .then(res => {
+        console.log('getBoards:', res.data)
+      // this.onGetUsers()
+      // context.commit('createUser', res.data)
+      })
+      .catch(error => console.log(error))
     // TODO - set up async call to server,
     //  retrieve from DB, on success commit to store
     context.commit('getBoards', payload)

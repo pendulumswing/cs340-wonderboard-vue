@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const state = {
   id: 12,
   lists: [
@@ -73,12 +75,20 @@ const mutations = {
 
 const actions = {
   createList: (context, payload) => {
+    console.log(payload)
+
+    // TODO - set up async call to server,
+    axios.post('lists', payload)
+      .then(res => {
+        console.log('list:', res.data)
+      })
+      .catch(error => console.log(error))
+
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
     context.commit('updateListAutoId')
     payload.id = state.id
     console.log('setting new id for list: ', payload.id)
 
-    // TODO - set up async call to server,
     //  add to DB, on success commit to store
     // Commit
     context.commit('createList', payload)
