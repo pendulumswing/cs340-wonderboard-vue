@@ -90,23 +90,24 @@ const actions = {
       .then(res => {
         // console.log('deleted list:', res.data)
         context.commit('deleteList', payload)
+          .then(res => {
+            // Decrement remaining list indeces
+            const lists = state.lists.filter(list => {
+              return list.board === payload.board && list.index > payload.index
+            })
 
-        // Decrement remaining list indeces
-        const lists = state.lists.filter(list => {
-          return list.board === payload.board && list.index > payload.index
-        })
-
-        // Update indices for each list not to be deleted
-        // TODO - update lists on DB before committing here
-        lists.forEach(list => {
-          let listCopy = _.cloneDeep(list)
-          if (listCopy.index >= 0) {
-            listCopy.index -= 1
-          }
-          console.log('listCopy: ', listCopy)
-          context.dispatch('updateList', listCopy)
-          // context.commit('decrementIndex', list)
-        })
+            // Update indices for each list not to be deleted
+            lists.forEach(list => {
+              let listCopy = _.cloneDeep(list)
+              if (listCopy.index >= 0) {
+                listCopy.index -= 1
+              }
+              console.log('listCopy: ', listCopy)
+              context.dispatch('updateList', listCopy)
+              // context.commit('decrementIndex', list)
+            })
+          })
+          .catch(error => console.log(error))
       })
       .catch(error => console.log(error))
   },
