@@ -13,6 +13,7 @@
       UpdateListDialog(
         v-if="showUpdateListDialog"
         :list="list"
+        :lists="lists"
         @close="showUpdateListDialog = false"
       )
 </template>
@@ -28,6 +29,11 @@ export default {
   props: {
     list: {
       type: Object,
+      default: undefined
+    },
+
+    lists: {
+      type: [Object, Array],
       default: undefined
     }
   },

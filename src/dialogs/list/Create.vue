@@ -25,13 +25,6 @@
                 disabled
               )
 
-              // index
-              v-text-field(
-                v-model="data.index"
-                label="index"
-                disabled
-              )
-
               // creator
               v-text-field(
                 v-model="data.creator"
@@ -56,6 +49,15 @@
                 label="color"
                 item-value="color"
                 item-text="name"
+              )
+
+              // index
+              v-text-field(
+                v-model="data.index"
+                label="index"
+                min='1'
+                :max='lists.length + 1'
+                type='number'
               )
 
       v-card-actions
@@ -97,11 +99,16 @@ export default {
       max128chars: v => (v && v.length <= 128) || 'Input too long',
       max256chars: v => (v && v.length <= 256) || 'Input too long',
       min1chars: v => (v && v.length > 0) || 'Input too short',
-      min0chars: v => (v && v.length < 0) || 'Input too short'
+      min0chars: v => (v && v.length < 0) || 'Input too short',
+      min1: v => (v && v > 0) || 'Must be greater than 0'
     }
   },
 
   computed: {
+    maxIndex (v) {
+      return v => (v && v <= this.lists.length + 1) || `Must be less than or equal to ${this.lists.length + 1}`
+    },
+
     ...mapState({
       colors () {
         return this.$store.state.colors
@@ -113,11 +120,6 @@ export default {
   },
 
   methods: {
-    // getRequest (request) {
-    //   return this.$useConnect('user.byCid', {
-    //     cid: request.cid
-    //   })
-    // },
     ...mapActions([
       'createList'
     ]),

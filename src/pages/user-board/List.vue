@@ -6,7 +6,7 @@
         v-spacer
 
         // Edit User
-        EditListButton(:list="list").pr-2
+        EditListButton(:list="list" :lists="lists").pr-2
 
         // Delete User
         DeleteListButton(:list="list")

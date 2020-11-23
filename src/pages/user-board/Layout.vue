@@ -78,6 +78,7 @@
             v-row.no-gutters.pa-0.ma-0(v-if="lists.length > 0")
               v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
                 List(
+                  :key="list.index"
                   :list="list"
                   :lists="lists"
                   :user="user"

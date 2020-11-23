@@ -8,6 +8,7 @@
       v-card-title(class="title blue lighten-2 white--text" primary-title) Edit List
       v-card-text
         v-form(ref="form")
+          p {{ getListsByBoard(list.board) }}
           // id
           v-text-field(
             v-model="data.id"
@@ -23,11 +24,11 @@
           )
 
           // index
-          v-text-field(
-            v-model="data.index"
-            label="index"
-            disabled
-          )
+            v-text-field(
+              v-model="data.index"
+              label="index"
+              disabled
+            )
 
           // name
           v-text-field(
@@ -48,6 +49,15 @@
             item-text="name"
           )
 
+          // index
+          v-text-field(
+            v-model="data.index"
+            label="index"
+            min='1'
+            :max='lists.length + 1'
+            type='number'
+          )
+
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -55,7 +65,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
+import _ from 'lodash'
 import DialogMixin from '../../mixins/DialogMixin'
 
 export default {
@@ -66,6 +77,11 @@ export default {
   props: {
     list: {
       type: Object,
+      default: undefined
+    },
+
+    lists: {
+      type: [Object, Array],
       default: undefined
     }
   },
@@ -95,15 +111,14 @@ export default {
       colors () {
         return this.$store.state.colors
       }
-    })
+    }),
+
+    ...mapGetters([
+      'getListsByBoard'
+    ])
   },
 
   methods: {
-    // getRequest (request) {
-    //   return this.$useConnect('user.byCid', {
-    //     cid: request.cid
-    //   })
-    // },
     ...mapActions([
       'updateList'
     ]),
@@ -113,9 +128,57 @@ export default {
 
       if (valid) {
         // TODO - make call to delete user here
+        console.log('calling shiftLists')
+        this.shiftLists()
         this.updateList(this.data)
         console.log('UPDATE user submitted')
         this.onClose()
+      }
+    },
+
+    shiftLists () {
+      let moveUp = false
+      let moveDown = false
+
+      let listArray = _.cloneDeep(this.lists)
+      console.log('listArray', listArray)
+
+      // const newIndex = this.list.index
+      // Find index of list with same index as payload, if any
+      const newIndex = listArray.findIndex(list => {
+        console.log(list.index, ', ', this.data.index)
+        return list.index === Number(this.data.index)
+      })
+
+      // Find old index in array
+      const oldIndex = listArray.findIndex(list => {
+        return list.id === this.list.id
+      })
+
+      if (oldIndex >= 0) {
+        oldIndex < newIndex ? moveUp = true : moveDown = true
+      }
+
+      console.log(oldIndex, ', ', newIndex, ', ', moveUp, ', ', moveDown)
+
+      if (moveUp) {
+        // For every item below new index...
+        listArray.forEach((list, index) => {
+          if (index <= newIndex && index > oldIndex) {
+            list.index -= 1
+            this.updateList(list)
+          }
+        })
+      }
+
+      if (moveDown) {
+        // For every item above new index...
+        listArray.forEach((list, index) => {
+          if (index >= newIndex && index < oldIndex) {
+            list.index += 1
+            this.updateList(list)
+          }
+        })
       }
     }
   }

@@ -58,7 +58,7 @@ const actions = {
       .catch(error => console.log(error))
   },
 
-  getBoardUsers: (context, payload) => {
+  getBoardUsers: (context) => {
     axios.get(`board_users`)
       .then(res => {
         // console.log('getBoardUsers:', res.data)
