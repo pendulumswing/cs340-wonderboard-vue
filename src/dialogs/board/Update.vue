@@ -82,9 +82,7 @@ export default {
         id: this.board.id || '',
         name: this.board.name || '',
         color: this.board.color || '',
-        // role: '',
-        creator: this.board.creator || undefined,
-        blank: 'test'
+        creator: this.board.creator || undefined
       },
       // SOURCE: https://vuetifyjs.com/en/components/forms/#misc
       emailRules: [
@@ -117,7 +115,7 @@ export default {
 
       if (valid) {
         // TODO - make call to delete user here
-        console.log('UPDATE user submitted')
+        console.log('UPDATE board submitted', this.data)
         this.updateBoard(this.data)
         this.onClose()
       }

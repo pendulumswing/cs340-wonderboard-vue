@@ -20,12 +20,18 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
       // boardsUrl: `/users/${this.$store.state.users.users[0].id || 1}`,
       // listsUrl: `/users/${this.$store.state.users.users[0].id || 1}/boards/${this.$store.state.boards.boards[0].id || 1}`
     }
+  },
+
+  mounted () {
+    this.getUsers()
+    this.getBoards()
   },
 
   computed: {
@@ -50,6 +56,13 @@ export default {
     boards () {
       return this.$store.state.boards.boards
     }
+  },
+
+  methods: {
+    ...mapActions([
+      'getUsers',
+      'getBoards'
+    ])
   }
 }
 </script>

@@ -40,7 +40,8 @@ const mutations = {
     }
   },
   getBoards: (state, payload) => {
-    this.state.boards = payload
+    state.boards = []
+    state.boards = payload
   },
 
   updateBoardAutoId (state, payload) {
@@ -55,23 +56,23 @@ const mutations = {
 }
 
 const actions = {
-  // pw - insert a board in store
+  // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
+  // console.log('this is ', payload)
+  // context.commit('updateBoardAutoId')
+  // payload.id = state.id
+
   createBoard: (context, payload) => {
+    let boardId = null
     axios.post('boards', payload)
       .then(res => {
         console.log('createBoard:', res.data)
+        context.commit('createBoard', res.data)
+        boardId = res.data.id
       })
       .catch(error => console.log(error))
-
-    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-    console.log('this is ', payload)
-    context.commit('updateBoardAutoId')
-    // payload.id = state.id
-
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     // Commit
-    context.commit('createBoard', payload)
 
     // Create BoardUser Relationship
     // TODO - this might be hangled by the server whenever a board is created
@@ -79,15 +80,16 @@ const actions = {
     const boardUserPayload = {
       // id: boardUsersLength,
       user: Number(payload.creator),
-      board: Number(payload.id)
+      board: Number(boardId)
     }
     context.dispatch('createBoardUser', boardUserPayload)
 
-    // TODO - this might be hangled by the server whenever a board is created
+    // TODO - this could be handled by the server whenever a board is created,
+    // if default lists added to DB
     // Create Default Lists for Board
     context.rootState.defaultLists.forEach(list => {
       let newList = _.cloneDeep(list)
-      newList.board = payload.id
+      newList.board = boardId
       context.dispatch('createList', newList)
     })
   },
@@ -97,46 +99,45 @@ const actions = {
     axios.delete('boards', payload.id)
       .then(res => {
         console.log('deleteBoard:', res.data)
+        context.commit('deleteBoard', payload)
       })
       .catch(error => console.log(error))
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
-    context.commit('deleteBoard', payload)
 
     // TODO - this might be handled by the server CASCADE whenever a board is delete
     // Delete BoardUser
     // const boardUserPayload = {
     //   board: Number(payload.id)
     // }
-    context.dispatch('deleteAllBoardUsers', payload)
-    context.dispatch('deleteAllLists', payload)
+    // context.dispatch('deleteAllBoardUsers', payload)
+    // context.dispatch('deleteAllLists', payload)
   },
 
-  // update board with corresponding id
   updateBoard: (context, payload) => {
-    axios.put('boards', payload.id)
+    axios.put(`boards/${payload.id}`, payload)
       .then(res => {
-        console.log('deleteBoard:', res.data)
+        console.log('updateBoard:', res.data)
+        context.commit('updateBoard', res.data)
       })
       .catch(error => console.log(error))
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
-    context.commit('updateBoard', payload)
   },
 
   // get all boards boards
   getBoards: (context, payload) => {
-    // console.log(payload)
     axios.get(`boards`)
       .then(res => {
         console.log('getBoards:', res.data)
+        context.commit('getBoards', res.data)
       })
       .catch(error => console.log(error))
     // TODO - set up async call to server,
     //  retrieve from DB, on success commit to store
-    context.commit('getBoards', payload)
   },
 
+  // Pseudo Cascade Delete (Client-only - use if no DB attached)
   deleteAllBoards: (context, payload) => {
     const boardsToDelete = state.boards.filter(board => {
       return board.creator === Number(payload.id)

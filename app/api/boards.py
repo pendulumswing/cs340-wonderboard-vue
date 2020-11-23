@@ -8,6 +8,7 @@ def update_one_board(table, data, id):
             creator = '{data['creator']}',
             color = '{data['color']}'
             WHERE id={id};""")
+    print(f"query: {query}")
     query_params = (id,)
 
     with conn.cursor() as cur:
@@ -30,7 +31,7 @@ class Board(Resource):
         data = request.json
         conn = get_connection()
         with conn.cursor() as cursor:
-            cursor.execute(f"""INSERT INTO boards 
+            cursor.execute(f"""INSERT INTO boards
                             (name, creator, color)
                             VALUES ('{data['name']}',
                             '{data['creator']}',
@@ -56,7 +57,7 @@ class Boards(Resource):
     #     return find_one('users', resource_id), 200
 
     # delete board based on boardId
-    
+
     def delete(self, resource_id):
         return delete_one('boards', resource_id)
 
@@ -65,4 +66,4 @@ class Boards(Resource):
 
     def put(self, resource_id):
         data = request.json
-        return update_one_user('boards', data, resource_id)
+        return update_one_board('boards', data, resource_id)

@@ -24,7 +24,7 @@
 import UpdateBoardDialog from '@/dialogs/board/Update'
 
 export default {
-  name: 'editUserButton',
+  name: 'editBoardButton',
   components: {
     UpdateBoardDialog
   },
