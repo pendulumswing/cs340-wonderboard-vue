@@ -80,7 +80,7 @@ const actions = {
     axios.post('lists', payload)
       .then(res => {
         console.log('added list:', res.data)
-        context.commit('createList', payload)
+        context.commit('createList', res.data)
       })
       .catch(error => console.log(error))
   },
