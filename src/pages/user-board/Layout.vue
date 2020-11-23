@@ -12,9 +12,9 @@
           span.grey--text.text--darken-2 {{ board.name }}
         v-spacer
 
-        div(v-for="list in lists")
-          div {{ list }}
         //Debug
+          div(v-for="list in lists")
+            div {{ list }}
           p tasks {{ this.$store.state.tasks.tasks }}
           p state.tasks {{ $store.state.tasks.tasks }}
           p state.taskUsers {{ $store.state.taskUsers.taskUsers }}
