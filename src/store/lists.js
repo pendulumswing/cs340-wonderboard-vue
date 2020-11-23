@@ -1,4 +1,5 @@
 import axios from 'axios'
+import _ from 'lodash'
 
 const state = {
   id: 12,
@@ -26,7 +27,6 @@ const getters = {
 
 const mutations = {
   createList: (state, payload) => {
-    // console.log('pushing data to list state: ', payload)
     state.lists.push(payload)
   },
 
@@ -49,7 +49,8 @@ const mutations = {
   },
 
   getLists: (state, payload) => {
-    this.state.lists = payload
+    state.lists = []
+    state.lists = payload
   },
 
   updateListAutoId (state, payload) {
@@ -75,112 +76,59 @@ const mutations = {
 }
 
 const actions = {
-
-  // pw - add list to board
   createList: (context, payload) => {
-    // TODO - set up async call to server,
     axios.post('lists', payload)
       .then(res => {
         console.log('added list:', res.data)
+        context.commit('createList', payload)
       })
       .catch(error => console.log(error))
-
-    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-    context.commit('updateListAutoId')
-    payload.id = state.id
-    console.log('setting new id for list: ', payload.id)
-
-    //  add to DB, on success commit to store
-    // Commit
-    context.commit('createList', payload)
-
-    // TODO - this might be handled by the server whenever a list is created
-    // Create Payload for listUser
-    // const listUsersLength = context.getters.getListUsersLength + 1
-    // const listUserPayload = {
-    //   id: listUsersLength,
-    //   user: Number(payload.creator),
-    //   list: Number(payload.id)
-    // }
-    // context.dispatch('createListUser', listUserPayload)
-
-    // TODO - this might be hangled by the server whenever a list is created
-    // Create Default Lists for List
   },
 
-  // TODO - REMAINING LIST INDICES MUST UPDATE
-
-  // pw - delete list from board on listId
   deleteList: (context, payload) => {
-    console.log(payload.id)
     axios.delete(`lists/${payload.id}`, payload)
       .then(res => {
-        console.log('deleted list:', res.data)
+        // console.log('deleted list:', res.data)
+        context.commit('deleteList', payload)
+
+        // Decrement remaining list indeces
+        const lists = state.lists.filter(list => {
+          return list.board === payload.board && list.index > payload.index
+        })
+
+        // Update indices for each list not to be deleted
+        // TODO - update lists on DB before committing here
+        lists.forEach(list => {
+          let listCopy = _.cloneDeep(list)
+          if (listCopy.index >= 0) {
+            listCopy.index -= 1
+          }
+          console.log('listCopy: ', listCopy)
+          context.dispatch('updateList', listCopy)
+          // context.commit('decrementIndex', list)
+        })
       })
       .catch(error => console.log(error))
-
-    const lists = state.lists.filter(list => {
-      return list.board === payload.board && list.index > payload.index
-    })
-
-    // Update indices for each list not to be deleted
-    lists.forEach(list => {
-      context.commit('decrementIndex', list)
-    })
-
-    // TODO - set up async call to server,
-    //  add to DB, on success commit to store
-
-    context.commit('deleteList', payload)
-
-    // Delete List Tasks
-    // TODO - this might be handled by the server CASCADE whenever a list is delete
-    // const listPayload = {
-    //   id: Number(payload.id)
-    // }
-    context.dispatch('deleteAllTasks', payload)
   },
 
-  // pw - update list based on listId
   updateList: (context, payload) => {
-    // console.log(payload)
-
-    // TODO - set up async call to server,
     axios.put(`lists/${payload.id}`, payload)
       .then(res => {
         console.log('updated list:', res.data)
+        context.commit('updateList', res.data)
       })
       .catch(error => console.log(error))
-
-    //  add to DB, on success commit to store
-    context.commit('updateList', payload)
   },
 
-  // pw - Note: need to verify if this is what setasks should return
-  // pw - get all lists
+  // TODO - set up async call to server,
+  //  retrieve from DB, on success commit to store
   getLists: (context, payload) => {
     axios.get('lists')
       .then(res => {
         console.log('lists:', res.data)
+        context.commit('getLists', res.data)
       })
       .catch(error => console.log(error))
-    // TODO - set up async call to server,
-    //  retrieve from DB, on success commit to store
-    context.commit('getLists', payload)
-  },
-
-  deleteAllLists: (context, payload) => {
-    const listsToDelete = state.lists.filter(list => {
-      return list.board === Number(payload.id)
-    })
-    context.commit('deleteAllLists', payload)
-
-    // Delete TaskUsers
-    // TODO - this might be handled by the server CASCADE
-    //  whenever multiple lists are deleted
-    listsToDelete.forEach(list => {
-      context.dispatch('deleteAllTasks', list)
-    })
   }
 }
 

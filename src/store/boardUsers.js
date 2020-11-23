@@ -33,11 +33,16 @@ const mutations = {
     }
   },
 
-  deleteAllBoardUsers (state, payload) {
-    state.boardUsers = state.boardUsers.filter(boardUser => {
-      return boardUser.board !== Number(payload.id)
-    })
-  },
+  getBoardUsers: (state, payload) => {
+    state.boardUsers = []
+    state.boardUsers = payload
+  }
+
+  // deleteAllBoardUsers (state, payload) {
+  //   state.boardUsers = state.boardUsers.filter(boardUser => {
+  //     return boardUser.board !== Number(payload.id)
+  //   })
+  // },
 
   // deleteAllBoardUsersByUser (state, payload) {
   //   state.boardUsers = state.boardUsers.filter(boardUser => {
@@ -45,43 +50,41 @@ const mutations = {
   //   })
   // },
 
-  updateBoardUsersAutoId (state, payload) {
-    state.id += 1
-  }
+  // updateBoardUsersAutoId (state, payload) {
+  //   state.id += 1
+  // }
 }
 
 const actions = {
   createBoardUser: (context, payload) => {
-    axios.get('board_users')
+    axios.post('board_users', payload)
       .then(res => {
-        console.log('created board user:', res.data)
+        // console.log('created board user:', res.data)
+        context.commit('createBoardUser', res.data)
       })
       .catch(error => console.log(error))
-    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-    context.commit('updateBoardUsersAutoId')
-    payload.id = state.id
-
-    context.commit('createBoardUser', payload)
-    console.log('createBoardUser from action: ', payload)
   },
 
-  // no id to delete
-  // pw - delete board user based on
   deleteBoardUser: (context, payload) => {
     axios.delete(`board_users/${payload.id}`)
       .then(res => {
-        console.log('deleted board user:', res.data)
+        // console.log('deleted board user:', payload.id)
+        context.commit('deleteBoardUser', payload)
       })
       .catch(error => console.log(error))
-    context.commit('deleteBoardUser', payload)
   },
 
-  deleteAllBoardUsers: (context, payload) => {
-    context.commit('deleteAllBoardUsers', payload)
+  getBoardUsers: (context) => {
+    axios.get(`board_users`)
+      .then(res => {
+        // console.log('getBoardUsers:', res.data)
+        context.commit('getBoardUsers', res.data)
+      })
+      .catch(error => console.log(error))
   }
 
-  // deleteAllBoardUsersByUser: (context, payload) => {
-  //   context.commit('deleteAllBoardUsersByUser', payload)
+  // deleteAllBoardUsers: (context, payload) => {
+  //   context.commit('deleteAllBoardUsers', payload)
   // }
 }
 

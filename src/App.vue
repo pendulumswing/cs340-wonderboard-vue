@@ -61,7 +61,9 @@ export default {
   methods: {
     ...mapActions([
       'getUsers',
-      'getBoards'
+      'getBoards',
+      'getLists',
+      'getBoardUsers'
     ])
   }
 }

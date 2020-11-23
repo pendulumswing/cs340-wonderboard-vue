@@ -19,9 +19,9 @@ const mutations = {
     state.users.push(payload)
   },
 
-  deleteUser: (state, id) => {
+  deleteUser: (state, payload) => {
     const index = state.users.findIndex(user => {
-      return user.id === id
+      return user.id === payload.id
     })
     if (index >= 0) {
       state.users.splice(index, 1)
@@ -37,6 +37,7 @@ const mutations = {
   },
   getUsers: (state, payload) => {
     console.log('inside getUsers')
+    state.users = []
     state.users = payload
     console.log('this.state.users: ', state.users)
   },
@@ -69,7 +70,7 @@ const actions = {
     axios.delete(`users/${payload.id}`)
       .then(res => {
         console.log('delete: ', res)
-        context.commit('deleteUser', payload.id)
+        context.commit('deleteUser', payload)
       })
       .catch(error => console.log(error))
 
@@ -83,9 +84,9 @@ const actions = {
     // 'test@email.com', password: 'password' }
     axios.put(`users/${payload.id}`, payload)
       .then(res => {
-        console.log('update: ', res)
+        console.log('update: ', res.data)
         // this.onGetUsers()
-        context.commit('updateUser', payload)
+        context.commit('updateUser', res.data)
       })
       .catch(error => console.log(error))
   },
