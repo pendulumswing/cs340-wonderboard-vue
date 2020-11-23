@@ -25,8 +25,8 @@ const mutations = {
   },
 
   deleteBoardUser (state, payload) {
-    const index = state.boardUsers.findIndex(item => {
-      return item.board === payload.boardId && item.user === payload.userId
+    const index = state.boardUsers.findIndex(boardUser => {
+      return boardUser.id === payload.id
     })
     if (index >= 0) {
       state.boardUsers.splice(index, 1)

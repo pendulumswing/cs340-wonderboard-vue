@@ -67,13 +67,6 @@ export default {
     }
   },
 
-  data () {
-    return {
-      showDeleteBoardDialog: false,
-      showUpdateBoardDialog: false
-    }
-  },
-
   computed: {
     ...mapState({
       assignedUsers () {
@@ -101,15 +94,15 @@ export default {
     ]),
 
     onAddUser (user) {
-      const id = this.getBoardUsersAutoId + 1
-      const payload = { id: id, board: this.board.id, user: user.id }
+      // const id = this.getBoardUsersAutoId + 1
+      const payload = { board: this.board.id, user: user.id }
       this.createBoardUser(payload)
     },
 
     onRemoveUser (user) {
-      const boardId = this.board.id
-      const userId = user.id
-      const payload = { boardId, userId }
+      const payload = this.boardUsers.find(boardUser => {
+        return boardUser.user === user.id
+      })
       this.deleteBoardUser(payload)
     }
   }
