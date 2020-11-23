@@ -71,7 +71,6 @@
                   // username
                   v-text-field(
                     ref="inputFocus"
-                    autofocus
                     v-model="userPayload.username"
                     label="username"
                     :rules="[min1chars, max64chars]"
