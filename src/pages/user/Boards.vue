@@ -1,7 +1,10 @@
 <template lang="pug">
   div
     v-row(v-if="boards.length > 0")
-      // p Boards: {{ boards }}
+      // Debug
+        p Boards: {{ boards }}
+        p BoardUsers: {{ boardUsers }}
+        p User: {{ user }}
       v-col(v-for="board in boards" cols="12" sm="6" md="4" lg="3")
         Board(
           :user="user"

@@ -32,6 +32,8 @@ export default {
   mounted () {
     this.getUsers()
     this.getBoards()
+    this.getBoardUsers()
+    this.getLists()
   },
 
   computed: {
@@ -62,8 +64,8 @@ export default {
     ...mapActions([
       'getUsers',
       'getBoards',
-      'getLists',
-      'getBoardUsers'
+      'getBoardUsers',
+      'getLists'
     ])
   }
 }

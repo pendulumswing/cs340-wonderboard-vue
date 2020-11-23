@@ -79,8 +79,8 @@ export default {
         board: Number(this.list.board) || '',
         index: Number(this.list.index) || '',
         name: this.list.name || '',
-        color: this.list.color || ''
-        // creator: this.$route.params.userId || undefined
+        color: this.list.color || '',
+        creator: Number(this.$route.params.userId) || undefined
       },
       max32chars: v => (v && v.length <= 32) || 'Input too long',
       max64chars: v => (v && v.length <= 64) || 'Input too long',

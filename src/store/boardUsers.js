@@ -37,22 +37,6 @@ const mutations = {
     state.boardUsers = []
     state.boardUsers = payload
   }
-
-  // deleteAllBoardUsers (state, payload) {
-  //   state.boardUsers = state.boardUsers.filter(boardUser => {
-  //     return boardUser.board !== Number(payload.id)
-  //   })
-  // },
-
-  // deleteAllBoardUsersByUser (state, payload) {
-  //   state.boardUsers = state.boardUsers.filter(boardUser => {
-  //     return boardUser.user !== Number(payload.id)
-  //   })
-  // },
-
-  // updateBoardUsersAutoId (state, payload) {
-  //   state.id += 1
-  // }
 }
 
 const actions = {
@@ -74,7 +58,7 @@ const actions = {
       .catch(error => console.log(error))
   },
 
-  getBoardUsers: (context) => {
+  getBoardUsers: (context, payload) => {
     axios.get(`board_users`)
       .then(res => {
         // console.log('getBoardUsers:', res.data)
@@ -82,10 +66,6 @@ const actions = {
       })
       .catch(error => console.log(error))
   }
-
-  // deleteAllBoardUsers: (context, payload) => {
-  //   context.commit('deleteAllBoardUsers', payload)
-  // }
 }
 
 export default {

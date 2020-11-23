@@ -2,14 +2,14 @@ from .resources import *
 
 
 def update_one_list(table, data, id):
-    
+
     conn = get_connection()
     query = (f"""UPDATE {table}
             SET board = '{data['board']}',
             name = '{data['name']}',
             index = '{data['index']}',
-            creator = '{data['creator']},
-            color = '{data['color']}
+            creator = '{data['creator']}',
+            color = '{data['color']}'
             WHERE id={id};""")
     query_params = (id,)
 
@@ -26,7 +26,7 @@ class List(Resource):
 
     # finding all lists
     def get(self):
-        return find_one('lists'), 200
+        return find_all('lists'), 200
 
     # insert list
     def post(self):
@@ -47,7 +47,7 @@ class List(Resource):
 
         return result, 201
 
-    
+
 
 @api_rest.route('/lists/<int:resource_id>')
 class Lists(Resource):
@@ -65,5 +65,5 @@ class Lists(Resource):
 
     #update board based on boardId
     def put(self, resource_id):
-        # print(resource_id)
+        data = request.json
         return update_one_list('lists', data, resource_id)

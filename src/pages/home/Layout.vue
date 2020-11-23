@@ -11,9 +11,10 @@
         ) Add User
       v-card-text
         // Debug
-          div
+        div
+          p boards: {{ $store.state.boards.boards }}
+          //
             p users: {{ $store.state.users.users }}
-            p boards: {{ $store.state.boards.boards }}
             p boardsUsers: {{ $store.state.boardUsers.boardUsers }}
             p lists: {{ $store.state.lists.lists }}
             p tasks: {{ $store.state.tasks.tasks }}

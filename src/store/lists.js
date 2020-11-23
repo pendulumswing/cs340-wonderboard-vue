@@ -115,8 +115,8 @@ const actions = {
   updateList: (context, payload) => {
     axios.put(`lists/${payload.id}`, payload)
       .then(res => {
-        console.log('updated list:', res.data)
         context.commit('updateList', res.data)
+        console.log('updated list:', res.data)
       })
       .catch(error => console.log(error))
   },
