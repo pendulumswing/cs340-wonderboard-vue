@@ -1,5 +1,5 @@
 from .resources import *
- 
+
 def update_one_task(table, data, id):
     conn = get_connection()
     query = (f"""UPDATE {table}
@@ -22,7 +22,7 @@ class Tasks(Resource):
 
     # finding all lists
     def get(self):
-        return find_one('tasks'), 200
+        return find_all('tasks'), 200
 
     # insert task
     def post(self):
@@ -56,7 +56,7 @@ class Task(Resource):
     def delete(self, resource_id):
         # print(resource_id)
         return delete_one('tasks', resource_id)
-        
+
     #update board based on boardid
 
     def put(self, resource_id):

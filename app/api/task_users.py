@@ -25,9 +25,9 @@ class Task_Users(Resource):
 
     # finding all task users
     def get(self):
-        return find_one('task_users'), 200
+        return find_all('task_users'), 200
 
-    # insert 
+    # insert
     def post(self):
         data = request.json
         print(data)
@@ -40,11 +40,11 @@ class Task_Users(Resource):
                            RETURNING id;""")
             conn.commit()
             id = cursor.fetchone()[0]
-            result = find_one('lists', id)
+            result = find_one('task_users', id)
 
         return result, 201
 
-    
+
 
 @api_rest.route('/task_users/<int:resource_id>')
 class Task_User(Resource):

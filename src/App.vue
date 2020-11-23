@@ -34,6 +34,8 @@ export default {
     this.getBoards()
     this.getBoardUsers()
     this.getLists()
+    this.getTasks()
+    this.getTaskUsers()
   },
 
   computed: {
@@ -65,7 +67,9 @@ export default {
       'getUsers',
       'getBoards',
       'getBoardUsers',
-      'getLists'
+      'getLists',
+      'getTasks',
+      'getTaskUsers'
     ])
   }
 }

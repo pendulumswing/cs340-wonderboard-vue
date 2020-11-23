@@ -49,6 +49,11 @@ const mutations = {
     }
   },
 
+  getTasks: (state, payload) => {
+    state.tasks = []
+    state.tasks = payload
+  },
+
   deleteAllTasks (state, payload) {
     state.tasks = state.tasks.filter(task => {
       return task.list !== Number(payload.id)
@@ -65,32 +70,31 @@ const mutations = {
 }
 
 const actions = {
+  // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
+  // context.commit('updateTaskAutoId')
   // pw - creates Task
   createTask: (context, payload) => {
     axios.post('tasks', payload)
       .then(res => {
         console.log('created task:', res.data)
+        context.commit('createTask', res.data)
+
+        const taskId = res.data.id
+        const creatorId = res.data.creator
+        const taskUserPayload = {
+          task: Number(taskId),
+          user: Number(creatorId)
+        }
+        context.dispatch('createTaskUser', taskUserPayload)
       })
       .catch(error => console.log(error))
-
-    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-    context.commit('updateTaskAutoId')
 
     // TODO - set up async call to server,
     //  add to DB, on success commit to store
     // Commit
-    context.commit('createTask', payload)
-    console.log('task: ', ' id: ', payload.id, ', ', payload)
 
     // Create Payload for taskUser
     // const taskUsersLength = context.getters.getTaskUsersLength + 1
-    const taskUserPayload = {
-      id: context.getters.getTaskUsersAutoId + 1,
-      user: Number(payload.creator),
-      task: Number(payload.id)
-    }
-    console.log('taskUserPayload: ', ' id: ', taskUserPayload.id, ', ', taskUserPayload)
-    context.dispatch('createTaskUser', taskUserPayload)
 
     // TODO - this might be handled by the server whenever a task is created
     // Create Payload for taskUser
@@ -162,6 +166,15 @@ const actions = {
     // TODO - set up async call to server,
     //  retrieve from DB, on success commit to store
     context.commit('setTasks', payload)
+  },
+
+  getTasks: (context) => {
+    axios.get(`tasks`)
+      .then(res => {
+        console.log('getTasks:', res.data)
+        context.commit('getTasks', res.data)
+      })
+      .catch(error => console.log(error))
   }
 }
 

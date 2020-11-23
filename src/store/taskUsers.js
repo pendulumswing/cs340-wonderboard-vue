@@ -54,50 +54,54 @@ const mutations = {
     }
   },
 
-  deleteAllTaskUsers (state, payload) {
-    state.taskUsers = state.taskUsers.filter(taskUser => {
-      return taskUser.task !== Number(payload.id)
-    })
-  },
-
-  udpateTaskUserAutoId (state, payload) {
-    state.id += 1
-    console.log('state.id = ', state.id)
+  getTaskUsers: (state, payload) => {
+    state.tasksUsers = []
+    state.tasksUsers = payload
   }
+
+  // deleteAllTaskUsers (state, payload) {
+  //   state.taskUsers = state.taskUsers.filter(taskUser => {
+  //     return taskUser.task !== Number(payload.id)
+  //   })
+  // },
+
+  // udpateTaskUserAutoId (state, payload) {
+  //   state.id += 1
+  //   console.log('state.id = ', state.id)
+  // }
 }
 
 const actions = {
-  // pw - create task user
   createTaskUser: (context, payload) => {
     axios.post('task_users', payload)
       .then(res => {
         console.log('task_user: ', res.data)
+        context.commit('createTaskUser', res.data)
       })
       .catch(error => console.log(error))
-    // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-    context.commit('udpateTaskUserAutoId')
-
-    // Add user to Store
-    context.commit('createTaskUser', payload)
   },
 
-  // do not see id in payload
-  // pw - delete based on taskUserId
   deleteTaskUser: (context, payload) => {
-    console.log('this is payload', payload)
     axios.delete(`task_users/${payload.id}`)
       .then(res => {
         console.log('task_users: ', res.data)
+        context.commit('deleteTaskUser', payload)
       })
       .catch(error => console.log(error))
-
-    context.commit('deleteTaskUser', payload)
   },
 
-  deleteAllTaskUsers: (context, payload) => {
-    console.log('deleteAllTaskUsers action called')
-    context.commit('deleteAllTaskUsers', payload)
+  getTaskUsers: (context) => {
+    axios.get(`tasks`)
+      .then(res => {
+        console.log('getTaskUsers:', res.data)
+        context.commit('getTaskUsers', res.data)
+      })
+      .catch(error => console.log(error))
   }
+  // deleteAllTaskUsers: (context, payload) => {
+  //   console.log('deleteAllTaskUsers action called')
+  //   context.commit('deleteAllTaskUsers', payload)
+  // }
 }
 
 export default {

@@ -234,13 +234,17 @@ export default {
 
     onAddUser (user) {
       // console.log('taskUsersNextId: ', this.getTaskUsersNextId)
-      const taskUserId = this.getTaskUsersAutoId + 1
-      const payload = { id: taskUserId, task: this.task.id, user: user.id }
+      // const taskUserId = this.getTaskUsersAutoId + 1
+      const payload = { task: this.task.id, user: user.id }
       this.createTaskUser(payload)
     },
 
     onRemoveUser (user) {
-      const payload = { task: this.task.id, user: user.id }
+      // const payload = { task: this.task.id, user: user.id }
+      // // TODO - find taskUser id
+      const payload = this.taskUsers.find(taskUser => {
+        return taskUser.user === user.id
+      })
       this.deleteTaskUser(payload)
     },
 

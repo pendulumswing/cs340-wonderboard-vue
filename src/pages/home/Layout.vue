@@ -12,8 +12,8 @@
       v-card-text
         // Debug
         div
-          p boards: {{ $store.state.boards.boards }}
           //
+            p boards: {{ $store.state.boards.boards }}
             p users: {{ $store.state.users.users }}
             p boardsUsers: {{ $store.state.boardUsers.boardUsers }}
             p lists: {{ $store.state.lists.lists }}

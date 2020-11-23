@@ -59,7 +59,6 @@ const actions = {
   createBoard: (context, payload) => {
     axios.post('boards', payload)
       .then(res => {
-        // console.log('createBoard:', res.data)
         context.commit('createBoard', res.data)
         const boardId = res.data.id
         const creatorId = res.data.creator
@@ -100,7 +99,6 @@ const actions = {
       .catch(error => console.log(error))
   },
 
-  // get all boards boards
   getBoards: (context) => {
     axios.get(`boards`)
       .then(res => {
