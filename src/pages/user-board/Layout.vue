@@ -171,6 +171,7 @@ import CreateListDialog from '@/dialogs/list/Create'
 import CreateTaskDialog from '@/dialogs/task/Create'
 import List from './List'
 import BoardUsers from './BoardUsers'
+import _ from 'lodash'
 
 export default {
   name: 'home',
@@ -206,8 +207,12 @@ export default {
       },
 
       lists () {
-        return this.$store.state.lists.lists.filter(list => {
+        let lists = this.$store.state.lists.lists.filter(list => {
           return list.board === Number(this.$route.params.boardId)
+        })
+
+        return _.sortBy(lists, function (list) {
+          return list.index
         })
       },
 
