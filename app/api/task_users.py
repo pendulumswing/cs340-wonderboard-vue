@@ -23,19 +23,20 @@ from .resources import *
 @api_rest.route('/task_users')
 class Task_Users(Resource):
 
-    # finding all lists
+    # finding all task users
     def get(self):
         return find_one('task_users'), 200
 
-    # insert list
+    # insert 
     def post(self):
         data = request.json
+        print(data)
         conn = get_connection()
         with conn.cursor() as cursor:
             cursor.execute(f"""INSERT INTO task_users
-                           (, name, index, creator, color)
-                           VALUES ('{data['board']}',
-                           '{data['name']}',
+                           ("user", task)
+                           VALUES ('{data['user']}',
+                           '{data['task']}')
                            RETURNING id;""")
             conn.commit()
             id = cursor.fetchone()[0]

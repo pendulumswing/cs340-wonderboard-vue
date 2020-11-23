@@ -2,22 +2,23 @@ from .resources import *
 
 
 def update_one_list(table, data, id):
-        conn = get_connection()
-        query = (f"""UPDATE {table}
-                SET board = '{data['board']}',
-                name = '{data['name']}',
-                index = '{data['index']}',
-                creator = '{data['creator']},
-                color = '{data['color']}
-                WHERE id={id};""")
-        query_params = (id,)
+    
+    conn = get_connection()
+    query = (f"""UPDATE {table}
+            SET board = '{data['board']}',
+            name = '{data['name']}',
+            index = '{data['index']}',
+            creator = '{data['creator']},
+            color = '{data['color']}
+            WHERE id={id};""")
+    query_params = (id,)
 
-        with conn.cursor() as cur:
-            cur.execute(query)
-            conn.commit()
-            result = find_one('lists', id)
+    with conn.cursor() as cur:
+        cur.execute(query)
+        conn.commit()
+        result = find_one('lists', id)
 
-        return result, 200
+    return result, 200
 
 
 @api_rest.route('/lists')

@@ -2,20 +2,20 @@ from .resources import *
 
 
 def update_one_board(table, data, id):
-        conn = get_connection()
-        query = (f"""UPDATE {table}
-                SET name = '{data['name']}',
-                creator = '{data['creator']}',
-                color = '{data['color']}'
-                WHERE id={id};""")
-        query_params = (id,)
+    conn = get_connection()
+    query = (f"""UPDATE {table}
+            SET name = '{data['name']}',
+            creator = '{data['creator']}',
+            color = '{data['color']}'
+            WHERE id={id};""")
+    query_params = (id,)
 
-        with conn.cursor() as cur:
-            cur.execute(query)
-            conn.commit()
-            result = find_one('boards', id)
+    with conn.cursor() as cur:
+        cur.execute(query)
+        conn.commit()
+        result = find_one('boards', id)
 
-        return result, 200
+    return result, 200
 
 
 @api_rest.route('/boards')

@@ -81,7 +81,7 @@ const actions = {
     // TODO - set up async call to server,
     axios.post('lists', payload)
       .then(res => {
-        console.log('list:', res.data)
+        console.log('added list:', res.data)
       })
       .catch(error => console.log(error))
 
@@ -112,9 +112,10 @@ const actions = {
 
   // pw - delete list from board on listId
   deleteList: (context, payload) => {
+    console.log(payload.id)
     axios.delete(`lists/${payload.id}`, payload)
       .then(res => {
-        console.log('list:', res.data)
+        console.log('deleted list:', res.data)
       })
       .catch(error => console.log(error))
 
@@ -147,7 +148,7 @@ const actions = {
     // TODO - set up async call to server,
     axios.put(`lists/${payload.id}`, payload)
       .then(res => {
-        console.log('list:', res.data)
+        console.log('updated list:', res.data)
       })
       .catch(error => console.log(error))
 

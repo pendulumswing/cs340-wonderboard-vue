@@ -69,7 +69,7 @@ const mutations = {
 const actions = {
   // pw - create task user
   createTaskUser: (context, payload) => {
-    axios.poost('task_users', payload)
+    axios.post('task_users', payload)
       .then(res => {
         console.log('task_user: ', res.data)
       })
@@ -81,8 +81,10 @@ const actions = {
     context.commit('createTaskUser', payload)
   },
 
+  // do not see id in payload
   // pw - delete based on taskUserId
   deleteTaskUser: (context, payload) => {
+    console.log('this is payload', payload)
     axios.delete(`task_users/${payload.id}`)
       .then(res => {
         console.log('task_users: ', res.data)

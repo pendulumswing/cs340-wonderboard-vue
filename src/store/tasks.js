@@ -69,7 +69,7 @@ const actions = {
   createTask: (context, payload) => {
     axios.post('tasks', payload)
       .then(res => {
-        console.log('task:', res.data)
+        console.log('created task:', res.data)
       })
       .catch(error => console.log(error))
 
@@ -122,9 +122,9 @@ const actions = {
 
   // pw - update task based on taskId
   updateTask: (context, payload) => {
-    axios.put(`tasks/${payload.id}`)
+    axios.put(`tasks/${payload.id}`, payload)
       .then(res => {
-        console.log('tasks:', res.data)
+        console.log('updated tasks:', res.data)
       })
       .catch(error => console.log(error))
 

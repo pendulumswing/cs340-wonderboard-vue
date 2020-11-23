@@ -54,7 +54,7 @@ const actions = {
   createBoardUser: (context, payload) => {
     axios.get('board_users')
       .then(res => {
-        console.log('lists:', res.data)
+        console.log('created board user:', res.data)
       })
       .catch(error => console.log(error))
     // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
@@ -64,11 +64,13 @@ const actions = {
     context.commit('createBoardUser', payload)
     console.log('createBoardUser from action: ', payload)
   },
+
+  // no id to delete
   // pw - delete board user based on
   deleteBoardUser: (context, payload) => {
     axios.delete(`board_users/${payload.id}`)
       .then(res => {
-        console.log('lists:', res.data)
+        console.log('deleted board user:', res.data)
       })
       .catch(error => console.log(error))
     context.commit('deleteBoardUser', payload)

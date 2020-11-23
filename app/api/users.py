@@ -2,22 +2,22 @@ from .resources import *
 
 
 def update_one_user(table, data, id):
-        conn = get_connection()
-        query = (f"""UPDATE {table}
-                SET username = '{data['username']}',
-                first_name = '{data['first_name']}',
-                last_name = '{data['last_name']}',
-                email = '{data['email']}',
-                password = '{data['password']}'
-                WHERE id={id};""")
-        query_params = (id,)
+    conn = get_connection()
+    query = (f"""UPDATE {table}
+            SET username = '{data['username']}',
+            first_name = '{data['first_name']}',
+            last_name = '{data['last_name']}',
+            email = '{data['email']}',
+            password = '{data['password']}'
+            WHERE id={id};""")
+    query_params = (id,)
 
-        with conn.cursor() as cur:
-            cur.execute(query)
-            conn.commit()
-            result = find_one('users', id)
+    with conn.cursor() as cur:
+        cur.execute(query)
+        conn.commit()
+        result = find_one('users', id)
 
-        return result, 200
+    return result, 200
 
 
 @api_rest.route('/users')
