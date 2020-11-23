@@ -51,28 +51,28 @@ const mutations = {
   getLists: (state, payload) => {
     state.lists = []
     state.lists = payload
-  },
-
-  updateListAutoId (state, payload) {
-    state.id += 1
-  },
-
-  decrementIndex (state, payload) {
-    const index = state.lists.findIndex(list => {
-      return list.id === payload.id
-    })
-    if (index >= 0) {
-      if (state.lists[index].index > 1) {
-        state.lists[index].index -= 1
-      }
-    }
-  },
-
-  deleteAllLists (state, payload) {
-    state.lists = state.lists.filter(list => {
-      return list.board !== Number(payload.id)
-    })
   }
+
+  // updateListAutoId (state, payload) {
+  //   state.id += 1
+  // },
+
+  // decrementIndex (state, payload) {
+  //   const index = state.lists.findIndex(list => {
+  //     return list.id === payload.id
+  //   })
+  //   if (index >= 0) {
+  //     if (state.lists[index].index > 1) {
+  //       state.lists[index].index -= 1
+  //     }
+  //   }
+  // },
+
+  // deleteAllLists (state, payload) {
+  //   state.lists = state.lists.filter(list => {
+  //     return list.board !== Number(payload.id)
+  //   })
+  // }
 }
 
 const actions = {
@@ -90,24 +90,20 @@ const actions = {
       .then(res => {
         // console.log('deleted list:', res.data)
         context.commit('deleteList', payload)
-          .then(res => {
-            // Decrement remaining list indeces
-            const lists = state.lists.filter(list => {
-              return list.board === payload.board && list.index > payload.index
-            })
 
-            // Update indices for each list not to be deleted
-            lists.forEach(list => {
-              let listCopy = _.cloneDeep(list)
-              if (listCopy.index >= 0) {
-                listCopy.index -= 1
-              }
-              console.log('listCopy: ', listCopy)
-              context.dispatch('updateList', listCopy)
-              // context.commit('decrementIndex', list)
-            })
-          })
-          .catch(error => console.log(error))
+        // Get remaining lists with greater index
+        const lists = state.lists.filter(list => {
+          return list.board === payload.board && list.index > payload.index
+        })
+
+        // Update indices for each list
+        lists.forEach(list => {
+          let listCopy = _.cloneDeep(list)
+          if (listCopy.index >= 0) {
+            listCopy.index -= 1
+          }
+          context.dispatch('updateList', listCopy)
+        })
       })
       .catch(error => console.log(error))
   },
@@ -116,17 +112,15 @@ const actions = {
     axios.put(`lists/${payload.id}`, payload)
       .then(res => {
         context.commit('updateList', res.data)
-        console.log('updated list:', res.data)
+        // console.log('updated list:', res.data)
       })
       .catch(error => console.log(error))
   },
 
-  // TODO - set up async call to server,
-  //  retrieve from DB, on success commit to store
-  getLists: (context, payload) => {
+  getLists: (context) => {
     axios.get('lists')
       .then(res => {
-        console.log('lists:', res.data)
+        // console.log('lists:', res.data)
         context.commit('getLists', res.data)
       })
       .catch(error => console.log(error))
