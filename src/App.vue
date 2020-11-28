@@ -4,18 +4,22 @@
     // v-container
     v-container
       h1.text-center.pt-5.grey--text.text--darken-2 Wonderboard
-      div(id="nav").pt-2.grey--text.text--darken-2
-        // p {{ this.$store.state.users.users[0].id }}
-        router-link(to="/") Users
-        span  |
-        router-link(:to="boardsUrl")  Boards
-        span  |
-        router-link(:to="listsUrl")  Lists
-        span  |
-        router-link(to="/dev")  Dev
-        // API
+
+      // Navbar
+        div(id="nav").pt-2.grey--text.text--darken-2
+          // p {{ this.$store.state.users.users[0].id }}
+          router-link(to="/") Users
           span  |
-          router-link(to="/api") API Sample
+          router-link(:to="boardsUrl")  Boards
+          span  |
+          router-link(:to="listsUrl")  Lists
+          span  |
+          router-link(to="/dev")  Dev
+          // API
+            span  |
+            router-link(to="/api") API Sample
+
+      // Body
       router-view
 </template>
 
