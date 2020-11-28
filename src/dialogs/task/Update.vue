@@ -36,7 +36,9 @@
               )
 
               // description
-              v-text-field(
+              v-textarea(
+                auto-grow
+                rows="3"
                 v-model="data.description"
                 label="description"
                 :rules="[max4096chars]"

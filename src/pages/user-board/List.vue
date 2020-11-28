@@ -33,6 +33,11 @@
                   div {{ list.board }}
               v-row.no-gutters.flex-nowrap
                 v-col(cols="6" md="5" lg="4")
+                  div creator:
+                v-col
+                  div {{ list.creator }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
                   div index:
                 v-col
                     div {{ list.index }}
@@ -41,11 +46,6 @@
                   div name:
                 v-col
                   div {{ list.name }}
-              v-row.no-gutters.flex-nowrap
-                v-col(cols="6" md="5" lg="4")
-                  div creator:
-                v-col
-                  div {{ list.creator }}
 
         // Tasks
         v-card(v-for="task in tasks")

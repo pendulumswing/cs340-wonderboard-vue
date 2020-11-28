@@ -8,7 +8,7 @@
       v-card-title(class="title blue lighten-2 white--text" primary-title) Edit List
       v-card-text
         v-form(ref="form")
-          p {{ getListsByBoard(list.board) }}
+          // p {{ getListsByBoard(list.board) }}
           // id
           v-text-field(
             v-model="data.id"
