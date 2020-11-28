@@ -22,7 +22,7 @@
         v-select(
           v-show="assignedUsers.length < users.length"
           :items="unassignedUsers"
-          label="add member"
+          label1="add member"
           return-object
           dense
           single-line
@@ -32,9 +32,11 @@
           solo
           flat
           append-icon=""
-        ).pb-0
+        ).pb-0.grey--text.text--lighten-1
           template(v-slot:item="{ item }")
-            span {{ item.first_name }} {{ item.last_name }}
+            span.grey--text {{ item.first_name }} {{ item.last_name }}
+          template(v-slot:label)
+            span.grey--text add member
 </template>
 
 <script>
@@ -112,5 +114,8 @@ export default {
 <style scoped>
 .v-input >>> .v-label {
   font-size: 0.9em;
+}
+>>> .v-input__icon--prepend-inner .v-icon {
+  color: #BDBDBD;
 }
 </style>
