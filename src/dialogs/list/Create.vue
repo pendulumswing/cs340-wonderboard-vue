@@ -12,11 +12,11 @@
             v-col
 
               // id
-              v-text-field(
-                v-model="data.id"
-                label="id"
-                disabled
-              )
+                v-text-field(
+                  v-model="data.id"
+                  label="id"
+                  disabled
+                )
 
               // board
               v-text-field(
@@ -69,6 +69,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
+import _ from 'lodash'
 
 export default {
   mixins: [
@@ -87,7 +88,7 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.$store.getters.getListAutoId + 1,
+        // id: this.$store.getters.getListAutoId + 1,
         board: Number(this.$route.params.boardId),
         name: '',
         index: this.lists.length + 1,
@@ -121,7 +122,8 @@ export default {
 
   methods: {
     ...mapActions([
-      'createList'
+      'createList',
+      'updateList'
     ]),
 
     onSubmit () {
@@ -130,10 +132,28 @@ export default {
       if (valid) {
         // TODO - make call to delete user here
         console.log('CREATE list submitted')
-        console.log('listId to create: ', this.data.id)
+        // console.log('listId to create: ', this.data.id)
+        this.shiftListsUp(this.data)
         this.createList(this.data)
         this.onClose()
       }
+    },
+
+    shiftListsUp (newList) {
+      let listArray = _.cloneDeep(this.lists)
+
+      // Find index of list with same index as payload, if any
+      const targetIndex = listArray.findIndex(list => {
+        console.log(list.index, ', ', this.data.index)
+        return list.index === Number(this.data.index)
+      })
+
+      listArray.forEach((list, index) => {
+        if (index >= targetIndex) {
+          list.index += 1
+          this.updateList(list)
+        }
+      })
     }
   }
 }
