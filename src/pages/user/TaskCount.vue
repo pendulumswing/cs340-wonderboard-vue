@@ -1,6 +1,6 @@
 <template lang="pug">
   v-row.no-gutters.subtitle-1.pl-2
-    v-col(cols="12" md="5" lg="4")
+    v-col(cols="6" md="5" lg="4")
       div tasks:
     v-col
       div {{ tasks.length }}
