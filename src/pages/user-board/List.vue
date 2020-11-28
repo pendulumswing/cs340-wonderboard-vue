@@ -14,10 +14,13 @@
       v-card-text
 
         // Attributes
-        v-expansion-panels(flat).pa-0
-          v-expansion-panel.elevation-0.pa-0
-            v-expansion-panel-header(:color="list.color").pa-0.body-2 attributes
-            v-expansion-panel-content(:color="list.color").text-start
+        v-expansion-panels(flat)
+          v-expansion-panel.elevation-0
+            v-expansion-panel-header(:color="list.color" @click.prevent).pl-5
+              span(:class="attributeClass").body-2 attributes
+              template(v-slot:actions)
+                v-icon(:class="attributeClass") $expand
+            v-expansion-panel-content(:color="list.color" :class="attributeClass").text-start
               v-row.no-gutters.flex-nowrap
                 v-col(cols="6" md="5" lg="4")
                   div id:
@@ -90,6 +93,9 @@ export default {
     //     return _.find(this.boardUsers, { board: board.id })
     //   })
     // },
+    attributeClass () {
+      return `${this.list.color.split(' ')[0]}--text text--darken-5`
+    },
 
     tasks () {
       return this.$store.state.tasks.tasks.filter(task => {

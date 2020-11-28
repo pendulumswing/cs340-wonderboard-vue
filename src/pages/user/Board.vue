@@ -26,10 +26,10 @@
             v-expansion-panels(flat)
               v-expansion-panel.elevation-0
                 v-expansion-panel-header(:color="board.color" @click.prevent).pl-5
-                  span.body-2.white--text hidden attributes
+                  span(:class="attributeClass").body-2 attributes
                   template(v-slot:actions)
-                    v-icon(color="white") $expand
-                v-expansion-panel-content(:color="board.color").text-start.white--text
+                    v-icon(:class="attributeClass") $expand
+                v-expansion-panel-content(:color="board.color" :class="attributeClass").text-start
                   v-row.no-gutters.flex-nowrap
                     v-col(cols="6" md="5" lg="4")
                       div id:
@@ -40,6 +40,11 @@
                       div creator:
                     v-col
                       div {{ board.creator }}
+                  v-row.no-gutters.flex-nowrap
+                    v-col(cols="6" md="5" lg="4")
+                      div name:
+                    v-col
+                      div {{ board.name }}
                   v-row.no-gutters.flex-nowrap
                     v-col(cols="6" md="5" lg="4")
                       div color:
@@ -91,6 +96,10 @@ export default {
         listArray.push(list.id)
       })
       return listArray
+    },
+
+    attributeClass () {
+      return `${this.board.color.split(' ')[0]}--text text--darken-5`
     }
   }
 }

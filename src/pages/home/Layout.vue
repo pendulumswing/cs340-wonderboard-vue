@@ -73,7 +73,7 @@
                     v-expansion-panels(flat)
                       v-expansion-panel.elevation-0.grey--text.text--darken-2.pa-0
                         v-expansion-panel-header(@click.prevent).pl-3.grey--text.text--darken-2
-                          span.body-2 hidden attributes
+                          span.body-2 attributes
                           template(v-slot:actions)
                             v-icon $expand
                         v-expansion-panel-content.text-start.pa-0.ma-0
@@ -118,7 +118,7 @@
               v-expansion-panel-header(color="#fbfbfb")
                 template(v-slot:actions).icon
                   v-icon(left) $expand
-                div.text-start.header.subtitle-1.py-1 Page Description
+                div.text-start.header.title.py-1 Page Description
               v-expansion-panel-content(color="#fbfbfb").text-start.pa-0
                 div.text-justify.
                   This is the landing page for the site. It lists all users in the database.
