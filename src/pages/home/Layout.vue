@@ -70,22 +70,43 @@
 
         // Description
         v-row.pl-3.pt-7
-          div.text-justify.
-            This is the landing page for the site. It lists all users in the database.
-            Selecting a user tile will redirect to the boards page for that user.
-          div.pt-3
-            div.text-start.subtitle-1 users
-            ul
-              li.text-justify.
-                A new user can be created with the 'ADD USER' button (CREATE).
-              li.text-justify.
-                All users are fetched from the the database and listed here (READ).
-              li.text-justify.
-                A user can be updated by selecting the pencil icon on the user tile. A dialog will popup to edit any fields. (UPDATE).
-              li.text-justify.
-                A user can also be deleted with the delete icon (DELETE).
-          div.text-justify.pt-3.
-            NOTE: The path breadcrumbs can also be clicked to move around the site.
+          v-expansion-panels(flat).pa-0
+            v-expansion-panel.elevation-0.pa-0.grey--text
+              v-expansion-panel-header(color="#fbfbfb")
+                template(v-slot:actions).icon
+                  v-icon(left) $expand
+                div.text-start.header.subtitle-1 Page Description
+              v-expansion-panel-content(color="#fbfbfb").text-start.pa-0
+                div.text-justify.
+                  This is the landing page for the site. It lists all users in the database.
+                  Selecting a user tile will redirect to the boards page for that user.
+                  The path breadcrumbs can also be clicked to move around the site.
+                div.pt-3
+                  div.text-start.subtitle-1 users
+                  ul
+                    li.text-justify.
+                      A new user can be created with the 'ADD USER' button (CREATE).
+                    li.text-justify.
+                      All users are fetched from the the database and listed here (READ).
+                    li.text-justify.
+                      A user can be updated by selecting the pencil icon on the user tile. A dialog will popup to edit any fields. (UPDATE).
+                    li.text-justify.
+                      A user can also be deleted with the delete icon (DELETE).
+                div.pt-3
+                  div.text-start.subtitle-1 columns
+                  ul
+                    li.text-justify.
+                      id
+                    li.text-justify.
+                      first_name
+                    li.text-justify.
+                      last_name
+                    li.text-justify.
+                      email
+                    li.text-justify.
+                      username
+                    li.text-justify.
+                      password
     span
       CreateUserDialog(
         v-if="showCreateUserDialog"

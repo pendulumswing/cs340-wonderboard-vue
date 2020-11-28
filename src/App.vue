@@ -106,4 +106,12 @@ export default {
   line-height: 100px;
 }
 
+.icon {
+  order: 0;
+}
+
+.header {
+  order: 1;
+}
+
 </style>
