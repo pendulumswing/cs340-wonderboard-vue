@@ -75,7 +75,7 @@
               v-expansion-panel-header(color="#fbfbfb")
                 template(v-slot:actions).icon
                   v-icon(left) $expand
-                div.text-start.header.subtitle-1 Page Description
+                div.text-start.header.subtitle-1.py-1 Page Description
               v-expansion-panel-content(color="#fbfbfb").text-start.pa-0
                 div.text-justify.
                   This is the landing page for the site. It lists all users in the database.
