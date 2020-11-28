@@ -31,11 +31,11 @@
         // Description
         v-row.pl-3.pt-7
           v-expansion-panels(flat)
-            v-expansion-panel.elevation-0.grey--text
+            v-expansion-panel.elevation-0.pa-0.grey--text.text--lighten-1
               v-expansion-panel-header(color="#fbfbfb")
                 template(v-slot:actions).icon
-                  v-icon(left) $expand
-                div.text-start.header.title.py-1 Page Description
+                  v-icon(left).grey--text.text--lighten-1 $expand
+                div.text-start.header.subtitle-1.py-1 Page Description
               v-expansion-panel-content(color="#fbfbfb").text-start.pa-0
                 div.text-justify.
                   This is the boards page for the selected user. It lists all boards associated with the user.
