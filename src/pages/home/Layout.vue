@@ -34,36 +34,79 @@
                   DeleteUserButton(:user="user")
 
                 v-card-text.text-start
-                  v-row.no-gutters.flex-nowrap
-                    v-col(cols="6" md="5" lg="4")
-                      div id:
-                    v-col
-                      div {{ user.id }}
-                  v-row.no-gutters.flex-nowrap
-                    v-col(cols="6" md="5" lg="4")
-                      div first_name:
-                    v-col
-                      div {{ user.first_name }}
-                  v-row.no-gutters.flex-nowrap
-                    v-col(cols="6" md="5" lg="4")
-                      div last_name:
-                    v-col
-                      div {{ user.last_name }}
-                  v-row.no-gutters.flex-nowrap
-                    v-col(cols="6" md="5" lg="4")
-                      div email:
-                    v-col
-                      div {{ user.email }}
-                  v-row.no-gutters.flex-nowrap
-                    v-col(cols="6" md="5" lg="4")
-                      div username:
-                    v-col
-                      div {{ user.username }}
-                  v-row.no-gutters.flex-nowrap
-                    v-col(cols="6" md="5" lg="4")
-                      div password:
-                    v-col
-                      div {{ user.password }}
+
+                  // Attributes
+                    div
+                      v-row.no-gutters.flex-nowrap
+                        v-col(cols="6" md="5" lg="4")
+                          div id:
+                        v-col
+                          div {{ user.id }}
+                      v-row.no-gutters.flex-nowrap
+                        v-col(cols="6" md="5" lg="4")
+                          div first_name:
+                        v-col
+                          div {{ user.first_name }}
+                      v-row.no-gutters.flex-nowrap
+                        v-col(cols="6" md="5" lg="4")
+                          div last_name:
+                        v-col
+                          div {{ user.last_name }}
+                      v-row.no-gutters.flex-nowrap
+                        v-col(cols="6" md="5" lg="4")
+                          div email:
+                        v-col
+                          div {{ user.email }}
+                      v-row.no-gutters.flex-nowrap
+                        v-col(cols="6" md="5" lg="4")
+                          div username:
+                        v-col
+                          div {{ user.username }}
+                      v-row.no-gutters.flex-nowrap
+                        v-col(cols="6" md="5" lg="4")
+                          div password:
+                        v-col
+                          div {{ user.password }}
+
+                  // Hidden Attributes
+                  v-row
+                    v-expansion-panels(flat)
+                      v-expansion-panel.elevation-0.grey--text.text--darken-2.pa-0
+                        v-expansion-panel-header(@click.prevent).pl-3.grey--text.text--darken-2
+                          span.body-2 hidden attributes
+                          template(v-slot:actions)
+                            v-icon $expand
+                        v-expansion-panel-content.text-start.pa-0.ma-0
+                          v-row.no-gutters.flex-nowrap
+                            v-col(cols="6" md="5" lg="4")
+                              div id:
+                            v-col
+                              div {{ user.id }}
+                          v-row.no-gutters.flex-nowrap
+                            v-col(cols="6" md="5" lg="4")
+                              div first_name:
+                            v-col
+                              div {{ user.first_name }}
+                          v-row.no-gutters.flex-nowrap
+                            v-col(cols="6" md="5" lg="4")
+                              div last_name:
+                            v-col
+                              div {{ user.last_name }}
+                          v-row.no-gutters.flex-nowrap
+                            v-col(cols="6" md="5" lg="4")
+                              div email:
+                            v-col
+                              div {{ user.email }}
+                          v-row.no-gutters.flex-nowrap
+                            v-col(cols="6" md="5" lg="4")
+                              div username:
+                            v-col
+                              div {{ user.username }}
+                          v-row.no-gutters.flex-nowrap
+                            v-col(cols="6" md="5" lg="4")
+                              div password:
+                            v-col
+                              div {{ user.password }}
         v-row(v-else)
           v-col.d-flex.justify-center
             div.text-center.subtitle-1 Add a user to get started.
@@ -164,4 +207,12 @@ a {
 body {
   background-color: transparent;
 }
+</style>
+
+<style scoped>
+
+.v-expansion-panel >>> .v-expansion-panel-content__wrap {
+  padding: 12px !important;
+}
+
 </style>
