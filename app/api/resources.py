@@ -85,7 +85,7 @@ def find_all(table):
     conn = get_connection()
 
     with conn.cursor() as cur:
-        cur.execute(f"SELECT * FROM {table};")
+        cur.execute(f"SELECT * FROM {table} ORDER BY id;")
         conn.commit()
         rows = cur.fetchall()
         column_names = [desc[0] for desc in cur.description]
