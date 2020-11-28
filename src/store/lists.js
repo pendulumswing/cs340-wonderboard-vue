@@ -89,7 +89,7 @@ const mutations = {
 
 const actions = {
   decrementLists: (context, payload) => {
-    console.log('print')
+    console.log('decrementLists')
     // Get remaining lists with greater index
     const lists = state.lists.filter(list => {
       return list.board === payload.board && list.index >= payload.index && list.id !== payload.id
@@ -128,7 +128,7 @@ const actions = {
       .then(res => {
         console.log('added list:', res.data)
         context.commit('createList', res.data)
-        context.dispatch('incrementLists', res.data)
+        // context.dispatch('incrementLists', res.data)
       })
       .catch(error => console.log(error))
   },
@@ -138,7 +138,7 @@ const actions = {
       .then(res => {
         // console.log('deleted list:', res.data)
         context.commit('deleteList', payload)
-        context.dispatch('decrementLists', res.data)
+        // context.dispatch('decrementLists', res.data)
       })
       .catch(error => console.log(error))
   },
