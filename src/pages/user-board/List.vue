@@ -9,7 +9,7 @@
         EditListButton(:list="list" :lists="lists").pr-2
 
         // Delete User
-        DeleteListButton(:list="list")
+        DeleteListButton(:list="list" :lists="lists")
 
       v-card-text
 

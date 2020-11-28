@@ -13,6 +13,7 @@
       DeleteListDialog(
         v-if="showDeleteListDialog"
         :list="list"
+        :lists="lists"
         @close="showDeleteListDialog = false"
       )
 </template>
@@ -30,6 +31,10 @@ export default {
   props: {
     list: {
       type: Object,
+      default: undefined
+    },
+    lists: {
+      type: [Object, Array],
       default: undefined
     }
   },
