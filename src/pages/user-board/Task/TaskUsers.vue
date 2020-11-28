@@ -3,7 +3,7 @@
     v-card
       v-card-title.pb-0
         v-col(cols="8").pa-0.d-flex.justify-start.align-start
-          span.subtitle-1.grey--text.text--darken-2 {{ task.name }}
+          span.title.grey--text.text--darken-2 {{ task.name }}
         v-col(cols="4").pa-0.d-flex.justify-end.align-end
           v-row.no-gutters.d-flex.justify-end.align-end
 
@@ -25,36 +25,8 @@
                 v-icon(small) mdi-delete
 
       v-card-text
-        // p {{ taskUsers }}
-
-        // Attributes
-        v-expansion-panels(flat).pa-0
-          v-expansion-panel.elevation-0.pa-0.grey--text
-            v-expansion-panel-header.pa-0.body-2 attributes
-            v-expansion-panel-content.text-start.pa-0
-              v-row.no-gutters.flex-nowrap
-                v-col(cols="6" md="5" lg="4")
-                  div id:
-                v-col
-                  div {{ task.id }}
-              v-row.no-gutters.flex-nowrap
-                v-col(cols="6" md="5" lg="4")
-                  div list:
-                v-col
-                  div {{ task.list }}
-              v-row.no-gutters.flex-nowrap
-                v-col(cols="12" md="6" lg="4")
-                  div description:
-                v-col(cols="12" md="6" lg="4")
-                  div {{ task.description }}
-              v-row.no-gutters.flex-nowrap
-                v-col(cols="6" md="5" lg="4")
-                  div creator:
-                v-col
-                  div {{ task.creator }}
-
         // Description
-        div.pb-3.text-start
+        div.py-3.text-start
           v-row.no-gutters
             v-col
               div.subtitle-2 description:
@@ -99,6 +71,40 @@
               ).pb-0
                 template(v-slot:item="{ item }")
                   span {{ item.first_name }} {{ item.last_name }}
+
+        // Attributes
+        v-expansion-panels(flat).pa-0
+          v-expansion-panel.elevation-0.pa-0.grey--text.text--lighten-1
+            v-expansion-panel-header.pa-0.body-2
+              span.body-2 attributes
+              template(v-slot:actions)
+                v-icon(class="grey--text").text--lighten-1 $expand
+            v-expansion-panel-content.text-start.pa-0
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div id:
+                v-col
+                  div {{ task.id }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div list:
+                v-col
+                  div {{ task.list }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div creator:
+                v-col
+                  div {{ task.creator }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="12" md="6" lg="4")
+                  div description:
+                v-col(cols="12" md="6" lg="4")
+                  div {{ task.description }}
+              v-row.no-gutters.flex-nowrap
+                v-col(cols="6" md="5" lg="4")
+                  div creator:
+                v-col
+                  div {{ task.creator }}
 
         // Buttons
         v-row.no-gutters
@@ -260,5 +266,11 @@ export default {
 <style scoped>
 .v-input >>> .v-label {
   font-size: 0.9em;
+}
+</style>
+
+<style scoped>
+.v-expansion-panel >>> .v-expansion-panel-content__wrap {
+  padding: 1px !important;
 }
 </style>

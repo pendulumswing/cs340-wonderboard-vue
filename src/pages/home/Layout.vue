@@ -210,9 +210,7 @@ body {
 </style>
 
 <style scoped>
-
 .v-expansion-panel >>> .v-expansion-panel-content__wrap {
   padding: 12px !important;
 }
-
 </style>

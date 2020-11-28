@@ -13,7 +13,6 @@
 <script>
 import { mapState } from 'vuex'
 import TaskUsers from './TaskUsers'
-import _ from 'lodash'
 
 export default {
   name: 'taskIndex',
