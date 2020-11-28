@@ -95,10 +95,10 @@
                   div creator:
                 v-col
                   div {{ task.creator }}
-              v-row.no-gutters.flex-nowrap
-                v-col(cols="12" md="6" lg="4")
+              v-row.no-gutters
+                v-col(cols="6" md="6" lg="4")
                   div description:
-                v-col(cols="12" md="6" lg="4")
+                v-col
                   div {{ task.description }}
               v-row.no-gutters.flex-nowrap
                 v-col(cols="6" md="5" lg="4")
