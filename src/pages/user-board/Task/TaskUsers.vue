@@ -105,7 +105,7 @@
                 v-col(cols="6" md="5" lg="4")
                   div creator:
                 v-col
-                  div {{ task.creator }}
+                  div {{ task.creator || 'NULL' }}
               v-row.no-gutters
                 v-col(cols="6" md="6" lg="4")
                   div name:
