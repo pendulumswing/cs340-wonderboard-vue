@@ -18,13 +18,6 @@
                 disabled
               )
 
-              // creator
-              v-text-field(
-                v-model="data.creator"
-                label="creator"
-                disabled
-              )
-
               // name
               v-text-field(
                 autofocus
@@ -45,6 +38,19 @@
                 counter="4096"
               )
 
+              // creator
+              v-select(
+                v-model="data.creator"
+                label="creator"
+                :items="addNullToUsers"
+                item-text2="first_name"
+                item-value="id"
+              )
+                template(v-slot:item="{ item }")
+                  span.grey--text {{ item.first_name }} {{ item.last_name }}
+                template(v-slot:selection="{ item }")
+                  span {{ item.first_name }} {{ item.last_name }}
+
               // list
               v-select(
                 v-model="data.list"
@@ -52,7 +58,6 @@
                 :items="lists"
                 item-text="name"
                 item-value="id"
-                counter="4096"
               )
 
       v-card-actions
@@ -64,6 +69,7 @@
 <script>
 import DialogMixin from '../../mixins/DialogMixin'
 import { mapActions } from 'vuex'
+import _ from 'lodash'
 
 export default {
   mixins: [
@@ -78,6 +84,10 @@ export default {
     task: {
       type: [Array, Object],
       default: undefined
+    },
+    users: {
+      type: [Array, Object],
+      default: undefined
     }
   },
 
@@ -90,7 +100,7 @@ export default {
         list: Number(this.task.list) || '',
         name: this.task.name || '',
         description: this.task.description || '',
-        creator: Number(this.task.creator)
+        creator: Number(this.task.creator) || null
       },
       max32chars: v => (v && v.length <= 32) || 'Input too long',
       max64chars: v => (v && v.length <= 64) || 'Input too long',
@@ -101,13 +111,19 @@ export default {
     }
   },
 
-  methods: {
-    // getRequest (request) {
-    //   return this.$useConnect('user.byCid', {
-    //     cid: request.cid
-    //   })
-    // },
+  computed: {
+    addNullToUsers () {
+      const users = _.cloneDeep(this.users)
+      users.push({
+        id: null,
+        first_name: 'Null',
+        last_name: ''
+      })
+      return users
+    }
+  },
 
+  methods: {
     ...mapActions([
       'updateTask'
     ]),

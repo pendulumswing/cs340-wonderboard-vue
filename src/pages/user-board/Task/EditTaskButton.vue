@@ -14,6 +14,7 @@
         v-if="showUpdateTaskDialog"
         :lists="lists"
         :task="task"
+        :users="users"
         @close="showUpdateTaskDialog = false"
       )
 </template>
@@ -34,6 +35,10 @@ export default {
       default: undefined
     },
     task: {
+      type: [Array, Object],
+      default: undefined
+    },
+    users: {
       type: [Array, Object],
       default: undefined
     }

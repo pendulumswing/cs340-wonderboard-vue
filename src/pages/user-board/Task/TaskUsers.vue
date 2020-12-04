@@ -11,6 +11,7 @@
             EditTaskButton(
               :task="task"
               :lists="lists"
+              :users="users"
             )
 
             // Delete Task
