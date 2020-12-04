@@ -6,7 +6,7 @@
         v-spacer
 
         // Edit User
-        EditListButton(:list="list" :lists="lists").pr-2
+        EditListButton(:list="list" :lists="lists" :users="users").pr-2
 
         // Delete User
         DeleteListButton(:list="list" :lists="lists")
@@ -35,7 +35,7 @@
                 v-col(cols="6" md="5" lg="4")
                   div creator:
                 v-col
-                  div {{ list.creator }}
+                  div {{ list.creator || 'NULL' }}
               v-row.no-gutters.flex-nowrap
                 v-col(cols="6" md="5" lg="4")
                   div index:
@@ -83,6 +83,10 @@ export default {
     },
     user: {
       type: Object,
+      default: undefined
+    },
+    users: {
+      type: [Array, Object],
       default: undefined
     }
   },

@@ -14,6 +14,7 @@
         v-if="showUpdateListDialog"
         :list="list"
         :lists="lists"
+        :users="users"
         @close="showUpdateListDialog = false"
       )
 </template>
@@ -26,6 +27,7 @@ export default {
   components: {
     UpdateListDialog
   },
+
   props: {
     list: {
       type: Object,
@@ -34,6 +36,11 @@ export default {
 
     lists: {
       type: [Object, Array],
+      default: undefined
+    },
+
+    users: {
+      type: [Array, Object],
       default: undefined
     }
   },

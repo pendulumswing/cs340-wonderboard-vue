@@ -162,7 +162,7 @@
                 List(
                   :list="list"
                   :lists="lists"
-                  :user="user"
+                  :users="users"
                 ).px-2
             v-row(v-else)
               v-col.d-flex.justify-center
@@ -200,6 +200,7 @@
                   :list="list"
                   :lists="lists"
                   :user="user"
+                  :users="users"
                 ).px-2
             v-row(v-else)
               v-col.d-flex.justify-center

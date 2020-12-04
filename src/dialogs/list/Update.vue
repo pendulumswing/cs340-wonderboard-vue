@@ -58,6 +58,19 @@
             type='number'
           )
 
+          // creator
+          v-select(
+            v-model="data.creator"
+            label="creator"
+            :items="addNullToUsers"
+            item-text2="first_name"
+            item-value="id"
+          )
+            template(v-slot:item="{ item }")
+              span.grey--text {{ item.first_name }} {{ item.last_name }}
+            template(v-slot:selection="{ item }")
+              span {{ item.first_name }} {{ item.last_name }}
+
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -83,6 +96,11 @@ export default {
     lists: {
       type: [Object, Array],
       default: undefined
+    },
+
+    users: {
+      type: [Object, Array],
+      default: undefined
     }
   },
 
@@ -96,7 +114,8 @@ export default {
         index: Number(this.list.index) || '',
         name: this.list.name || '',
         color: this.list.color || '',
-        creator: Number(this.$route.params.userId) || undefined
+        // creator: Number(this.$route.params.userId) || undefined
+        creator: Number(this.list.creator) || null
       },
       max32chars: v => (v && v.length <= 32) || 'Input too long',
       max64chars: v => (v && v.length <= 64) || 'Input too long',
@@ -110,6 +129,16 @@ export default {
     ...mapState({
       colors () {
         return this.$store.state.colors
+      },
+
+      addNullToUsers () {
+        const users = _.cloneDeep(this.users)
+        users.push({
+          id: null,
+          first_name: 'Null',
+          last_name: ''
+        })
+        return users
       }
     }),
 
