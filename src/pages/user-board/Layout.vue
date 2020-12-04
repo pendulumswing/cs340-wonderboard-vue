@@ -15,9 +15,9 @@
         //Debug
           div(v-for="list in lists")
             div {{ list }}
-          p tasks {{ this.$store.state.tasks.tasks }}
           p state.tasks {{ $store.state.tasks.tasks }}
           p state.taskUsers {{ $store.state.taskUsers.taskUsers }}
+          p tasks {{ this.$store.state.tasks.tasks }}
 
         // Add List Button
         v-col(cols="12" sm="3" :class="buttonClass").d-flex.pa-0
@@ -160,8 +160,10 @@
             v-row.no-gutters.pa-0.ma-0(v-if="lists.length > 0")
               v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
                 List(
+                  :key="users.length + (lists.length * 10) + (list.index * 100)"
                   :list="list"
                   :lists="lists"
+                  :user="user"
                   :users="users"
                 ).px-2
             v-row(v-else)
@@ -196,7 +198,7 @@
             v-row.no-gutters.pa-0.ma-0(v-if="lists.length > 0")
               v-col(v-for="list in lists" cols="12" sm="6" md="6" lg="4")
                 List(
-                  :key="list.index"
+                  :key="users.length + (lists.length * 10) + (list.index * 100)"
                   :list="list"
                   :lists="lists"
                   :user="user"

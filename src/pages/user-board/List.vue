@@ -50,6 +50,7 @@
         // Tasks
         v-card(v-for="task in tasks")
           Task(
+            :key="task.creator"
             :user="user"
             :task="task"
             :list="list"
