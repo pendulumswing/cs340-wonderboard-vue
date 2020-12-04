@@ -26,6 +26,15 @@
                 v-icon(small) mdi-delete
 
       v-card-text
+        // Creator
+        div.pt-3.pb-0.text-start
+          v-row.no-gutters
+            v-col
+              div.subtitle-2 creator:
+          v-row.no-gutters
+            v-col.pl-5
+              div {{ taskCreator }}
+
         // Description
         div.py-3.text-start
           v-row.no-gutters
@@ -194,6 +203,16 @@ export default {
       return this.$store.state.users.users.filter(user => {
         return _.find(this.taskUsers, { user: user.id }) === undefined
       })
+    },
+
+    taskCreator () {
+      if (!this.task.creator) {
+        return 'Null'
+      }
+      const user = this.$store.state.users.users.find(user => {
+        return user.id === this.task.creator
+      })
+      return `${user.first_name} ${user.last_name}`
     },
 
     ...mapGetters({
