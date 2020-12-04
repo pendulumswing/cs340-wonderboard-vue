@@ -108,14 +108,14 @@
                   div {{ task.creator }}
               v-row.no-gutters
                 v-col(cols="6" md="6" lg="4")
+                  div name:
+                v-col
+                  div {{ task.name }}
+              v-row.no-gutters
+                v-col(cols="6" md="6" lg="4")
                   div description:
                 v-col
                   div {{ task.description }}
-              v-row.no-gutters.flex-nowrap
-                v-col(cols="6" md="5" lg="4")
-                  div creator:
-                v-col
-                  div {{ task.creator }}
 
         // Buttons
         v-row.no-gutters
@@ -176,13 +176,6 @@ export default {
     taskUsers: {
       type: [Array, Object],
       default: undefined
-    }
-  },
-
-  data () {
-    return {
-      showDeleteBoardDialog: false,
-      showUpdateBoardDialog: false
     }
   },
 
