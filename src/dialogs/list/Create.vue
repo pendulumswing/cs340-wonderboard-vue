@@ -144,12 +144,12 @@ export default {
 
       // Find index of list with same index as payload, if any
       const targetIndex = listArray.findIndex(list => {
-        console.log(list.index, ', ', this.data.index)
-        return list.index === Number(this.data.index)
+        console.log(list.index, ', ', this.data.index - 1)
+        return list.index === Number(this.data.index) - 1
       })
 
       listArray.forEach((list, index) => {
-        if (index >= targetIndex) {
+        if (index > targetIndex) {
           list.index += 1
           this.updateList(list)
         }

@@ -87,7 +87,7 @@ export default {
 
       // For every item above new index...
       listArray.forEach((list, index) => {
-        if (index >= oldIndex) {
+        if (index > oldIndex) {
           list.index -= 1
           this.updateList(list)
         }

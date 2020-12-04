@@ -139,8 +139,7 @@ const actions = {
         // console.log('deleted list:', res.data)
         return context.commit('deleteList', payload)
         // context.dispatch('decrementLists', res.data)
-      })
-      .then(res => {
+      }).then(res => {
         return context.dispatch('getTasks')
       }).then(res => {
         return context.dispatch('getTaskUsers')
@@ -149,11 +148,12 @@ const actions = {
   },
 
   updateList: (context, payload) => {
+    console.log('updateList payload:', payload)
     axios.put(`lists/${payload.id}`, payload)
       .then(res => {
         return context.commit('updateList', res.data)
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log('update error: ', error))
   },
 
   getLists: (context) => {

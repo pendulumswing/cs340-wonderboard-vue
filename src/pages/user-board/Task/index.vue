@@ -1,13 +1,14 @@
 <template lang="pug">
-  TaskUsers(
-    :task="task"
-    :user="user"
-    :users="users"
-    :list="list"
-    :lists="lists"
-    :taskUsers="taskUsers"
-    :key="taskUsers.length"
-  )
+  div
+    TaskUsers(
+      :task="task"
+      :user="user"
+      :users="users"
+      :list="list"
+      :lists="lists"
+      :taskUsers="taskUsers"
+      :key="taskUsers.length"
+    )
 </template>
 
 <script>
