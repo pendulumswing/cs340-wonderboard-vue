@@ -76,7 +76,7 @@ const actions = {
     axios.post('task_users', payload)
       .then(res => {
         console.log('task_user: ', res.data)
-        context.commit('createTaskUser', res.data)
+        return context.commit('createTaskUser', res.data)
       })
       .catch(error => console.log(error))
   },
@@ -85,7 +85,7 @@ const actions = {
     axios.delete(`task_users/${payload.id}`)
       .then(res => {
         console.log('task_users: ', res.data)
-        context.commit('deleteTaskUser', payload)
+        return context.commit('deleteTaskUser', payload)
       })
       .catch(error => console.log(error))
   },
@@ -94,7 +94,7 @@ const actions = {
     axios.get(`tasks`)
       .then(res => {
         console.log('getTaskUsers:', res.data)
-        context.commit('getTaskUsers', res.data)
+        return context.commit('getTaskUsers', res.data)
       })
       .catch(error => console.log(error))
   }

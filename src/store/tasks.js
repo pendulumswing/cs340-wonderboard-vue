@@ -43,7 +43,6 @@ const mutations = {
     const index = state.tasks.findIndex(task => {
       return task.id === payload.id
     })
-    console.log('Task index: ', index, ' payload: ', payload)
     if (index >= 0) {
       state.tasks.splice(index, 1, payload)
     }
@@ -88,20 +87,6 @@ const actions = {
         context.dispatch('createTaskUser', taskUserPayload)
       })
       .catch(error => console.log(error))
-
-    // TODO - set up async call to server,
-    //  add to DB, on success commit to store
-    // Commit
-
-    // Create Payload for taskUser
-    // const taskUsersLength = context.getters.getTaskUsersLength + 1
-
-    // TODO - this might be handled by the server whenever a task is created
-    // Create Payload for taskUser
-    // context.dispatch('createTaskUser', taskUserPayload)
-
-    // TODO - this might be handled by the server whenever a task is created
-    // Create Default Tasks for Task
   },
 
   // pw - delete task based on taskId
@@ -109,64 +94,52 @@ const actions = {
     axios.delete(`tasks/${payload.id}`)
       .then(res => {
         console.log('task:', res.data)
+        return context.commit('deleteTask', payload)
+      })
+      .then(res => {
+        return context.dispatch('getTaskUsers')
       })
       .catch(error => console.log(error))
-
-    // TODO - set up async call to server,
-    //  add to DB, on success commit to store
-    // Payload includes task and TaskUser
-    console.log('delete task action called')
-    context.commit('deleteTask', payload)
-
-    // Delete TaskUsers
-    // TODO - this might be handled by the server CASCADE whenever a task is delete
-    console.log('delete taskUser action called')
-    context.dispatch('deleteAllTaskUsers', payload)
   },
 
   // pw - update task based on taskId
   updateTask: (context, payload) => {
     axios.put(`tasks/${payload.id}`, payload)
       .then(res => {
-        console.log('updated tasks:', res.data)
+        // console.log('updated tasks:', res.data)
+        return context.commit('updateTask', payload)
       })
       .catch(error => console.log(error))
-
-    // TODO - set up async call to server,
-    //  add to DB, on success commit to store
-    context.commit('updateTask', payload)
   },
 
   // -- left off here
 
-  deleteAllTasks: (context, payload) => {
-    const tasksToDelete = state.tasks.filter(task => {
-      return task.list === Number(payload.id)
-    })
-    console.log('deleteAllTasks action called')
-    context.commit('deleteAllTasks', payload)
+  // deleteAllTasks: (context, payload) => {
+  //   const tasksToDelete = state.tasks.filter(task => {
+  //     return task.list === Number(payload.id)
+  //   })
+  //   console.log('deleteAllTasks action called')
+  //   context.commit('deleteAllTasks', payload)
+  //
+  //   // Delete TaskUsers
+  //   // TODO - this might be handled by the server CASCADE
+  //   //  whenever multiple tasks are deleted
+  //   tasksToDelete.forEach(task => {
+  //     console.log('delete taskUser action called')
+  //     context.dispatch('deleteAllTaskUsers', task)
+  //   })
+  // },
 
-    // Delete TaskUsers
-    // TODO - this might be handled by the server CASCADE
-    //  whenever multiple tasks are deleted
-    tasksToDelete.forEach(task => {
-      console.log('delete taskUser action called')
-      context.dispatch('deleteAllTaskUsers', task)
-    })
-  },
-
-  // pw - Note: need to verify if this is what setTasks should return
-  // pw - set tasks
-  setTasks: (context, payload) => {
-    axios.get(`tasks`)
-      .then(res => {
-        console.log('tasks:', res.data)
-      })
-      .catch(error => console.log(error))
-    // TODO - set up async call to server,
-    //  retrieve from DB, on success commit to store
-    context.commit('setTasks', payload)
-  },
+  // setTasks: (context, payload) => {
+  //   axios.get(`tasks`)
+  //     .then(res => {
+  //       console.log('tasks:', res.data)
+  //     })
+  //     .catch(error => console.log(error))
+  //   // TODO - set up async call to server,
+  //   //  retrieve from DB, on success commit to store
+  //   context.commit('setTasks', payload)
+  // },
 
   getTasks: (context) => {
     axios.get(`tasks`)

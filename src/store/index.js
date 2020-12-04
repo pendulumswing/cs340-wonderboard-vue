@@ -24,11 +24,6 @@ export default new Vuex.Store({
       { name: 'Dark Blue', color: 'blue darken-3' },
       { name: 'Blue Grey', color: 'blue-grey lighten-2' }
     ],
-    // defaultLists: [
-    //   { id: 1, board: 1, name: 'To Do', index: 1, creator: 1, color: 'red lighten-3' },
-    //   { id: 2, board: 1, name: 'In Process', index: 2, creator: 1, color: 'blue lighten-3' },
-    //   { id: 3, board: 1, name: 'Completed', index: 3, creator: 1, color: 'green lighten-3' }
-    // ],
     defaultLists: [
       { board: 1, name: 'To Do', index: 1, creator: 1, color: 'red lighten-3' },
       { board: 1, name: 'In Process', index: 2, creator: 1, color: 'blue lighten-3' },

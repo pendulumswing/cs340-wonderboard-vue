@@ -19,7 +19,6 @@ const getters = {
 
 const mutations = {
   createBoard: (state, payload) => {
-    // console.log('pushing data to board state: ', payload)
     state.boards.push(payload)
   },
 
@@ -60,6 +59,7 @@ const actions = {
     axios.post('boards', payload)
       .then(res => {
         context.commit('createBoard', res.data)
+
         const boardId = res.data.id
         const creatorId = res.data.creator
 
@@ -67,14 +67,14 @@ const actions = {
           user: Number(payload.creator),
           board: Number(boardId)
         }
-        // console.log('boardUserPayload: ', boardUserPayload)
+        // Inner promise to Create Default Lists
         context.dispatch('createBoardUser', boardUserPayload)
           .then(res => {
             context.rootState.defaultLists.forEach(list => {
               let newList = _.cloneDeep(list)
               newList.board = boardId
               newList.creator = creatorId
-              context.dispatch('createList', newList)
+              return context.dispatch('createList', newList)
             })
           })
       })
@@ -85,7 +85,15 @@ const actions = {
     axios.delete(`boards/${payload.id}`)
       .then(res => {
         console.log('deleteBoard:', res.data)
-        context.commit('deleteBoard', payload)
+        return context.commit('deleteBoard', payload)
+      }).then(res => {
+        return context.dispatch('getBoardUsers')
+      }).then(res => {
+        return context.dispatch('getLists')
+      }).then(res => {
+        return context.dispatch('getTasks')
+      }).then(res => {
+        return context.dispatch('getTaskUsers')
       })
       .catch(error => console.log(error))
   },
@@ -94,7 +102,7 @@ const actions = {
     axios.put(`boards/${payload.id}`, payload)
       .then(res => {
         console.log('updateBoard:', res.data)
-        context.commit('updateBoard', res.data)
+        return context.commit('updateBoard', res.data)
       })
       .catch(error => console.log(error))
   },
@@ -103,7 +111,7 @@ const actions = {
     axios.get(`boards`)
       .then(res => {
         console.log('getBoards:', res.data)
-        context.commit('getBoards', res.data)
+        return context.commit('getBoards', res.data)
       })
       .catch(error => console.log(error))
   }

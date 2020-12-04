@@ -44,7 +44,7 @@ const actions = {
     axios.post('board_users', payload)
       .then(res => {
         // console.log('created board user:', res.data)
-        context.commit('createBoardUser', res.data)
+        return context.commit('createBoardUser', res.data)
       })
       .catch(error => console.log(error))
   },
@@ -53,7 +53,7 @@ const actions = {
     axios.delete(`board_users/${payload.id}`)
       .then(res => {
         // console.log('deleted board user:', payload.id)
-        context.commit('deleteBoardUser', payload)
+        return context.commit('deleteBoardUser', payload)
       })
       .catch(error => console.log(error))
   },
@@ -62,7 +62,7 @@ const actions = {
     axios.get(`board_users`)
       .then(res => {
         // console.log('getBoardUsers:', res.data)
-        context.commit('getBoardUsers', res.data)
+        return context.commit('getBoardUsers', res.data)
       })
       .catch(error => console.log(error))
   }

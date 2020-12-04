@@ -54,23 +54,33 @@ const actions = {
     // console.log('user state id: ', state.id, ', : ', context.getters.getUserAutoId)
     // payload.id = state.id
 
-    // TODO - set up async call to server,
-    //  add to DB, on success commit to store
     axios.post('users', payload)
       .then(res => {
         console.log('createUser:', res.data)
-        // this.onGetUsers()
-        context.commit('createUser', res.data)
+        return context.commit('createUser', res.data)
       })
       .catch(error => console.log(error))
   },
   deleteUser: (context, payload) => {
-    // TODO - set up async call to server,
-    //  add to DB, on success commit to store
     axios.delete(`users/${payload.id}`)
       .then(res => {
         console.log('delete: ', res)
-        context.commit('deleteUser', payload)
+        return context.commit('deleteUser', payload)
+      }).then(res => {
+        // console.log('calling getBoards')
+        return context.dispatch('getBoards')
+      }).then(res => {
+        // console.log('calling getBoardUsers')
+        return context.dispatch('getBoardUsers')
+      }).then(res => {
+        // console.log('calling getLists')
+        return context.dispatch('getLists')
+      }).then(res => {
+        // console.log('calling getTasks')
+        return context.dispatch('getTasks')
+      }).then(res => {
+        // console.log('calling getTaskUsers')
+        return context.dispatch('getTaskUsers')
       })
       .catch(error => console.log(error))
 
@@ -78,23 +88,20 @@ const actions = {
     // context.dispatch('deleteAllBoards', id)
   },
   updateUser: (context, payload) => {
-    // TODO - set up async call to server,
-    //  add to DB, on success commit to store
-    // let payload = { username: 'test_update', first_name: 'fName_update', last_name: 'lName_update', email:
-    // 'test@email.com', password: 'password' }
     axios.put(`users/${payload.id}`, payload)
       .then(res => {
         console.log('update: ', res.data)
         // this.onGetUsers()
-        context.commit('updateUser', res.data)
+        return context.commit('updateUser', res.data)
       })
       .catch(error => console.log(error))
   },
   getUsers: (context) => {
     axios.get('users')
       .then(res => {
-        context.commit('getUsers', res.data)
+        return context.commit('getUsers', res.data)
       })
+      .catch(error => console.log(error))
   }
 }
 
