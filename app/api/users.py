@@ -1,30 +1,14 @@
 from .resources import *
 
 
-def update_one_user(table, data, id):
-    conn = get_connection()
-    query = (f"""UPDATE {table}
-            SET username = '{data['username']}',
-            first_name = '{data['first_name']}',
-            last_name = '{data['last_name']}',
-            email = '{data['email']}',
-            password = '{data['password']}'
-            WHERE id={id};""")
-    query_params = (id,)
-
-    with conn.cursor() as cur:
-        cur.execute(query)
-        conn.commit()
-        result = find_one('users', id)
-
-    return result, 200
-
-
 @api_rest.route('/users')
 class Users(Resource):
+
+    # Get all users
     def get(self):
         return find_all('users'), 200
 
+    # Create user
     def post(self):
         data = request.json
         conn = get_connection()
@@ -46,13 +30,34 @@ class Users(Resource):
 
 @api_rest.route('/users/<int:resource_id>')
 class User(Resource):
+
+    # Get user by id
     def get(self, resource_id):
         return find_one('users', resource_id), 200
 
+    # Delete user by id
     def delete(self, resource_id):
         return delete_one('users', resource_id)
 
+    # Update user by id
     def put(self, resource_id):
         data = request.json
-        # print(data['username'])
         return update_one_user('users', data, resource_id)
+
+
+def update_one_user(table, data, id):
+    conn = get_connection()
+    query = (f"""UPDATE {table}
+            SET username = '{data['username']}',
+            first_name = '{data['first_name']}',
+            last_name = '{data['last_name']}',
+            email = '{data['email']}',
+            password = '{data['password']}'
+            WHERE id={id};""")
+
+    with conn.cursor() as cur:
+        cur.execute(query)
+        conn.commit()
+        result = find_one('users', id)
+
+    return result, 200

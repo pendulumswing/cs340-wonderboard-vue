@@ -18,8 +18,6 @@ import json
 
 #Database initialization
 # DATABASE_URL = os.getenv("DATABASE_URL")
-# DATABASE_URL = os.getenv("PW_DATABASE_URL")
-# DATABASE_URL = os.getenv("JB_DATABASE_URL")
 # conn = psycopg2.connect(DATABASE_URL)
 # cur = conn.cursor()
 
@@ -38,6 +36,51 @@ def get_connection():
     # return psycopg2.connect("dbname=wonderboard")
     DATABASE_URL = os.getenv('DATABASE_URL')
     return psycopg2.connect(DATABASE_URL)
+
+
+# Find all rows in a table
+def find_all(table):
+    conn = get_connection()
+
+    with conn.cursor() as cur:
+        cur.execute(f"SELECT * FROM {table} ORDER BY id;")
+        conn.commit()
+        rows = cur.fetchall()
+        column_names = [desc[0] for desc in cur.description]
+
+    data = []
+    for row in rows:
+        data.append(create_record(row, column_names))
+
+    return data
+
+
+# Find one item in a table by id
+def find_one(table, id):
+    conn = get_connection()
+
+    with conn.cursor() as cur:
+        cur.execute(f"SELECT * FROM {table} where id={id};")
+        conn.commit()
+        row = cur.fetchone()
+        column_names = [desc[0] for desc in cur.description]
+
+    return create_record(row, column_names)
+
+
+# Delete one item in a table by id
+def delete_one(table, id):
+    conn = get_connection()
+    query = f"DELETE FROM {table} WHERE id={id};"
+    query_params = (id,)
+
+    with conn.cursor() as cur:
+        cur.execute(query, query_params)
+        conn.commit()
+        result = cur
+
+    return f"{result.rowcount} row deleted"
+
 
 # Query function from class materials
 def execute_query(db_connection = None, query = None, query_params = ()):
@@ -77,69 +120,3 @@ def execute_query(db_connection = None, query = None, query_params = ()):
     # changes will be committed!
     db_connection.commit()
     return cursor
-
-
-
-# Find all rows in a table
-def find_all(table):
-    conn = get_connection()
-
-    with conn.cursor() as cur:
-        cur.execute(f"SELECT * FROM {table} ORDER BY id;")
-        conn.commit()
-        rows = cur.fetchall()
-        column_names = [desc[0] for desc in cur.description]
-
-    data = []
-    for row in rows:
-        data.append(create_record(row, column_names))
-
-    return data
-
-
-#Find one item in a table by id
-def find_one(table, id):
-    conn = get_connection()
-
-    with conn.cursor() as cur:
-        cur.execute(f"SELECT * FROM {table} where id={id};")
-        conn.commit()
-        row = cur.fetchone()
-        column_names = [desc[0] for desc in cur.description]
-
-    return create_record(row, column_names)
-
-#Delete one item in a table by id
-def delete_one(table, id):
-    conn = get_connection()
-    query = f"DELETE FROM {table} WHERE id={id};"
-    query_params = (id,)
-
-    with conn.cursor() as cur:
-        cur.execute(query, query_params)
-        conn.commit()
-        result = cur
-
-    return f"{result.rowcount} row deleted"
-
-
-# @api_rest.route('/resource/<string:resource_id>')
-# class ResourceOne(Resource):
-#     """ Unsecure Resource Class: Inherit from Resource """
-#
-#     def get(self, resource_id):
-#         timestamp = datetime.utcnow().isoformat()
-#         return {'timestamp': timestamp}
-#
-#     def post(self, resource_id):
-#         json_payload = request.json
-#         return {'timestamp': json_payload}, 201
-#
-#
-# @api_rest.route('/secure-resource/<string:resource_id>')
-# class SecureResourceOne(SecureResource):
-#     """ Unsecure Resource Class: Inherit from Resource """
-#
-#     def get(self, resource_id):
-#         timestamp = datetime.utcnow().isoformat()
-#         return {'timestamp': timestamp}

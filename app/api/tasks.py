@@ -42,6 +42,7 @@ class Task(Resource):
         data = request.json
         return update_one_task('tasks', data, resource_id)
 
+
 # Update task
 def update_one_task(table, data, id):
     # Check for NULL value for Creator
@@ -55,7 +56,6 @@ def update_one_task(table, data, id):
             description = '{data['description']}',
             creator = {data['creator']}
             WHERE id={id};""")
-    query_params = (id,)
 
     with conn.cursor() as cur:
         cur.execute(query)
