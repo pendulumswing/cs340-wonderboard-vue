@@ -9,6 +9,8 @@
       @click.stop.prevent="showUpdateUserDialog=true"
     )
       v-icon(small) mdi-pencil
+
+    // Dialog
     span
       UpdateUserDialog(
         v-if="showUpdateUserDialog"
@@ -22,9 +24,11 @@ import UpdateUserDialog from '@/dialogs/user/Update'
 
 export default {
   name: 'editUserButton',
+
   components: {
     UpdateUserDialog
   },
+
   props: {
     user: {
       type: Object,

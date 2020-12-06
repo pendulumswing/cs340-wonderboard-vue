@@ -9,6 +9,8 @@
       @click.stop.prevent="showDeleteUserDialog=true"
     )
       v-icon(small) mdi-delete
+
+    // Dialog
     span
       DeleteUserDialog(
         v-if="showDeleteUserDialog"
@@ -22,9 +24,11 @@ import DeleteUserDialog from '@/dialogs/user/Delete'
 
 export default {
   name: 'deleteUserButton',
+
   components: {
     DeleteUserDialog
   },
+
   props: {
     user: {
       type: Object,
@@ -36,22 +40,6 @@ export default {
     return {
       showDeleteUserDialog: false
     }
-  },
-
-  // computed: {
-  //   users () {
-  //     return this.$store.state..users.users
-  //   }
-  // },
-  //
-  // methods: {
-  //   onDelete () {
-  //     alert('deleting user')
-  //   },
-  //
-  //   onEdit () {
-  //     alert('edit user')
-  //   }
-  // }
+  }
 }
 </script>

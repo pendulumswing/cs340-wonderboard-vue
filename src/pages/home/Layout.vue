@@ -1,6 +1,8 @@
 <template lang="pug">
   div
     v-card(color="transparent").elevation-0
+
+      // Header
       v-card-title
         span.grey--text.text--darken-2 Users
         v-spacer
@@ -10,7 +12,7 @@
           @click="showCreateUserDialog=true"
         ) Add User
 
-      // Description
+      // Page Description (Expandable)
       v-card-subtitle.pa-0
         v-expansion-panels(flat).pa-0.pl-3
           v-expansion-panel.elevation-0.pa-0.grey--text.text--lighten-1
@@ -49,16 +51,9 @@
                     username
                   li.text-justify.
                     password
+
+      // User Cards
       v-card-text
-        // Debug
-        div
-          //
-            p boards: {{ $store.state.boards.boards }}
-            p users: {{ $store.state.users.users }}
-            p boardsUsers: {{ $store.state.boardUsers.boardUsers }}
-            p lists: {{ $store.state.lists.lists }}
-            p tasks: {{ $store.state.tasks.tasks }}
-            p tasksUsers: {{ $store.state.taskUsers.taskUsers }}
         v-row(v-if="users.length > 0")
           v-col(v-for="user in users" cols="12" sm="6" md="4" lg="3")
             router-link(:to="`/users/${user.id}`")
@@ -74,39 +69,6 @@
                   DeleteUserButton(:user="user")
 
                 v-card-text.text-start
-
-                  // Attributes
-                    div
-                      v-row.no-gutters.flex-nowrap
-                        v-col(cols="6" md="5" lg="4")
-                          div id:
-                        v-col
-                          div {{ user.id }}
-                      v-row.no-gutters.flex-nowrap
-                        v-col(cols="6" md="5" lg="4")
-                          div first_name:
-                        v-col
-                          div {{ user.first_name }}
-                      v-row.no-gutters.flex-nowrap
-                        v-col(cols="6" md="5" lg="4")
-                          div last_name:
-                        v-col
-                          div {{ user.last_name }}
-                      v-row.no-gutters.flex-nowrap
-                        v-col(cols="6" md="5" lg="4")
-                          div email:
-                        v-col
-                          div {{ user.email }}
-                      v-row.no-gutters.flex-nowrap
-                        v-col(cols="6" md="5" lg="4")
-                          div username:
-                        v-col
-                          div {{ user.username }}
-                      v-row.no-gutters.flex-nowrap
-                        v-col(cols="6" md="5" lg="4")
-                          div password:
-                        v-col
-                          div {{ user.password }}
 
                   // Hidden Attributes
                   v-row
@@ -151,45 +113,7 @@
           v-col.d-flex.justify-center
             div.text-center.subtitle-1 Add a user to get started.
 
-        // Description
-        // v-row.pl-3.pt-7
-          v-expansion-panels(flat).pa-0
-            v-expansion-panel.elevation-0.pa-0.grey--text.text--lighten-1
-              v-expansion-panel-header(color="#fbfbfb")
-                template(v-slot:actions).icon
-                  v-icon(left).grey--text.text--lighten-1 $expand
-                div.text-start.header.subtitle-1.py-1 Page Description
-              v-expansion-panel-content(color="#fbfbfb").text-start.pa-0
-                div.text-justify.
-                  This is the landing page for the site. It lists all users in the database.
-                  Selecting a user tile will redirect to the boards page for that user.
-                  The path breadcrumbs can also be clicked to move around the site.
-                div.pt-3
-                  div.text-start.subtitle-1 users
-                  ul
-                    li.text-justify.
-                      A new user can be created with the 'ADD USER' button (CREATE).
-                    li.text-justify.
-                      All users are fetched from the the database and listed here (READ).
-                    li.text-justify.
-                      A user can be updated by selecting the pencil icon on the user tile. A dialog will popup to edit any fields. (UPDATE).
-                    li.text-justify.
-                      A user can also be deleted with the delete icon (DELETE).
-                div.pt-3
-                  div.text-start.subtitle-1 columns
-                  ul
-                    li.text-justify.
-                      id
-                    li.text-justify.
-                      first_name
-                    li.text-justify.
-                      last_name
-                    li.text-justify.
-                      email
-                    li.text-justify.
-                      username
-                    li.text-justify.
-                      password
+    // Dialogs
     span
       CreateUserDialog(
         v-if="showCreateUserDialog"
