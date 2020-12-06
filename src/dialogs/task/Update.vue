@@ -132,9 +132,7 @@ export default {
       const valid = this.$refs.form.validate()
 
       if (valid) {
-        // TODO - make call to delete user here
         this.updateTask(this.data)
-        console.log('UPDATE user submitted')
         this.onClose()
       }
     }
