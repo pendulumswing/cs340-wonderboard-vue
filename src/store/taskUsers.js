@@ -1,8 +1,6 @@
-import _ from 'lodash'
 import axios from 'axios'
 
 const state = {
-  id: 16,
   taskUsers: [
     // { id: 1, user: 1, task: 1 },
     // { id: 2, user: 1, task: 2 },
@@ -24,25 +22,17 @@ const state = {
 }
 
 const getters = {
-  getTaskUsersLength (state) {
-    return state.taskUsers.length
-  },
-  getTaskUsersNextId (state) {
-    const maxId = _.maxBy(state.taskUsers, taskUser => {
-      return taskUser.id
-    })
-    console.log('maxId: ', maxId.id)
-    return maxId.id + 1
-  },
 
-  getTaskUsersAutoId (state) {
-    return state.id
-  }
 }
 
 const mutations = {
   createTaskUser (state, payload) {
     state.taskUsers.push(payload)
+  },
+
+  getTaskUsers: (state, payload) => {
+    state.tasksUsers = []
+    state.tasksUsers = payload
   },
 
   deleteTaskUser (state, payload) {
@@ -52,40 +42,14 @@ const mutations = {
     if (index >= 0) {
       state.taskUsers.splice(index, 1)
     }
-  },
-
-  getTaskUsers: (state, payload) => {
-    state.tasksUsers = []
-    state.tasksUsers = payload
   }
-
-  // deleteAllTaskUsers (state, payload) {
-  //   state.taskUsers = state.taskUsers.filter(taskUser => {
-  //     return taskUser.task !== Number(payload.id)
-  //   })
-  // },
-
-  // udpateTaskUserAutoId (state, payload) {
-  //   state.id += 1
-  //   console.log('state.id = ', state.id)
-  // }
 }
 
 const actions = {
   createTaskUser: (context, payload) => {
     axios.post('task_users', payload)
       .then(res => {
-        console.log('task_user: ', res.data)
         return context.commit('createTaskUser', res.data)
-      })
-      .catch(error => console.log(error))
-  },
-
-  deleteTaskUser: (context, payload) => {
-    axios.delete(`task_users/${payload.id}`)
-      .then(res => {
-        console.log('task_users: ', res.data)
-        return context.commit('deleteTaskUser', payload)
       })
       .catch(error => console.log(error))
   },
@@ -93,15 +57,18 @@ const actions = {
   getTaskUsers: (context) => {
     axios.get(`tasks`)
       .then(res => {
-        console.log('getTaskUsers:', res.data)
         return context.commit('getTaskUsers', res.data)
       })
       .catch(error => console.log(error))
+  },
+
+  deleteTaskUser: (context, payload) => {
+    axios.delete(`task_users/${payload.id}`)
+      .then(res => {
+        return context.commit('deleteTaskUser', payload)
+      })
+      .catch(error => console.log(error))
   }
-  // deleteAllTaskUsers: (context, payload) => {
-  //   console.log('deleteAllTaskUsers action called')
-  //   context.commit('deleteAllTaskUsers', payload)
-  // }
 }
 
 export default {

@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import EditTaskButton from './EditTaskButton'
 import _ from 'lodash'
 
@@ -206,13 +206,7 @@ export default {
         return user.id === this.task.creator
       })
       return `${user.first_name} ${user.last_name}`
-    },
-
-    ...mapGetters({
-      getTaskUsersAutoId: 'getTaskUsersAutoId'
-      // getTaskUsersLength: 'getTaskUsersLength',
-      // getTaskUsersNextId: 'getTaskUsersNextId'
-    })
+    }
   },
 
   methods: {
@@ -253,8 +247,6 @@ export default {
     },
 
     onAddUser (user) {
-      // console.log('taskUsersNextId: ', this.getTaskUsersNextId)
-      // const taskUserId = this.getTaskUsersAutoId + 1
       const payload = { task: this.task.id, user: user.id }
       this.createTaskUser(payload)
     },

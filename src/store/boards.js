@@ -2,7 +2,6 @@ import _ from 'lodash'
 import axios from 'axios'
 
 const state = {
-  id: 4,
   boards: [
     // { id: 1, name: 'Banana 1', creator: 1, color: 'blue lighten-3' },
     // { id: 2, name: 'Banana 2', creator: 1, color: 'orange lighten-3' },
@@ -11,9 +10,27 @@ const state = {
   ]
 }
 
+const getters = {
+
+}
+
 const mutations = {
   createBoard: (state, payload) => {
     state.boards.push(payload)
+  },
+
+  getBoards: (state, payload) => {
+    state.boards = []
+    state.boards = payload
+  },
+
+  updateBoard: (state, payload) => {
+    const index = state.boards.findIndex(board => {
+      return board.id === payload.id
+    })
+    if (index >= 0) {
+      state.boards.splice(index, 1, payload)
+    }
   },
 
   deleteBoard: (state, payload) => {
@@ -23,18 +40,6 @@ const mutations = {
     if (index >= 0) {
       state.boards.splice(index, 1)
     }
-  },
-  updateBoard: (state, payload) => {
-    const index = state.boards.findIndex(board => {
-      return board.id === payload.id
-    })
-    if (index >= 0) {
-      state.boards.splice(index, 1, payload)
-    }
-  },
-  getBoards: (state, payload) => {
-    state.boards = []
-    state.boards = payload
   }
 }
 
@@ -65,10 +70,25 @@ const actions = {
       .catch(error => console.log(error))
   },
 
+  updateBoard: (context, payload) => {
+    axios.put(`boards/${payload.id}`, payload)
+      .then(res => {
+        return context.commit('updateBoard', res.data)
+      })
+      .catch(error => console.log(error))
+  },
+
+  getBoards: (context) => {
+    axios.get(`boards`)
+      .then(res => {
+        return context.commit('getBoards', res.data)
+      })
+      .catch(error => console.log(error))
+  },
+
   deleteBoard: (context, payload) => {
     axios.delete(`boards/${payload.id}`)
       .then(res => {
-        console.log('deleteBoard:', res.data)
         return context.commit('deleteBoard', payload)
       }).then(res => {
         return context.dispatch('getBoardUsers')
@@ -80,29 +100,12 @@ const actions = {
         return context.dispatch('getTaskUsers')
       })
       .catch(error => console.log(error))
-  },
-
-  updateBoard: (context, payload) => {
-    axios.put(`boards/${payload.id}`, payload)
-      .then(res => {
-        // console.log('updateBoard:', res.data)
-        return context.commit('updateBoard', res.data)
-      })
-      .catch(error => console.log(error))
-  },
-
-  getBoards: (context) => {
-    axios.get(`boards`)
-      .then(res => {
-        // console.log('getBoards:', res.data)
-        return context.commit('getBoards', res.data)
-      })
-      .catch(error => console.log(error))
   }
 }
 
 export default {
   state,
+  getters,
   mutations,
   actions
 }

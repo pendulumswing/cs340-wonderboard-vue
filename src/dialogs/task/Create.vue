@@ -12,11 +12,11 @@
             v-col
 
               // id
-              v-text-field(
-                v-model="data.id"
-                label="id"
-                disabled
-              )
+                v-text-field(
+                  v-model="data.id"
+                  label="id"
+                  disabled
+                )
 
               // creator
               v-text-field(
@@ -82,7 +82,7 @@ export default {
       show: true,
       request: undefined,
       data: {
-        id: this.$store.getters.getTaskAutoId + 1,
+        // id: this.$store.state.tasks.tasks.length + 1,
         list: this.lists[0].id || undefined,
         name: '',
         description: '',

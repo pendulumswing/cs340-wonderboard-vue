@@ -10,11 +10,11 @@
         v-form(ref="form")
 
           // id
-          v-text-field(
-            v-model="data.id"
-            label="id"
-            disabled
-          )
+            v-text-field(
+              v-model="data.id"
+              label="id"
+              disabled
+            )
 
           // creator
           v-text-field(
@@ -74,7 +74,7 @@ export default {
       request: undefined,
       form: undefined,
       data: {
-        id: this.$store.state.boards.boards.length + 1,
+        // id: this.$store.state.boards.boards.length + 1,
         name: '',
         creator: Number(this.$route.params.userId) || undefined,
         color: this.$store.state.colors[0].color
@@ -92,11 +92,7 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      colors () {
-        return this.$store.state.colors
-      }
-    })
+    ...mapState(['colors'])
   },
 
   mounted () {

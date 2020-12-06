@@ -10,11 +10,11 @@
         v-form(ref="form")
 
             // id
-            v-text-field(
-              v-model="data.id"
-              label="id"
-              disabled
-            )
+              v-text-field(
+                v-model="data.id"
+                label="id"
+                disabled
+              )
 
             // username
             v-text-field(
@@ -78,7 +78,7 @@ export default {
       request: undefined,
       inputIsVisible: false,
       data: {
-        id: this.$store.getters.getUserAutoId + 1,
+        // id: this.$store.state.users.users.length + 1,
         username: '',
         first_name: '',
         last_name: '',

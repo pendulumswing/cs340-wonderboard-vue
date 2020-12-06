@@ -1,8 +1,6 @@
 import axios from 'axios'
-import _ from 'lodash'
 
 const state = {
-  id: 12,
   lists: [
     // { id: 1, board: 1, name: 'To Do', index: 1, creator: 1, color: 'red lighten-3' },
     // { id: 2, board: 1, name: 'In Process', index: 2, creator: 1, color: 'blue lighten-3' },
@@ -20,21 +18,7 @@ const state = {
 }
 
 const getters = {
-  getListAutoId (state) {
-    return state.id
-  },
 
-  getListsByBoard: (state) => (id) => {
-    const listArray = state.lists.filter(list => {
-      return list.board === id
-    })
-
-    const sorted = _.sortBy(listArray, function (list) {
-      return list.index
-    })
-
-    return _.cloneDeep(sorted)
-  }
 }
 
 const mutations = {
@@ -42,13 +26,9 @@ const mutations = {
     state.lists.push(payload)
   },
 
-  deleteList: (state, payload) => {
-    const index = state.lists.findIndex(list => {
-      return list.id === payload.id
-    })
-    if (index >= 0) {
-      state.lists.splice(index, 1)
-    }
+  getLists: (state, payload) => {
+    state.lists = []
+    state.lists = payload
   },
 
   updateList: (state, payload) => {
@@ -60,95 +40,35 @@ const mutations = {
     }
   },
 
-  getLists: (state, payload) => {
-    state.lists = []
-    state.lists = payload
+  deleteList: (state, payload) => {
+    const index = state.lists.findIndex(list => {
+      return list.id === payload.id
+    })
+    if (index >= 0) {
+      state.lists.splice(index, 1)
+    }
   }
-
-  // updateListAutoId (state, payload) {
-  //   state.id += 1
-  // },
-
-  // decrementIndex (state, payload) {
-  //   const index = state.lists.findIndex(list => {
-  //     return list.id === payload.id
-  //   })
-  //   if (index >= 0) {
-  //     if (state.lists[index].index > 1) {
-  //       state.lists[index].index -= 1
-  //     }
-  //   }
-  // },
-
-  // deleteAllLists (state, payload) {
-  //   state.lists = state.lists.filter(list => {
-  //     return list.board !== Number(payload.id)
-  //   })
-  // }
 }
 
 const actions = {
-  decrementLists: (context, payload) => {
-    console.log('decrementLists')
-    // Get remaining lists with greater index
-    const lists = state.lists.filter(list => {
-      return list.board === payload.board && list.index >= payload.index && list.id !== payload.id
-    })
-
-    // Update indices for each list
-    lists.forEach(list => {
-      let listCopy = _.cloneDeep(list)
-      if (listCopy.index >= 0) {
-        listCopy.index -= 1
-      }
-      context.dispatch('updateList', listCopy)
-    })
-  },
-
-  incrementLists: (context, payload) => {
-    // Get remaining lists with greater index
-    console.log('payload: ', payload)
-    const lists = state.lists.filter(list => {
-      return list.board === payload.board && list.index >= payload.index && list.id !== payload.id
-    })
-    console.log('lists: ', lists)
-
-    // Update indices for each list
-    lists.forEach(list => {
-      let listCopy = _.cloneDeep(list)
-      if (listCopy.index >= 0) {
-        listCopy.index += 1
-      }
-      context.dispatch('updateList', listCopy)
-    })
-  },
-
   createList: (context, payload) => {
     axios.post('lists', payload)
       .then(res => {
-        console.log('added list:', res.data)
         return context.commit('createList', res.data)
         // context.dispatch('incrementLists', res.data)
       })
       .catch(error => console.log(error))
   },
 
-  deleteList: (context, payload) => {
-    axios.delete(`lists/${payload.id}`, payload)
+  getLists: (context) => {
+    axios.get('lists')
       .then(res => {
-        // console.log('deleted list:', res.data)
-        return context.commit('deleteList', payload)
-        // context.dispatch('decrementLists', res.data)
-      }).then(res => {
-        return context.dispatch('getTasks')
-      }).then(res => {
-        return context.dispatch('getTaskUsers')
+        return context.commit('getLists', res.data)
       })
       .catch(error => console.log(error))
   },
 
   updateList: (context, payload) => {
-    console.log('updateList payload:', payload)
     axios.put(`lists/${payload.id}`, payload)
       .then(res => {
         return context.commit('updateList', res.data)
@@ -156,11 +76,14 @@ const actions = {
       .catch(error => console.log('update error: ', error))
   },
 
-  getLists: (context) => {
-    axios.get('lists')
+  deleteList: (context, payload) => {
+    axios.delete(`lists/${payload.id}`, payload)
       .then(res => {
-        // console.log('lists:', res.data)
-        return context.commit('getLists', res.data)
+        return context.commit('deleteList', payload)
+      }).then(res => {
+        return context.dispatch('getTasks')
+      }).then(res => {
+        return context.dispatch('getTaskUsers')
       })
       .catch(error => console.log(error))
   }

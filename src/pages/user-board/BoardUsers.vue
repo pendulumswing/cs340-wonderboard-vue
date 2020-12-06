@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import _ from 'lodash'
 
 export default {
@@ -82,10 +82,6 @@ export default {
           return _.find(this.boardUsers, { user: user.id }) === undefined
         })
       }
-    }),
-
-    ...mapGetters({
-      getBoardUsersAutoId: 'getBoardUsersAutoId'
     })
   },
 
@@ -96,7 +92,6 @@ export default {
     ]),
 
     onAddUser (user) {
-      // const id = this.getBoardUsersAutoId + 1
       const payload = { board: this.board.id, user: user.id }
       this.createBoardUser(payload)
     },

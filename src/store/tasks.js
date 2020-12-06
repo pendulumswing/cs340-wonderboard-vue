@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const state = {
-  id: 13,
   tasks: [
     // { id: 1, list: 1, name: 'finish project', description: 'do some stuff', creator: 1 },
     // { id: 3, list: 2, name: 'make front end', description: 'do some stuff', creator: 1 },
@@ -20,9 +19,7 @@ const state = {
 }
 
 const getters = {
-  getTaskAutoId (state) {
-    return state.id
-  }
+
 }
 
 const mutations = {
@@ -30,13 +27,9 @@ const mutations = {
     state.tasks.push(payload)
   },
 
-  deleteTask: (state, payload) => {
-    const index = state.tasks.findIndex(task => {
-      return task.id === payload.id
-    })
-    if (index >= 0) {
-      state.tasks.splice(index, 1)
-    }
+  getTasks: (state, payload) => {
+    state.tasks = []
+    state.tasks = payload
   },
 
   updateTask: (state, payload) => {
@@ -48,34 +41,20 @@ const mutations = {
     }
   },
 
-  getTasks: (state, payload) => {
-    state.tasks = []
-    state.tasks = payload
-  },
-
-  deleteAllTasks (state, payload) {
-    state.tasks = state.tasks.filter(task => {
-      return task.list !== Number(payload.id)
+  deleteTask: (state, payload) => {
+    const index = state.tasks.findIndex(task => {
+      return task.id === payload.id
     })
-  },
-
-  setTasks: (state, payload) => {
-    this.state.tasks = payload
-  },
-
-  updateTaskAutoId (state, payload) {
-    state.id += 1
+    if (index >= 0) {
+      state.tasks.splice(index, 1)
+    }
   }
 }
 
 const actions = {
-  // Auto-increment id - REMOVE AFTER DB IMPLEMENTATION
-  // context.commit('updateTaskAutoId')
-  // pw - creates Task
   createTask: (context, payload) => {
     axios.post('tasks', payload)
       .then(res => {
-        console.log('created task:', res.data)
         context.commit('createTask', res.data)
 
         const taskId = res.data.id
@@ -84,68 +63,34 @@ const actions = {
           task: Number(taskId),
           user: Number(creatorId)
         }
-        context.dispatch('createTaskUser', taskUserPayload)
+        return context.dispatch('createTaskUser', taskUserPayload)
       })
       .catch(error => console.log(error))
   },
 
-  // pw - delete task based on taskId
-  deleteTask: (context, payload) => {
-    axios.delete(`tasks/${payload.id}`)
+  getTasks: (context) => {
+    axios.get(`tasks`)
       .then(res => {
-        console.log('task:', res.data)
-        return context.commit('deleteTask', payload)
-      })
-      .then(res => {
-        return context.dispatch('getTaskUsers')
+        context.commit('getTasks', res.data)
       })
       .catch(error => console.log(error))
   },
 
-  // pw - update task based on taskId
   updateTask: (context, payload) => {
     axios.put(`tasks/${payload.id}`, payload)
       .then(res => {
-        // console.log('updated tasks:', res.data)
         return context.commit('updateTask', payload)
       })
       .catch(error => console.log(error))
   },
 
-  // -- left off here
-
-  // deleteAllTasks: (context, payload) => {
-  //   const tasksToDelete = state.tasks.filter(task => {
-  //     return task.list === Number(payload.id)
-  //   })
-  //   console.log('deleteAllTasks action called')
-  //   context.commit('deleteAllTasks', payload)
-  //
-  //   // Delete TaskUsers
-  //   // TODO - this might be handled by the server CASCADE
-  //   //  whenever multiple tasks are deleted
-  //   tasksToDelete.forEach(task => {
-  //     console.log('delete taskUser action called')
-  //     context.dispatch('deleteAllTaskUsers', task)
-  //   })
-  // },
-
-  // setTasks: (context, payload) => {
-  //   axios.get(`tasks`)
-  //     .then(res => {
-  //       console.log('tasks:', res.data)
-  //     })
-  //     .catch(error => console.log(error))
-  //   // TODO - set up async call to server,
-  //   //  retrieve from DB, on success commit to store
-  //   context.commit('setTasks', payload)
-  // },
-
-  getTasks: (context) => {
-    axios.get(`tasks`)
+  deleteTask: (context, payload) => {
+    axios.delete(`tasks/${payload.id}`)
       .then(res => {
-        console.log('getTasks:', res.data)
-        context.commit('getTasks', res.data)
+        return context.commit('deleteTask', payload)
+      })
+      .then(res => {
+        return context.dispatch('getTaskUsers')
       })
       .catch(error => console.log(error))
   }

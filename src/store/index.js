@@ -30,12 +30,19 @@ export default new Vuex.Store({
       { board: 1, name: 'Completed', index: 3, creator: 1, color: 'green lighten-3' }
     ]
   },
+
+  getters: {
+
+  },
+
   mutations: {
 
   },
+
   actions: {
 
   },
+
   modules: {
     users,
     boards,
@@ -44,5 +51,6 @@ export default new Vuex.Store({
     tasks,
     taskUsers
   },
+
   plugins: [createPersistedState()]
 })

@@ -88,7 +88,7 @@ export default {
       show: true,
       request: undefined,
       data: {
-        // id: this.$store.getters.getListAutoId + 1,
+        // id: this.$store.state.lists.lists.length + 1,
         board: Number(this.$route.params.boardId),
         name: '',
         index: this.lists.length + 1,
