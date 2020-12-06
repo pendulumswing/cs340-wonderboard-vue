@@ -17,6 +17,7 @@
           @click="showCreateBoardDialog=true"
         ) Add Board
 
+      // Page Description (Expandable)
       v-card-subtitle.pa-0
         v-expansion-panels(flat).pa-0.pl-3
           v-expansion-panel.elevation-0.pa-0.grey--text.text--lighten-1
@@ -63,10 +64,6 @@
                     The site url for a board requires a user id to navigate to the board correctly.
 
       v-card-text
-        // Debug
-          div
-          p boardUsers: {{ boardUsers }}
-          p length: {{ boardUsers.length }}
 
         // Board Array
         Boards(
@@ -74,53 +71,7 @@
           :boardUsers="boardUsers"
         )
 
-        // Description
-          v-row.pl-3.pt-7
-            v-expansion-panels(flat)
-              v-expansion-panel.elevation-0.pa-0.grey--text.text--lighten-1
-                v-expansion-panel-header(color="#fbfbfb")
-                  template(v-slot:actions).icon
-                    v-icon(left).grey--text.text--lighten-1 $expand
-                  div.text-start.header.subtitle-1.py-1 Page Description
-                v-expansion-panel-content(color="#fbfbfb").text-start.pa-0
-                  div.text-justify.
-                    This is the boards page for the selected user. It lists all boards associated with the user.
-                    Selecting a board tile will redirect to the the board detail page for that board and that user.
-                  div.pt-3
-                    div.text-start.subtitle-1 boards
-                    ul
-                      li.text-justify.
-                        A new board can be created with the 'ADD BOARD' button (CREATE).
-                      li.text-justify.
-                        All boards are fetched from the the database and listed here, based on route parameter 'userId' (READ).
-                      li.text-justify.
-                        A board can be updated by selecting the pencil icon on the board tile. A dialog will popup to edit any fields. (UPDATE).
-                      li.text-justify.
-                        A board can also be deleted with the delete icon (DELETE).
-                  div.pt-3
-                    div.text-start.subtitle-1 columns
-                    ul
-                      li.text-justify.
-                        id
-                      li.text-justify.
-                        creator
-                      li.text-justify.
-                        name
-                      li.text-justify.
-                        color
-
-                  div.pt-3
-                    div.text-start.subtitle-1 notes
-                    div.text-start.
-                      The 'creator' column keeps track of the user that initially created the board.
-                      This is important for site functionality for two reasons:
-                    ol
-                      li.
-                        Only the creator can edit or delete a board.
-                      li.
-                        The site url for a board requires a user id to navigate to the board correctly.
-
-    // Add Board Dialog
+    // Dialogs
     span
       CreateBoardDialog(
         v-if="showCreateBoardDialog"

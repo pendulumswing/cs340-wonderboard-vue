@@ -2,6 +2,8 @@
   div
     router-link(:to="`/users/${user.id}/boards/${board.id}`")
       v-card(:color="board.color")
+
+        // Header
         v-card-title.pb-0
           div.title.white--text {{ board.name }}
           v-spacer
@@ -13,15 +15,12 @@
           DeleteBoardButton(:user="user" :board="board")
 
         v-card-text.text-start.white--text
-          // v-row.no-gutters.flex-nowrap
-            v-col(cols="6" md="5" lg="4")
-              div id:
-            v-col
-              div {{ board.id }}
 
+          // Task Count
           v-row.no-gutters
             TaskCount(:lists="lists")
 
+          // Attributes
           v-row
             v-expansion-panels(flat)
               v-expansion-panel.elevation-0

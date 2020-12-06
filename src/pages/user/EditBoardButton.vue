@@ -12,6 +12,8 @@
       v-icon(small) mdi-pencil
     div(v-else :class="memberTextColor").caption.pa-0
       div.pa-0 Guest
+
+    // Dialog
     span
       UpdateBoardDialog(
         v-if="showUpdateBoardDialog"
@@ -25,9 +27,11 @@ import UpdateBoardDialog from '@/dialogs/board/Update'
 
 export default {
   name: 'editBoardButton',
+
   components: {
     UpdateBoardDialog
   },
+
   props: {
     user: {
       type: Object,

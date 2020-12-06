@@ -10,16 +10,8 @@
       @click.stop.prevent="showDeleteBoardDialog=true"
     )
       v-icon(small) mdi-delete
-    // Alt
-      v-btn(
-        v-else
-        color="grey grey--text"
-        x-small
-        depressed
-        icon
-        @click.stop.prevent
-      ).text--lighten-2
-        v-icon(small outline) mdi-delete
+
+    // Dialog
     span
       DeleteBoardDialog(
         v-if="showDeleteBoardDialog"
@@ -33,6 +25,7 @@ import DeleteBoardDialog from '@/dialogs/board/Delete'
 
 export default {
   name: 'deleteBoardDialog',
+
   components: {
     DeleteBoardDialog
   },
