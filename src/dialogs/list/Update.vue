@@ -8,6 +8,7 @@
       v-card-title(class="title blue lighten-2 white--text" primary-title) Edit List
       v-card-text
         v-form(ref="form")
+
           // id
           v-text-field(
             v-model="data.id"
@@ -21,13 +22,6 @@
             label="board"
             disabled
           )
-
-          // index
-            v-text-field(
-              v-model="data.index"
-              label="index"
-              disabled
-            )
 
           // name
           v-text-field(
@@ -113,7 +107,6 @@ export default {
         index: Number(this.list.index) || '',
         name: this.list.name || '',
         color: this.list.color || '',
-        // creator: Number(this.$route.params.userId) || undefined
         creator: Number(this.list.creator) || null
       },
       max32chars: v => (v && v.length <= 32) || 'Input too long',
@@ -151,11 +144,8 @@ export default {
       const valid = this.$refs.form.validate()
 
       if (valid) {
-        // TODO - make call to delete user here
-        console.log('calling shiftLists')
         this.shiftLists()
         this.updateList(this.data)
-        console.log('UPDATE user submitted')
         this.onClose()
       }
     },
@@ -165,12 +155,9 @@ export default {
       let moveDown = false
 
       let listArray = _.cloneDeep(this.lists)
-      console.log('listArray', listArray)
 
-      // const newIndex = this.list.index
       // Find index of list with same index as payload, if any
       const newIndex = listArray.findIndex(list => {
-        console.log(list.index, ', ', this.data.index)
         return list.index === Number(this.data.index)
       })
 
@@ -183,7 +170,7 @@ export default {
         oldIndex < newIndex ? moveUp = true : moveDown = true
       }
 
-      console.log(oldIndex, ', ', newIndex, ', ', moveUp, ', ', moveDown)
+      // console.log(oldIndex, ', ', newIndex, ', ', moveUp, ', ', moveDown)
 
       if (moveUp) {
         // For every item below new index...

@@ -10,22 +10,6 @@
         div.pt-5
         p Are you sure you want to delete this list?
         p All current tasks for the list will also be deleted.
-        //
-          v-card-text.pt-6
-            p Are sure you want to delete list
-              span.font-weight-bold  '{{ list.name }}'
-              |?
-          v-card-text.pb-0
-            p If yes, confirm by typing
-              span.font-weight-bold.px-1 DELETE
-              | into the box below:
-          v-text-field(
-            autofocus
-            filled
-            v-model="confirmDelete"
-            placeholder="DELETE"
-            :rules="[confirmDeleteRule]"
-          ).confirmbox
       v-card-actions.pt-0
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose()") Cancel
@@ -33,7 +17,6 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 import _ from 'lodash'
@@ -69,8 +52,6 @@ export default {
     ]),
 
     onSubmit () {
-      // TODO - make call to delete user here
-      console.log('DELETE list submitted')
       this.shiftListsDown()
       this.deleteList(this.list)
       this.onClose()
@@ -78,7 +59,6 @@ export default {
 
     shiftListsDown () {
       let listArray = _.cloneDeep(this.lists)
-      console.log('listArray', listArray)
 
       // Find index in array
       const oldIndex = listArray.findIndex(list => {

@@ -11,13 +11,6 @@
           v-row
             v-col
 
-              // id
-                v-text-field(
-                  v-model="data.id"
-                  label="id"
-                  disabled
-                )
-
               // board
               v-text-field(
                 v-model="data.board"
@@ -88,7 +81,6 @@ export default {
       show: true,
       request: undefined,
       data: {
-        // id: this.$store.state.lists.lists.length + 1,
         board: Number(this.$route.params.boardId),
         name: '',
         index: this.lists.length + 1,
@@ -127,9 +119,6 @@ export default {
       const valid = this.$refs.form.validate()
 
       if (valid) {
-        // TODO - make call to delete user here
-        console.log('CREATE list submitted')
-        // console.log('listId to create: ', this.data.id)
         this.shiftListsUp(this.data)
         this.createList(this.data)
         this.onClose()
@@ -141,7 +130,6 @@ export default {
 
       // Find index of list with same index as payload, if any
       const targetIndex = listArray.findIndex(list => {
-        console.log(list.index, ', ', this.data.index - 1)
         return list.index === Number(this.data.index) - 1
       })
 
