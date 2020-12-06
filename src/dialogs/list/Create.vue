@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 import _ from 'lodash'
 
@@ -114,9 +114,6 @@ export default {
       colors () {
         return this.$store.state.colors
       }
-    }),
-    ...mapGetters({
-      getListAutoId: 'getListAutoId'
     })
   },
 
