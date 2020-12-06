@@ -3,6 +3,8 @@
     v-row.no-gutters.text-start
       v-col
         div.subtitle-1 Members:
+
+    // Assigned Members
     v-row.no-gutters.text-start.pl-3
       v-col
         v-row(v-for="user in assignedUsers").no-gutters
@@ -17,6 +19,8 @@
             @click.stop.prevent="onRemoveUser(user)"
           )
             v-icon(small) mdi-minus
+
+    // Drop-Down Menu Select
     v-row.no-gutters
       v-col.pb-0
         v-select(

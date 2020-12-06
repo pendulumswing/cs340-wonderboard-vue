@@ -9,6 +9,8 @@
       @click.stop.prevent="showUpdateTaskDialog=true"
     )
       v-icon(small) mdi-pencil
+
+    // Dialog
     span
       UpdateTaskDialog(
         v-if="showUpdateTaskDialog"

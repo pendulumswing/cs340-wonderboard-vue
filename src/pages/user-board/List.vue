@@ -93,11 +93,6 @@ export default {
   },
 
   computed: {
-    // boards () {
-    //   return this.$store.state.boards.boards.filter(board => {
-    //     return _.find(this.boardUsers, { board: board.id })
-    //   })
-    // },
     attributeClass () {
       return `${this.list.color.split(' ')[0]}--text text--darken-5`
     },
@@ -107,13 +102,6 @@ export default {
         return task.list === this.list.id
       })
     },
-
-    // role () {
-    //   return this.$store.state.boardUsers.boardUsers.find(boardUser => {
-    //     console.log('boardUser ID: ', boardUser.id, ' boardBU: ', boardUser.board, ' board: ', this.data.id, ' userBU: ', boardUser.user, ' user: ', this.data.user)
-    //     return boardUser.board === this.data.id && boardUser.user === this.data.user
-    //   })
-    // },
 
     taskUsers () {
       return this.$store.state.taskUsers.taskUsers.filter(taskUser => {

@@ -9,6 +9,8 @@
       @click.stop.prevent="showUpdateListDialog=true"
     )
       v-icon(small) mdi-pencil
+
+    // Dialog
     span
       UpdateListDialog(
         v-if="showUpdateListDialog"

@@ -1,6 +1,8 @@
 <template lang="pug">
   div
     v-card
+
+      // Header
       v-card-title.pb-0
         v-col(cols="8").pa-0.d-flex.justify-start.align-start
           span.title.grey--text.text--darken-2 {{ task.name }}
@@ -44,7 +46,7 @@
             v-col.pl-5
               div {{ task.description }}
 
-        // Assigned to
+        // Assigned Users
         div.text-start
           v-row.no-gutters
             v-col
@@ -62,6 +64,8 @@
                   @click.stop.prevent="onRemoveUser(user)"
                 )
                   v-icon(small) mdi-minus
+
+          // Drop-Down Menu Select
           v-row.no-gutters
             v-col.pl-1.pb-0
               v-select(
@@ -120,6 +124,7 @@
         // Buttons
         v-row.no-gutters
           v-col.d-flex.align-center
+
             // Left Button
             v-btn(
               v-show="hasListLeft()"

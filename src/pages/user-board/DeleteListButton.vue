@@ -9,6 +9,8 @@
       @click.stop.prevent="showDeleteListDialog=true"
     )
       v-icon(small) mdi-delete
+
+    // Dialog
     span
       DeleteListDialog(
         v-if="showDeleteListDialog"
