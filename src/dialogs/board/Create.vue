@@ -74,7 +74,7 @@ export default {
       request: undefined,
       form: undefined,
       data: {
-        id: this.$store.getters.getBoardAutoId + 1,
+        id: this.$store.state.boards.boards.length + 1,
         name: '',
         creator: Number(this.$route.params.userId) || undefined,
         color: this.$store.state.colors[0].color

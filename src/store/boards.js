@@ -11,12 +11,6 @@ const state = {
   ]
 }
 
-const getters = {
-  getBoardAutoId () {
-    return state.id
-  }
-}
-
 const mutations = {
   createBoard: (state, payload) => {
     state.boards.push(payload)
@@ -42,16 +36,6 @@ const mutations = {
     state.boards = []
     state.boards = payload
   }
-
-  // updateBoardAutoId (state, payload) {
-  //   state.id += 1
-  // },
-
-  // deleteAllBoards (state, payload) {
-  //   state.boards = state.boards.filter(board => {
-  //     return board.creator !== Number(payload.id)
-  //   })
-  // }
 }
 
 const actions = {
@@ -101,7 +85,7 @@ const actions = {
   updateBoard: (context, payload) => {
     axios.put(`boards/${payload.id}`, payload)
       .then(res => {
-        console.log('updateBoard:', res.data)
+        // console.log('updateBoard:', res.data)
         return context.commit('updateBoard', res.data)
       })
       .catch(error => console.log(error))
@@ -110,32 +94,15 @@ const actions = {
   getBoards: (context) => {
     axios.get(`boards`)
       .then(res => {
-        console.log('getBoards:', res.data)
+        // console.log('getBoards:', res.data)
         return context.commit('getBoards', res.data)
       })
       .catch(error => console.log(error))
   }
-
-  // Pseudo Cascade Delete (Client-only - use if no DB attached)
-  // deleteAllBoards: (context, payload) => {
-  //   const boardsToDelete = state.boards.filter(board => {
-  //     return board.creator === Number(payload.id)
-  //   })
-  //   context.commit('deleteAllBoards', payload)
-  //
-  //   // Delete TaskUsers
-  //   // TODO - this might be handled by the server CASCADE
-  //   //  whenever multiple boards are deleted
-  //   boardsToDelete.forEach(board => {
-  //     context.dispatch('deleteAllLists', board)
-  //     context.dispatch('deleteAllBoardUsers', board)
-  //   })
-  // }
 }
 
 export default {
   state,
-  getters,
   mutations,
   actions
 }
