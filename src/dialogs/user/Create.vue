@@ -9,13 +9,6 @@
       v-card-text
         v-form(ref="form")
 
-            // id
-              v-text-field(
-                v-model="data.id"
-                label="id"
-                disabled
-              )
-
             // username
             v-text-field(
               ref="inputFocus"
@@ -78,7 +71,6 @@ export default {
       request: undefined,
       inputIsVisible: false,
       data: {
-        // id: this.$store.state.users.users.length + 1,
         username: '',
         first_name: '',
         last_name: '',
@@ -106,9 +98,7 @@ export default {
       const valid = this.$refs.form.validate()
 
       if (valid) {
-        // TODO - make call to delete user here
         this.createUser(this.data)
-        console.log('CREATE user submitted')
         this.onClose()
       }
     }

@@ -8,6 +8,7 @@
       v-card-title(class="title blue lighten-2 white--text" primary-title) Edit User
       v-card-text
         v-form(ref="form")
+
           // id
           v-text-field(
             v-model="data.id"
@@ -103,11 +104,6 @@ export default {
   },
 
   methods: {
-    // getRequest (request) {
-    //   return this.$useConnect('user.byCid', {
-    //     cid: request.cid
-    //   })
-    // },
     ...mapActions([
       'updateUser'
     ]),
@@ -117,7 +113,6 @@ export default {
 
       if (valid) {
         this.updateUser(this.data)
-        console.log('UPDATE user submitted')
         this.onClose()
       }
     }
