@@ -7,8 +7,8 @@
     v-card
       v-card-title(class="title blue lighten-2 white--text" primary-title) Edit Board
       v-card-text
-        // p Role: {{ boardUser }}
         v-form(ref="form")
+
           // id
           v-text-field(
             v-model="data.id"
@@ -43,14 +43,6 @@
             item-text="name"
           )
 
-          // role
-            v-text-field(
-              v-model="boardUser.role"
-              label="your role"
-              :rules="[min1chars, max128chars]"
-              counter="128"
-              disabled
-            )
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -60,7 +52,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
-// import _ from 'lodash'
 
 export default {
   mixins: [
@@ -98,11 +89,7 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      colors () {
-        return this.$store.state.colors
-      }
-    })
+    ...mapState(['colors'])
   },
 
   methods: {
@@ -114,8 +101,6 @@ export default {
       const valid = this.$refs.form.validate()
 
       if (valid) {
-        // TODO - make call to delete user here
-        console.log('UPDATE board submitted', this.data)
         this.updateBoard(this.data)
         this.onClose()
       }

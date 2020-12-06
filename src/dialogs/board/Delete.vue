@@ -29,7 +29,6 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
 import DialogMixin from '../../mixins/DialogMixin'
 
@@ -51,48 +50,12 @@ export default {
     }
   },
 
-  // computed: {
-  //   ...mapState({
-  //     autobreak: function (state) {
-  //       if (this.design.data.autobreak) {
-  //         return this.$useConnect('autobreak.byId', {
-  //           id: this.design.data.autobreak
-  //         })
-  //       }
-  //     },
-  //     _design: function (state) {
-  //       return this.$useConnect('design.byId', {
-  //         id: this.design.id
-  //       })
-  //     }
-  //   })
-  // },
-  //
-  // watch: {
-  //   autobreak: function (newModel, oldModel) {
-  //     if (
-  //       oldModel &&
-  //       oldModel.state === PayloadStates.DELETING &&
-  //       newModel.state === PayloadStates.DELETED
-  //     ) {
-  //       this.onClose()
-  //     }
-  //   },
-  //   _design: function (newDesign, oldDesign) {
-  //     if (newDesign.state === PayloadStates.DELETED) {
-  //       this.onClose()
-  //     }
-  //   }
-  // },
-
   methods: {
     ...mapActions([
       'deleteBoard'
     ]),
 
     onSubmit () {
-      // TODO - make call to delete user here
-      console.log('DELETE board submitted')
       this.deleteBoard(this.board)
       this.onClose()
     }

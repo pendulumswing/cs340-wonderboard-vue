@@ -9,13 +9,6 @@
       v-card-text
         v-form(ref="form")
 
-          // id
-            v-text-field(
-              v-model="data.id"
-              label="id"
-              disabled
-            )
-
           // creator
           v-text-field(
             v-model="data.creator"
@@ -44,15 +37,6 @@
             required
           )
 
-          // role
-            v-text-field(
-              v-model="data.role"
-              label="user role"
-              :rules="[min1chars, max128chars]"
-              counter="128"
-              required
-            )
-
       v-card-actions
         v-spacer
         v-btn(color="blue darken-1" text @click="onClose") Cancel
@@ -74,7 +58,6 @@ export default {
       request: undefined,
       form: undefined,
       data: {
-        // id: this.$store.state.boards.boards.length + 1,
         name: '',
         creator: Number(this.$route.params.userId) || undefined,
         color: this.$store.state.colors[0].color
@@ -86,6 +69,7 @@ export default {
       max32chars: v => (v && v.length <= 32) || 'Input too long',
       max64chars: v => (v && v.length <= 64) || 'Input too long',
       max128chars: v => (v && v.length <= 128) || 'Input too long',
+      max255chars: v => (v && v.length <= 255) || 'Input too long',
       max256chars: v => (v && v.length <= 256) || 'Input too long',
       min1chars: v => (v && v.length > 0) || 'Input too short'
     }
@@ -108,9 +92,7 @@ export default {
       const valid = this.$refs.form.validate()
 
       if (valid) {
-        // TODO - make call to delete user here
         this.createBoard(this.data)
-        console.log('CREATE board submitted')
         this.onClose()
       }
     }
