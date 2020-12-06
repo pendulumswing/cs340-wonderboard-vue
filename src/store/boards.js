@@ -4,10 +4,10 @@ import axios from 'axios'
 const state = {
   id: 4,
   boards: [
-    { id: 1, name: 'Banana 1', creator: 1, color: 'blue lighten-3' },
-    { id: 2, name: 'Banana 2', creator: 1, color: 'orange lighten-3' },
-    { id: 3, name: 'Apple 1', creator: 2, color: 'red lighten-3' },
-    { id: 4, name: 'Apple 2', creator: 2, color: 'green lighten-3' }
+    // { id: 1, name: 'Banana 1', creator: 1, color: 'blue lighten-3' },
+    // { id: 2, name: 'Banana 2', creator: 1, color: 'orange lighten-3' },
+    // { id: 3, name: 'Apple 1', creator: 2, color: 'red lighten-3' },
+    // { id: 4, name: 'Apple 2', creator: 2, color: 'green lighten-3' }
   ]
 }
 

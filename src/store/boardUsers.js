@@ -2,10 +2,10 @@ import axios from 'axios'
 const state = {
   id: 4,
   boardUsers: [
-    { id: 1, user: 1, board: 1 },
-    { id: 2, user: 1, board: 2 },
-    { id: 3, user: 2, board: 3 },
-    { id: 4, user: 2, board: 4 }
+    // { id: 1, user: 1, board: 1 },
+    // { id: 2, user: 1, board: 2 },
+    // { id: 3, user: 2, board: 3 },
+    // { id: 4, user: 2, board: 4 }
   ]
 }
 
