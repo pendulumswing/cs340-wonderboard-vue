@@ -12,7 +12,7 @@ import NotFound from './components/NotFound'
 Vue.use(VueRouter)
 
 export default new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     { path: '/', name: 'home', component: Home },
     { path: '/api', name: 'api', component: Api },
