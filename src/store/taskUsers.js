@@ -55,7 +55,7 @@ const actions = {
   },
 
   getTaskUsers: (context) => {
-    axios.get(`tasks`)
+    axios.get(`task_users`)
       .then(res => {
         return context.commit('getTaskUsers', res.data)
       })
