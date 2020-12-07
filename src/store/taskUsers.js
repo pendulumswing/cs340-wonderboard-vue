@@ -31,8 +31,8 @@ const mutations = {
   },
 
   getTaskUsers: (state, payload) => {
-    state.tasksUsers = []
-    state.tasksUsers = payload
+    state.taskUsers = []
+    state.taskUsers = payload
   },
 
   deleteTaskUser (state, payload) {
