@@ -6,7 +6,8 @@ http://flask-restplus.readthedocs.io
 import os
 from datetime import datetime
 from flask import request
-from flask_restplus import Resource
+# from flask_restplus import Resource
+from flask_restx import Resource
 
 # from .security import require_auth
 from . import api_rest
