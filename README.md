@@ -167,6 +167,7 @@ Many-to-Many relationship table. boardUsers is used to join boards and users tab
 
 #### Dialogs
 
+
 **User** - Create, Update, Delete
 
 <div style="padding: 10px; overflow: hidden;">
@@ -174,6 +175,8 @@ Many-to-Many relationship table. boardUsers is used to join boards and users tab
   <img src="img/dialog-user-update.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>  
   <img src="img/dialog-user-delete.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
 </div>
+
+<br>
 
 **Board** - Create, Update, Delete
 
@@ -183,6 +186,8 @@ Many-to-Many relationship table. boardUsers is used to join boards and users tab
   <img src="img/dialog-board-delete.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
 </div>
 
+<br>
+
 **List** - Create, Update, Delete
 
 <div style="padding: 10px; overflow: hidden;">
@@ -191,6 +196,8 @@ Many-to-Many relationship table. boardUsers is used to join boards and users tab
   <img src="img/dialog-list-delete.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
 </div>
 
+<br>
+
 **Task** - Create, Update, Delete
 
 <div style="padding: 10px; overflow: hidden;">
@@ -198,6 +205,8 @@ Many-to-Many relationship table. boardUsers is used to join boards and users tab
   <img src="img/dialog-task-update-null.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>  
   <img src="img/dialog-task-delete.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
 </div>
+
+<br>
 
 <!-- ![](img/wonderboard-board.png)
 ![](img/wonderboard-new-task.png)
