@@ -170,33 +170,33 @@ Many-to-Many relationship table. boardUsers is used to join boards and users tab
 **User** - Create, Update, Delete
 
 <div style="padding: 10px; overflow: hidden;">
-  <img src="img/dialog-user-create.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>   
-  <img src="img/dialog-user-update.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>  
-  <img src="img/dialog-user-delete.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>   
+  <img src="img/dialog-user-create.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
+  <img src="img/dialog-user-update.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>  
+  <img src="img/dialog-user-delete.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
 </div>
 
 **Board** - Create, Update, Delete
 
 <div style="padding: 10px; overflow: hidden;">
-  <img src="img/dialog-board-create.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>   
-  <img src="img/dialog-board-update.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>  
-  <img src="img/dialog-board-delete.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>   
+  <img src="img/dialog-board-create.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
+  <img src="img/dialog-board-update.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>  
+  <img src="img/dialog-board-delete.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
 </div>
 
 **List** - Create, Update, Delete
 
 <div style="padding: 10px; overflow: hidden;">
-  <img src="img/dialog-list-create.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>   
-  <img src="img/dialog-list-update-null.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>  
-  <img src="img/dialog-list-delete.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>   
+  <img src="img/dialog-list-create.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
+  <img src="img/dialog-list-update-null.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>  
+  <img src="img/dialog-list-delete.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
 </div>
 
 **Task** - Create, Update, Delete
 
 <div style="padding: 10px; overflow: hidden;">
-  <img src="img/dialog-task-create.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>   
-  <img src="img/dialog-task-update-null.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>  
-  <img src="img/dialog-task-delete.png" alt="create board dialog" style="float:left; padding: 10px;" width="250"/>   
+  <img src="img/dialog-task-create.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
+  <img src="img/dialog-task-update-null.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>  
+  <img src="img/dialog-task-delete.png" alt="create board dialog" style="vertical-align:top; float:left; padding: 10px;" width="250"/>   
 </div>
 
 <!-- ![](img/wonderboard-board.png)
